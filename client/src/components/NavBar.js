@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
 const NavBar = () => {
   return (
@@ -6,11 +7,14 @@ const NavBar = () => {
       <a href="/">
         <button>Home</button>
       </a>
-      <a href="/ShoppingPage">
-        <button>Shop</button>
+      <a href="/Store">
+        <button>Store</button>
       </a>
-      <a href="/AccountPage">
-        <button>Account</button>
+      <a href="/SignIn">
+        <button>Sign In</button>
+      </a>
+      <a href="/SignUp">
+        <button>Sign Up</button>
       </a>
     </div>
   );
