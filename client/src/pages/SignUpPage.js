@@ -26,13 +26,19 @@ const SignUpPage = () => {
 
     setForm(newUser);
 
-    await fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(newUser),
-    }).catch(window.alert("Username already exists. Sign up failed.")); //if sign up fails
+    if (newUser.username.length === 0) {
+      window.alert("Name is blank. Sign up failed.");
+    } else if (newUser.password.length === 0) {
+      window.alert("Password is blank. Sign up failed.");
+    } else {
+      await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(newUser),
+      }).catch(window.alert("Username already exists. Sign up failed.")); //if sign up fails
 
-    console.log(newUser);
+      console.log(newUser);
+    }
   }
 
   return (

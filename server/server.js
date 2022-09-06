@@ -50,7 +50,7 @@ app.post("/users", (req, response) => {
     .find({ username: req.body.username }) //check if user already exists
     .toArray(function (err, result) {
       if (err) {
-        res.status(400).send("error");
+        response.status(400).send("error");
       } else if (result.length > 0) {
         console.log("Username already exists. Sign up failed.");
       } else {
@@ -60,6 +60,7 @@ app.post("/users", (req, response) => {
           .insertOne(newUser, function (err, res) {
             if (err) throw err;
             response.json(res);
+            console.log("error");
           });
       }
     });

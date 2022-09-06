@@ -1,2 +1,3 @@
-need to fix error handling in sign up post. for some reason if error is given, it adds the user.
-need to make it so name or password can not be blank
+need to make it so fetch.catch() isn't running even though there's no error (server.js)
+
+need to make it so input fields dont submit as blank if they aren't changed after sign up attempt
