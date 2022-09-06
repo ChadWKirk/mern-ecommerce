@@ -36,15 +36,70 @@ app.get("/users", (req, res) => {
       }
     });
 });
-
+//sign in post
 app.post("/users", (req, response) => {
   let db_connect = dbo.getDb();
-  let newUser = { username: req.body.username, password: req.body.password };
+  let newUser = {
+    username: req.body.username,
+    password: req.body.password,
+    signedIn: false,
+  };
 
   db_connect
     .collection("mern-ecommerce-users")
-    .insertOne(newUser, function (err, res) {
-      if (err) throw err;
-      response.json(res);
+    .find({ username: req.body.username }) //check if user already exists
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("error");
+      } else if (result.length > 0) {
+        console.log("Username already exists. Sign up failed.");
+      } else {
+        //if user is new
+        db_connect
+          .collection("mern-ecommerce-users")
+          .insertOne(newUser, function (err, res) {
+            if (err) throw err;
+            response.json(res);
+          });
+      }
     });
+});
+
+app.post("/SignIn", (req, res) => {
+  let db_connect = dbo.getDb();
+  //check if user exists
+  db_connect.collection("mern-ecommerce-users").updateOne(
+    {
+      username: req.body.username,
+      password: req.body.password,
+      signedIn: false,
+    },
+    {
+      //change signedIn to true
+      $set: {
+        username: req.body.username,
+        password: req.body.password,
+        signedIn: true,
+      },
+    },
+    function (err, res) {
+      if (err) throw err;
+      console.log("signed in");
+    }
+  );
+});
+
+app.post("/SignOut", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-users")
+    .updateOne(
+      { signedIn: true },
+      { $set: { signedIn: false } },
+      function (err, res) {
+        if (err) throw err;
+        console.log("signed out");
+      }
+    );
 });

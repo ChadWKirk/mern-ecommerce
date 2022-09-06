@@ -1,5 +1,2 @@
-to check if user is signed in: for each user, have a signedIn: true/false when
-submitted in /SignIn page, check for if name = req.body.name && password =
-req.body.password. If both true, change signedIn to true. To sign out, when
-click Sign Out button, search for any document with signedIn: true and then
-change it to false and then go back to home page as if user is signed out.
+need to fix error handling in sign up post. for some reason if error is given, it adds the user.
+need to make it so name or password can not be blank

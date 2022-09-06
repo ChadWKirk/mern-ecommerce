@@ -2,6 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const NavBar = () => {
+  async function signOut() {
+    await fetch("http://localhost:5000/SignOut", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+    });
+  }
+
   return (
     <div>
       <a href="/">
@@ -15,6 +22,9 @@ const NavBar = () => {
       </a>
       <a href="/SignUp">
         <button>Sign Up</button>
+      </a>
+      <a href="/">
+        <button onClick={signOut}>Sign Out</button>
       </a>
     </div>
   );
