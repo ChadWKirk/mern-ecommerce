@@ -6,6 +6,7 @@ import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
+import DelSuccessPage from "./pages/DelSuccessPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path="/SignUp/:username/Success"
           element={<SignUpSuccessPage />}
         ></Route>
+        <Route path="/delSuccess" element={<DelSuccessPage />}></Route>
       </Routes>
     </div>
   );

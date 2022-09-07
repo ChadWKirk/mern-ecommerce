@@ -15,11 +15,11 @@ const AccountPage = () => {
       await fetch(`http://localhost:5000/Account/${username}/delUser`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
-      });
-      console.log("account deleted");
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
+      }).then(
+        setTimeout(() => {
+          navigate("/delSuccess");
+        }, 300)
+      );
     } else {
       console.log("nothing happened");
     }

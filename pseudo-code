@@ -4,5 +4,5 @@ account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
-- delete account link with "are you sure?" message
-- navigate isn't working on delete account for some reason
+
+when at /delSuccess, make it so when it gets refreshed it navigates to regular home page.
