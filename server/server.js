@@ -104,3 +104,12 @@ app.post("/SignOut", (req, res) => {
       }
     );
 });
+
+app.delete("/Account/:username/delUser", (req, res) => {
+  let db_connect = dbo.getDb();
+  db_connect
+    .collection("mern-ecommerce-users")
+    .deleteOne({ username: req.params.username });
+
+  console.log("account deleted " + req.params.username); //req.params.username is whatever is in the URL at the position of :username
+});

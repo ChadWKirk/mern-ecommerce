@@ -1,9 +1,8 @@
-sign up page:
-
-- make congrats message pop up on front end with account page link
+make it so that when you sign up, that account is now the only account signed in.
 
 account page:
 
 - details like cc info and shipping address
 - add item listing to sell
 - delete account link with "are you sure?" message
+- navigate isn't working on delete account for some reason

@@ -5,6 +5,7 @@ import StorePage from "./pages/StorePage";
 import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 
 function App() {
   return (
@@ -12,9 +13,13 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/Store" element={<StorePage />}></Route>
-        <Route path="/Account" element={<AccountPage />}></Route>
+        <Route path="/Account/:username" element={<AccountPage />}></Route>
         <Route path="/SignIn" element={<SignInPage />}></Route>
         <Route path="/SignUp" element={<SignUpPage />}></Route>
+        <Route
+          path="/SignUp/:username/Success"
+          element={<SignUpSuccessPage />}
+        ></Route>
       </Routes>
     </div>
   );

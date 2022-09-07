@@ -1,8 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 const SignUpPage = () => {
+  let navigate = useNavigate();
+
+  const [congrats, setCongrats] = useState();
+
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -41,7 +46,7 @@ const SignUpPage = () => {
         body: JSON.stringify(newUser),
       })
         .then(() => {
-          console.log("Congratulations! You've signed up!");
+          navigate(`/SignUp/${newUser.username}/Success`);
         })
         .catch(() => {
           window.alert("Username already exists. Sign up failed.");
@@ -62,6 +67,7 @@ const SignUpPage = () => {
         <input id="password" onChange={onChangePW}></input>
         <button type="submit">Sign Up</button>
       </form>
+      {congrats}
     </div>
   );
 };
