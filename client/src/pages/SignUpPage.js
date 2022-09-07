@@ -3,7 +3,17 @@ import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 
 const SignUpPage = () => {
-  let newUser = { username: "", password: "", signedIn: false }; //blank newUser
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+    signedIn: false,
+  });
+
+  let newUser = {
+    username: form.username,
+    password: form.password,
+    signedIn: false,
+  }; //blank newUser
 
   function onChangeName(event) {
     //when name input changes,pass a para to be the event object then assign target.value to name. event parameter is always first parameter passed in a function called by an event.
@@ -13,12 +23,6 @@ const SignUpPage = () => {
   function onChangePW(event) {
     newUser.password = event.target.value;
   }
-
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-    signedIn: false,
-  });
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -35,7 +39,13 @@ const SignUpPage = () => {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newUser),
-      }).catch(window.alert("Username already exists. Sign up failed.")); //if sign up fails
+      })
+        .then(() => {
+          console.log("Congratulations! You've signed up!");
+        })
+        .catch(() => {
+          window.alert("Username already exists. Sign up failed.");
+        }); //if sign up fails
 
       console.log(newUser);
     }

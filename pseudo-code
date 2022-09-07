@@ -1,3 +1,0 @@
-need to make it so fetch.catch() isn't running even though there's no error (server.js)
-
-need to make it so input fields dont submit as blank if they aren't changed after sign up attempt

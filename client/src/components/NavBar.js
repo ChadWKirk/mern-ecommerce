@@ -23,6 +23,9 @@ const NavBar = () => {
       <a href="/SignUp">
         <button>Sign Up</button>
       </a>
+      <a href="/Account">
+        <button>Account</button>
+      </a>
       <a href="/">
         <button onClick={signOut}>Sign Out</button>
       </a>
