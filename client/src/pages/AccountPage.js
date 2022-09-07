@@ -29,6 +29,16 @@ const AccountPage = () => {
     <div>
       <h1>Account Page</h1>
       <NavBar />
+      <a href="">
+        <h2>Sell Item</h2>
+      </a>
+      <h2>Shipping Address:</h2>
+      <p>shipping address</p>
+      <a href="">Edit</a>
+      <h2>Credit Card Number:</h2>
+      <p>cc number</p>
+      <a href="">Edit</a>
+      <h2>-----------------</h2>
       <a href="" onClick={delAcc}>
         <h3>Delete account</h3>
       </a>

@@ -1,8 +1,15 @@
 make it so that when you sign up, that account is now the only account signed in.
 
+Sign In Page:
+
+- make errors for when trying to sign in with user that doesn't exist or is blank password/blank username
+- copy logic from sign up page for input fields registering as blank on second sign in attempt.
+
 account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
+
+make it so navbar changes based on if user is signed in
 
 when at /delSuccess, make it so when it gets refreshed it navigates to regular home page.
