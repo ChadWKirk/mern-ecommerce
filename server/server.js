@@ -69,23 +69,37 @@ app.post("/users", (req, response) => {
 app.post("/SignIn", (req, res) => {
   let db_connect = dbo.getDb();
   //check if user exists
-  db_connect.collection("mern-ecommerce-users").updateOne(
+
+  db_connect.collection("mern-ecommerce-users").findOne(
     {
       username: req.body.username,
       password: req.body.password,
       signedIn: false,
     },
-    {
-      //change signedIn to true
-      $set: {
-        username: req.body.username,
-        password: req.body.password,
-        signedIn: true,
-      },
-    },
-    function (err, res) {
-      if (err) throw err;
-      console.log("signed in");
+    function (err, user) {
+      if (err) {
+        console.log(err);
+      }
+      if (user) {
+        console.log("success");
+        db_connect.collection("mern-ecommerce-users").updateOne(
+          {
+            username: req.body.username,
+            password: req.body.password,
+            signedIn: false,
+          },
+          {
+            //change signedIn to true
+            $set: {
+              username: req.body.username,
+              password: req.body.password,
+              signedIn: true,
+            },
+          }
+        );
+      } else {
+        console.log("no user exists.");
+      }
     }
   );
 });

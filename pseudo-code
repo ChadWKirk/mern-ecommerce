@@ -2,8 +2,8 @@ make it so that when you sign up, that account is now the only account signed in
 
 Sign In Page:
 
-- make errors for when trying to sign in with user that doesn't exist or is blank password/blank username
-- copy logic from sign up page for input fields registering as blank on second sign in attempt.
+- make errors for when trying to sign in with user that doesn't exist
+- need to navigate to home page after sign in
 
 account page:
 
