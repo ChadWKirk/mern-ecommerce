@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 const SignInPage = () => {
-  let navigate = useNavigate();
+  var navigate = useNavigate();
 
   const [congrats, setCongrats] = useState();
 
@@ -40,18 +40,22 @@ const SignInPage = () => {
     } else if (newUser.password.length === 0) {
       window.alert("Password is blank. Sign in failed.");
     } else {
-      console.log("ok");
+      console.log("Sign in fetch sent");
       await fetch("http://localhost:5000/SignIn", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newUser),
       })
-        .then(() => {
-          navigate("/");
+        .then((response) => {
+          if (response.ok) {
+            console.log(response);
+            return response.json();
+          } else {
+            console.log(response);
+            window.alert("Account does not exist. Sign in failed.");
+          }
         })
-        .catch(() => {
-          window.alert("Account does not exist. Sign in failed.");
-        }); //if sign in fails
+        .then(() => navigate("/")); //if sign in fails
     }
   }
 

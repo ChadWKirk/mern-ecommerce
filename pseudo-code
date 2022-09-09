@@ -2,8 +2,9 @@ make it so that when you sign up, that account is now the only account signed in
 
 Sign In Page:
 
-- make errors for when trying to sign in with user that doesn't exist
-- need to navigate to home page after sign in
+- make it not navigate when incorrect sign in
+- give an error for when trying to sign in with account you're already signed in as
+- take away sign in button when already signed in
 
 account page:
 

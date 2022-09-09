@@ -36,7 +36,7 @@ app.get("/users", (req, res) => {
       }
     });
 });
-//sign in post
+//sign up post
 app.post("/users", (req, response) => {
   let db_connect = dbo.getDb();
   let newUser = {
@@ -65,10 +65,9 @@ app.post("/users", (req, response) => {
       }
     });
 });
-
+//user sign in post
 app.post("/SignIn", (req, res) => {
   let db_connect = dbo.getDb();
-  //check if user exists
 
   db_connect.collection("mern-ecommerce-users").findOne(
     {
@@ -78,10 +77,11 @@ app.post("/SignIn", (req, res) => {
     },
     function (err, user) {
       if (err) {
-        console.log(err);
+        res.send("err");
       }
       if (user) {
         console.log("success");
+        res.send({ "signed in": "yes" });
         db_connect.collection("mern-ecommerce-users").updateOne(
           {
             username: req.body.username,
@@ -98,6 +98,7 @@ app.post("/SignIn", (req, res) => {
           }
         );
       } else {
+        res.sendStatus(404);
         console.log("no user exists.");
       }
     }
