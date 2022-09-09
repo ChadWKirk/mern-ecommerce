@@ -70,16 +70,25 @@ app.post("/SignIn", (req, res) => {
   let db_connect = dbo.getDb();
 
   db_connect.collection("mern-ecommerce-users").findOne(
+    //see if user exists via name and password
     {
       username: req.body.username,
       password: req.body.password,
-      signedIn: false,
     },
     function (err, user) {
       if (err) {
         res.send("err");
       }
-      if (user) {
+      if (!user) {
+        //if no user is found
+        res.sendStatus(404);
+        console.log("no user exists.");
+      }
+      if (user.signedIn == true) {
+        //if user is already signed in
+        console.log("user already signed in");
+        res.sendStatus(500);
+      } else if (user.signedIn == false) {
         console.log("success");
         res.send({ "signed in": "yes" });
         db_connect.collection("mern-ecommerce-users").updateOne(
@@ -97,9 +106,6 @@ app.post("/SignIn", (req, res) => {
             },
           }
         );
-      } else {
-        res.sendStatus(404);
-        console.log("no user exists.");
       }
     }
   );

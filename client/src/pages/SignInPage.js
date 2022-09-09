@@ -13,7 +13,7 @@ const SignInPage = () => {
   var navigate = useNavigate();
 
   const [form, setForm] = useState({
-    username: "",
+    username: "fff",
     password: "",
     signedIn: false,
   });
@@ -38,8 +38,9 @@ const SignInPage = () => {
     e.preventDefault();
     console.log("submitted");
 
-    setForm(signInUser);
-    console.log(form + " this is form");
+    setForm(signInUser); //this isn't changing form for some reason
+    console.log(JSON.stringify(form) + " this is form");
+    console.log(signInUser.username + " this is signinuser");
 
     if (signInUser.username.length === 0) {
       window.alert("Name is blank. Sign in failed.");
