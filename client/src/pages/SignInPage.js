@@ -12,15 +12,9 @@ const SignInPage = () => {
 
   var navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    username: "fff",
-    password: "",
-    signedIn: false,
-  });
-
   let signInUser = {
-    username: form.username,
-    password: form.password,
+    username: "",
+    password: "",
     signedIn: false,
   }; //this is the user the customer is ATTEMPTING to sign in with (does not pass name as prop on fail)
 
@@ -38,10 +32,6 @@ const SignInPage = () => {
     e.preventDefault();
     console.log("submitted");
 
-    setForm(signInUser); //this isn't changing form for some reason
-    console.log(JSON.stringify(form) + " this is form");
-    console.log(signInUser.username + " this is signinuser");
-
     if (signInUser.username.length === 0) {
       window.alert("Name is blank. Sign in failed.");
     } else if (signInUser.password.length === 0) {
@@ -55,11 +45,11 @@ const SignInPage = () => {
       }).then((response) => {
         if (response.ok) {
           setCurUser({
-            username: form.username,
-            password: form.password,
+            //set curUser (current signed in user since sign in was successful. passes name as prop to navbar)
+            username: signInUser.username,
+            password: signInUser.password,
             signedIn: false,
           });
-          console.log(curUser + " this is curUser");
           //navigate("/");
         } else if (response.status === 404) {
           //if sign in fails

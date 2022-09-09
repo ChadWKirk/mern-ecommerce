@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const NavBar = ({ curUser, setCurUser }) => {
-  
+const NavBar = ({ curUser }) => {
   async function signOut() {
     await fetch("http://localhost:5000/SignOut", {
       method: "POST",

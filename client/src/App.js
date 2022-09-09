@@ -8,8 +8,22 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
+import NavBar from "./components/NavBar";
 
 function App() {
+  async function getCurUser() {
+    //every time app renders, get currently signed in user.
+    await fetch("http://localhost:5000/curUser", {
+      method: "GET",
+      headers: { "Content-type": "application/json" },
+    })
+      .then((response) => response.json()) //gets res from express and parses it into JSON for React
+      .then((responseJSON) => console.log(responseJSON));
+
+    //need to get value of promise to set to curUser
+  }
+  getCurUser();
+
   return (
     <div>
       <Routes>
