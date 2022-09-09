@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const NavBar = () => {
+const NavBar = ({ curUser, setCurUser }) => {
+  
   async function signOut() {
     await fetch("http://localhost:5000/SignOut", {
       method: "POST",
@@ -29,6 +30,7 @@ const NavBar = () => {
       <a href="/">
         <button onClick={signOut}>Sign Out</button>
       </a>
+      <h4>Signed in as: {curUser}</h4>
     </div>
   );
 };

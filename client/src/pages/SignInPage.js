@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 const SignInPage = () => {
-  var navigate = useNavigate();
+  var [curUser, setCurUser] = useState({
+    username: "",
+    password: "",
+    signedIn: false,
+  });
 
-  const [congrats, setCongrats] = useState();
+  var navigate = useNavigate();
 
   const [form, setForm] = useState({
     username: "",
@@ -14,55 +18,62 @@ const SignInPage = () => {
     signedIn: false,
   });
 
-  let newUser = {
+  let signInUser = {
     username: form.username,
     password: form.password,
     signedIn: false,
-  }; //blank newUser
+  }; //this is the user the customer is ATTEMPTING to sign in with (does not pass name as prop on fail)
 
   function onChangeName(event) {
     //when name input changes,pass a para to be the event object then assign target.value to name. event parameter is always first parameter passed in a function called by an event.
-    newUser.username = event.target.value;
+    signInUser.username = event.target.value;
   }
 
   function onChangePW(event) {
-    newUser.password = event.target.value;
+    signInUser.password = event.target.value;
   }
 
   async function onSubmit(e) {
+    curUser = { username: "" };
     e.preventDefault();
     console.log("submitted");
 
-    setForm(newUser);
+    setForm(signInUser);
+    console.log(form + " this is form");
 
-    if (newUser.username.length === 0) {
+    if (signInUser.username.length === 0) {
       window.alert("Name is blank. Sign in failed.");
-    } else if (newUser.password.length === 0) {
+    } else if (signInUser.password.length === 0) {
       window.alert("Password is blank. Sign in failed.");
     } else {
       console.log("Sign in fetch sent");
       await fetch("http://localhost:5000/SignIn", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(newUser),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log(response);
-            return response.json();
-          } else {
-            console.log(response);
-            window.alert("Account does not exist. Sign in failed.");
-          }
-        })
-        .then(() => navigate("/")); //if sign in fails
+        body: JSON.stringify(signInUser),
+      }).then((response) => {
+        if (response.ok) {
+          setCurUser({
+            username: form.username,
+            password: form.password,
+            signedIn: false,
+          });
+          console.log(curUser + " this is curUser");
+          //navigate("/");
+        } else if (response.status === 404) {
+          //if sign in fails
+          window.alert("Account does not exist. Sign in failed.");
+        } else {
+          window.alert("User is already signed in. Sign in failed.");
+        }
+      });
     }
   }
 
   return (
     <div>
       <h1>Sign In Page</h1>
-      <NavBar />
+      <NavBar curUser={curUser.username} />
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input id="username" onChange={onChangeName}></input>
@@ -70,7 +81,6 @@ const SignInPage = () => {
         <input id="password" onChange={onChangePW}></input>
         <button type="submit">Sign In</button>
       </form>
-      {congrats}
     </div>
   );
 };
