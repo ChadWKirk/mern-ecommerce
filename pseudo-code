@@ -1,12 +1,13 @@
 make it so that when you sign up, that account is now the only account signed in.
 
-show "Signed In As: username" - if sign in is successful, take newuser.username and send it as a prop to another component that displays it:
+show signed in as:
 
-- for some reason form is not updating.
+- Fix SignInPage.js curUser to show signed in as: before sign in attempt.
 
 Sign In Page:
 
-- take away sign in button when already signed in
+- take away sign in button when already signed in (going to be passing in props or conditional rendering)
+- make it so that when navigating to main page after sign in, shows user signed in as
 
 account page:
 

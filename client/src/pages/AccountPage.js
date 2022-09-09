@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import { useNavigate, useParams } from "react-router-dom";
 
-const AccountPage = () => {
+const AccountPage = ({ curUser }) => {
   const navigate = useNavigate();
   const { username } = useParams();
   async function delAcc(e) {
@@ -28,7 +28,7 @@ const AccountPage = () => {
   return (
     <div>
       <h1>Account Page</h1>
-      <NavBar />
+      <NavBar curUser={curUser}/>
       <a href="">
         <h2>Sell Item</h2>
       </a>

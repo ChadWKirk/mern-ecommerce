@@ -50,7 +50,7 @@ const SignInPage = () => {
             password: signInUser.password,
             signedIn: false,
           });
-          //navigate("/");
+          setTimeout(() => navigate("/"), 100);
         } else if (response.status === 404) {
           //if sign in fails
           window.alert("Account does not exist. Sign in failed.");

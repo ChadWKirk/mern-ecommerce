@@ -23,7 +23,7 @@ const NavBar = ({ curUser }) => {
       <a href="/SignUp">
         <button>Sign Up</button>
       </a>
-      <a href="/Account">
+      <a href={`/Account/${curUser}`}>
         <button>Account</button>
       </a>
       <a href="/">

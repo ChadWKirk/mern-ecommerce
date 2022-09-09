@@ -36,6 +36,22 @@ app.get("/users", (req, res) => {
       }
     });
 });
+//get currently signed in user
+app.get("/curUser", (req, res) => {
+  db_connect = dbo.getDb();
+  //see if any user has signedIn: true
+  db_connect
+    .collection("mern-ecommerce-users")
+    .findOne({ signedIn: true }, function (err, user) {
+      if (err) {
+        console.log(err);
+      }
+      if (user) {
+        console.log("user found");
+        res.json(user.username); //send username in resopnse to react fetch
+      }
+    });
+});
 //sign up post
 app.post("/users", (req, response) => {
   let db_connect = dbo.getDb();
@@ -84,11 +100,11 @@ app.post("/SignIn", (req, res) => {
         res.sendStatus(404);
         console.log("no user exists.");
       }
-      if (user.signedIn == true) {
+      if (user.signedIn === true) {
         //if user is already signed in
         console.log("user already signed in");
         res.sendStatus(500);
-      } else if (user.signedIn == false) {
+      } else if (user.signedIn === false) {
         console.log("success");
         res.send({ "signed in": "yes" });
         db_connect.collection("mern-ecommerce-users").updateOne(

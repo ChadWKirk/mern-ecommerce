@@ -11,6 +11,8 @@ import DelSuccessPage from "./pages/DelSuccessPage";
 import NavBar from "./components/NavBar";
 
 function App() {
+  const [curUser, setCurUser] = useState();
+
   async function getCurUser() {
     //every time app renders, get currently signed in user.
     await fetch("http://localhost:5000/curUser", {
@@ -18,7 +20,10 @@ function App() {
       headers: { "Content-type": "application/json" },
     })
       .then((response) => response.json()) //gets res from express and parses it into JSON for React
-      .then((responseJSON) => console.log(responseJSON));
+      .then((responseJSON) => {
+        console.log(responseJSON);
+        setCurUser(responseJSON);
+      });
 
     //need to get value of promise to set to curUser
   }
@@ -27,11 +32,20 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/Store" element={<StorePage />}></Route>
-        <Route path="/Account/:username" element={<AccountPage />}></Route>
-        <Route path="/SignIn" element={<SignInPage />}></Route>
-        <Route path="/SignUp" element={<SignUpPage />}></Route>
+        <Route path="/" element={<MainPage curUser={curUser} />}></Route>
+        <Route path="/Store" element={<StorePage curUser={curUser} />}></Route>
+        <Route
+          path={`/Account/${curUser}`}
+          element={<AccountPage curUser={curUser} />}
+        ></Route>
+        <Route
+          path="/SignIn"
+          element={<SignInPage curUser={curUser} />}
+        ></Route>
+        <Route
+          path="/SignUp"
+          element={<SignUpPage curUser={curUser} />}
+        ></Route>
         <Route
           path="/SignUp/:username/Success"
           element={<SignUpSuccessPage />}

@@ -1,11 +1,11 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 
-const MainPage = () => {
+const MainPage = ({ curUser }) => {
   return (
     <div>
       <h1>Main Page</h1>
-      <NavBar />
+      <NavBar curUser={curUser} />
     </div>
   );
 };
