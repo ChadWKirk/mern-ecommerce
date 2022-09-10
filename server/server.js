@@ -63,20 +63,22 @@ app.post("/users", (req, response) => {
     password: req.body.password,
     signedIn: true,
   };
-
-  let alreadySignedInArr = [];
+  var array;
   //find any users already signed in and push them to another array to access it
-  db_connect
-    .collection("mern-ecommerce-users")
-    .find({ signedIn: true })
-    .toArray(function (err, user) {
-      for (let i = 0; i < user.length; i++) {
-        alreadySignedInArr.push(1);
-        console.log(user);
-      }
-    });
-  alreadySignedInArr.push(1);
-  console.log(alreadySignedInArr);
+  async function getSignedIn() {
+    await db_connect
+      .collection("mern-ecommerce-users")
+      .find({ signedIn: true })
+      .toArray()
+      .then((result) => {
+        JSON.stringify(result);
+      })
+      .then((responseJSON) => {
+        var array = responseJSON;
+      });
+  }
+
+  console.log(array + " this is array");
 
   db_connect
     .collection("mern-ecommerce-users")
