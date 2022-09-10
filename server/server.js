@@ -57,28 +57,24 @@ app.post("/users", (req, response) => {
   let db_connect = dbo.getDb();
 
   let tries = req.body.try;
-
+  //get account of person you're signing up as
   let newUser = {
     username: req.body.username,
     password: req.body.password,
-    signedIn: true,
+    signedIn: false,
   };
-  var array;
   //find any users already signed in and push them to another array to access it
-  async function getSignedIn() {
-    await db_connect
-      .collection("mern-ecommerce-users")
-      .find({ signedIn: true })
-      .toArray()
-      .then((result) => {
-        JSON.stringify(result);
-      })
-      .then((responseJSON) => {
-        var array = responseJSON;
-      });
+  var cursor = db_connect
+    .collection("mern-ecommerce-users")
+    .find({ signedIn: true });
+  var array;
+  async function getArr() {
+    array = [];
+    await cursor.forEach((user) => {
+      array.push(user);
+    });
   }
-
-  console.log(array + " this is array");
+  getArr();
 
   db_connect
     .collection("mern-ecommerce-users")
@@ -90,25 +86,29 @@ app.post("/users", (req, response) => {
       } else if (result.length > 0 && tries == null) {
         //check if user already exists
         console.log("Username already exists. Sign up failed.");
-      } else if (anyOtherSignedIn[0] > 0 && tries == null) {
+      } else if (array.length > 0 && tries == null) {
         //see if anyone else is signed in
         response.sendStatus(500);
         console.log("another user is already signed in.");
-      } else if (anyOtherSignedIn[0] > 0 && tries == 2) {
-        //if pressing OK on are you sure box:
-        //find user that is signed in and sign it out
-        // console.log(anyOtherSignedIn);
-        alreadySignedInArr.forEach((user) => {
-          user.signedIn = false;
-        });
-        // console.log(anyOtherSignedIn);
-        //insertone as signed in is true
-        db_connect
-          .collection("mern-ecommerce-users")
-          .insertOne(newUser, function (err, res) {
-            if (err) throw err;
-            response.json(res);
-          });
+      } else if (array.length > 0 && tries == 2) {
+        async function setToFalse() {
+          //if pressing OK on are you sure box:
+          //find user that is signed in and sign it out
+          //need to use update instead of assigning the value!!!!
+          await cursor.updateMany(
+            { signedIn: true },
+            { $set: { signedIn: false } }
+          );
+
+          //insertone as signed in is true
+          await db_connect
+            .collection("mern-ecommerce-users")
+            .insertOne(newUser, function (err, res) {
+              if (err) throw err;
+              response.json(res);
+            });
+        }
+        setToFalse();
       } else {
         //if user is new
         console.log("user is new");

@@ -1,9 +1,6 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-make it so that when you sign up, that account is now the only account signed in.
-If find another user with signedIn: true, give message that says "This will sign you out of your account, curUser. Are you sure you want to continue signing up as newUser.username?". If yes, set curUser.signedIn to false. If cancel, just don't do anything:
-
-- find a way to get array of people already signed in
+Make the sign up are you sure box actually update the signed in users to false rather than assigning the values
 
 show signed in as:
 
