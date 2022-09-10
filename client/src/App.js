@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import MainPage from "./pages/MainPage";
@@ -13,21 +13,21 @@ import NavBar from "./components/NavBar";
 function App() {
   const [curUser, setCurUser] = useState();
 
-  async function getCurUser() {
-    //every time app renders, get currently signed in user.
-    await fetch("http://localhost:5000/curUser", {
-      method: "GET",
-      headers: { "Content-type": "application/json" },
-    })
-      .then((response) => response.json()) //gets res from express and parses it into JSON for React
-      .then((responseJSON) => {
-        console.log(responseJSON);
-        setCurUser(responseJSON);
-      });
-
-    //need to get value of promise to set to curUser
-  }
-  getCurUser();
+  useEffect(() => {
+    async function getCurUser() {
+      //every time app renders, get currently signed in user.
+      await fetch("http://localhost:5000/curUser", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      })
+        .then((response) => response.json()) //gets res from express and parses it into JSON for React
+        .then((responseJSON) => {
+          console.log(responseJSON);
+          setCurUser(responseJSON);
+        });
+    }
+    getCurUser();
+  });
 
   return (
     <div>

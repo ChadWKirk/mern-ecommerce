@@ -1,8 +1,7 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-make it so App.js doesn't run getCurUser a bunch of times. Maybe setInterval for once per second or something.
-
 make it so that when you sign up, that account is now the only account signed in.
+If find another user with signedIn: true, give message that says "This will sign you out of your account, curUser. Are you sure you want to continue signing up as newUser.username?". If yes, set curUser.signedIn to false. If cancel, just don't do anything.
 
 show signed in as:
 

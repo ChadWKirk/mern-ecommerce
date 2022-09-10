@@ -6,8 +6,6 @@ import NavBar from "../components/NavBar";
 const SignUpPage = ({ curUser }) => {
   let navigate = useNavigate();
 
-  const [congrats, setCongrats] = useState();
-
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -67,7 +65,6 @@ const SignUpPage = ({ curUser }) => {
         <input id="password" onChange={onChangePW}></input>
         <button type="submit">Sign Up</button>
       </form>
-      {congrats}
     </div>
   );
 };
