@@ -1,13 +1,16 @@
+https://github.com/ChadWKirk/mern-ecommerce.git
+
+make it so App.js doesn't run getCurUser a bunch of times. Maybe setInterval for once per second or something.
+
 make it so that when you sign up, that account is now the only account signed in.
 
 show signed in as:
 
-- Fix SignInPage.js curUser to show signed in as: before sign in attempt.
+- Fix signed in as: render time
 
 Sign In Page:
 
 - take away sign in button when already signed in (going to be passing in props or conditional rendering)
-- make it so that when navigating to main page after sign in, shows user signed in as
 
 account page:
 
@@ -16,4 +19,6 @@ account page:
 
 make it so navbar changes based on if user is signed in
 
-when at /delSuccess, make it so when it gets refreshed it navigates to regular home page.
+DelSuccess:
+
+when delete account, navigate to main page with "Account permanentely removed." banner. Banner disappears on refresh or when going to a different page.

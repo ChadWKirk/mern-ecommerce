@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-const SignInPage = () => {
-  var [curUser, setCurUser] = useState({
+const SignInPage = ({ curUser }) => {
+  var [curUser2, setCurUser] = useState({
     username: "",
     password: "",
     signedIn: false,
@@ -50,7 +50,8 @@ const SignInPage = () => {
             password: signInUser.password,
             signedIn: false,
           });
-          setTimeout(() => navigate("/"), 100);
+          window.location.href = "/";
+          //navigate("/");
         } else if (response.status === 404) {
           //if sign in fails
           window.alert("Account does not exist. Sign in failed.");
@@ -64,7 +65,7 @@ const SignInPage = () => {
   return (
     <div>
       <h1>Sign In Page</h1>
-      <NavBar curUser={curUser.username} />
+      <NavBar curUser={curUser} />
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input id="username" onChange={onChangeName}></input>
