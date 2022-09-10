@@ -43,8 +43,30 @@ const SignUpPage = ({ curUser }) => {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newUser),
       })
-        .then(() => {
-          navigate(`/SignUp/${newUser.username}/Success`);
+        .then((response) => {
+          if (response.status === 500) {
+            let yesOrNo = window.confirm(
+              `This will sign you out of your account, ${curUser}. Are you sure you want to continue signing up as ${newUser.username}?`
+            );
+            console.log(yesOrNo);
+            if (yesOrNo) {
+              console.log("yes");
+              fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                  username: form.username,
+                  password: form.password,
+                  signedIn: false,
+                  try: "2",
+                }),
+              }).then(() => {
+                navigate(`/SignUp/${newUser.username}/Success`);
+              });
+            } else {
+              console.log("no");
+            }
+          }
         })
         .catch(() => {
           window.alert("Username already exists. Sign up failed.");

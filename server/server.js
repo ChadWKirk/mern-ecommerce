@@ -55,23 +55,61 @@ app.get("/curUser", (req, res) => {
 //sign up post
 app.post("/users", (req, response) => {
   let db_connect = dbo.getDb();
+
+  let tries = req.body.try;
+
   let newUser = {
     username: req.body.username,
     password: req.body.password,
-    signedIn: false,
+    signedIn: true,
   };
+
+  let alreadySignedInArr = [];
+  //find any users already signed in and push them to another array to access it
+  db_connect
+    .collection("mern-ecommerce-users")
+    .find({ signedIn: true })
+    .toArray(function (err, user) {
+      for (let i = 0; i < user.length; i++) {
+        alreadySignedInArr.push(1);
+        console.log(user);
+      }
+    });
+  alreadySignedInArr.push(1);
+  console.log(alreadySignedInArr);
 
   db_connect
     .collection("mern-ecommerce-users")
-    .find({ username: req.body.username }) //check if user already exists
+    .find({ username: req.body.username })
     .toArray(function (err, result) {
       if (err) {
         response.status(400).send("error");
         console.log("to array error");
-      } else if (result.length > 0) {
+      } else if (result.length > 0 && tries == null) {
+        //check if user already exists
         console.log("Username already exists. Sign up failed.");
+      } else if (anyOtherSignedIn[0] > 0 && tries == null) {
+        //see if anyone else is signed in
+        response.sendStatus(500);
+        console.log("another user is already signed in.");
+      } else if (anyOtherSignedIn[0] > 0 && tries == 2) {
+        //if pressing OK on are you sure box:
+        //find user that is signed in and sign it out
+        // console.log(anyOtherSignedIn);
+        alreadySignedInArr.forEach((user) => {
+          user.signedIn = false;
+        });
+        // console.log(anyOtherSignedIn);
+        //insertone as signed in is true
+        db_connect
+          .collection("mern-ecommerce-users")
+          .insertOne(newUser, function (err, res) {
+            if (err) throw err;
+            response.json(res);
+          });
       } else {
         //if user is new
+        console.log("user is new");
         db_connect
           .collection("mern-ecommerce-users")
           .insertOne(newUser, function (err, res) {
