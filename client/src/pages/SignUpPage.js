@@ -55,8 +55,8 @@ const SignUpPage = ({ curUser }) => {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({
-                  username: form.username,
-                  password: form.password,
+                  username: newUser.username,
+                  password: newUser.password,
                   signedIn: false,
                   try: "2",
                 }),

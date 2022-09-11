@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const [curUser, setCurUser] = useState();
+  const [loggedIn, setLoggedIn] = useState();
 
   useEffect(() => {
     async function getCurUser() {
@@ -26,13 +27,24 @@ function App() {
           setCurUser(responseJSON);
         });
     }
+
     getCurUser();
   });
-
+  // if (curUser !== "") {
+  //   setLoggedIn(true);
+  //   console.log(loggedIn + " true");
+  //   console.log(curUser + " curUser");
+  // } else {
+  //   setLoggedIn(false);
+  //   console.log(loggedIn + " false");
+  // }
   return (
     <div>
       <Routes>
-        <Route path="/" element={<MainPage curUser={curUser} />}></Route>
+        <Route
+          path="/"
+          element={<MainPage curUser={curUser} loggedIn={loggedIn} />}
+        ></Route>
         <Route path="/Store" element={<StorePage curUser={curUser} />}></Route>
         <Route
           path={`/Account/${curUser}`}

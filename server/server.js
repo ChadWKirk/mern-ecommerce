@@ -91,22 +91,26 @@ app.post("/users", (req, response) => {
         response.sendStatus(500);
         console.log("another user is already signed in.");
       } else if (array.length > 0 && tries == 2) {
+        console.log("settofalse");
         async function setToFalse() {
           //if pressing OK on are you sure box:
-          //find user that is signed in and sign it out
-          //need to use update instead of assigning the value!!!!
-          await cursor.updateMany(
-            { signedIn: true },
-            { $set: { signedIn: false } }
-          );
-
-          //insertone as signed in is true
+          //find user(s) that is signed in and sign it out
           await db_connect
             .collection("mern-ecommerce-users")
-            .insertOne(newUser, function (err, res) {
+            .updateMany({ signedIn: true }, { $set: { signedIn: false } });
+
+          //insertone as signedIn: true
+          await db_connect.collection("mern-ecommerce-users").insertOne(
+            {
+              username: req.body.username,
+              password: req.body.password,
+              signedIn: true,
+            },
+            function (err, res) {
               if (err) throw err;
               response.json(res);
-            });
+            }
+          );
         }
         setToFalse();
       } else {

@@ -1,9 +1,12 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-Make the sign up are you sure box actually update the signed in users to false rather than assigning the values
+NavBar:
+
+- only show Account and Sign Out buttons when curUser exists (user is signed in). this is what the setlogged in thing in app js is for. conditional rendering of navbar. look in bookmarks.
 
 show signed in as:
 
+- get signed in as: to disappear when no curUser (no one is signed in)
 - Fix signed in as: render time
 
 Sign In Page:
@@ -14,8 +17,6 @@ account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
-
-make it so navbar changes based on if user is signed in
 
 DelSuccess:
 
