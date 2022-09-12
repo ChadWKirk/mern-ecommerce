@@ -2,17 +2,17 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 Delete User:
 
-delete not getting username from url due to curUser not updating in time on render. Need to make it so curUser doesn't get assigned until it is not undefined.
+delete not getting username from url due to curUser not updating in time on render. Need to make it so curUser doesn't get assigned until it is not undefined. MIGHT BE FIXED! NEED TO CHECK.
 
 server:
 
 - fix "can not read collection" error that you get sometimes when server loads. Something with database not being ready yet.
 
-show signed in as:
-
-- Fix signed in as: render time (it is because it is 'undefined' until about third render in app.js)
-
 account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
+
+Sign Out:
+
+- might want to change findOne to just find to find all signed in users instead of just the first one it finds

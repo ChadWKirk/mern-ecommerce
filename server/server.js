@@ -51,6 +51,18 @@ app.get("/curUser", (req, res) => {
         res.json(user.username); //send username in resopnse to react fetch
       }
     });
+
+  db_connect
+    .collection("mern-ecommerce-users")
+    .findOne({ signedIn: true }, function (err, user) {
+      if (err) {
+        console.log(err);
+      }
+      if (!user) {
+        console.log("user not found");
+        res.json("none"); //send username in resopnse to react fetch
+      }
+    });
 });
 //sign up post
 app.post("/users", (req, response) => {
