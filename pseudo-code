@@ -1,23 +1,18 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-NavBar:
+Delete User:
 
-- only show Account and Sign Out buttons when curUser exists (user is signed in). this is what the setlogged in thing in app js is for. conditional rendering of navbar. look in bookmarks.
+delete not getting username from url due to curUser not updating in time on render. Need to make it so curUser doesn't get assigned until it is not undefined.
+
+server:
+
+- fix "can not read collection" error that you get sometimes when server loads. Something with database not being ready yet.
 
 show signed in as:
 
-- get signed in as: to disappear when no curUser (no one is signed in)
-- Fix signed in as: render time
-
-Sign In Page:
-
-- take away sign in button when already signed in (going to be passing in props or conditional rendering)
+- Fix signed in as: render time (it is because it is 'undefined' until about third render in app.js)
 
 account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
-
-DelSuccess:
-
-when delete account, navigate to main page with "Account permanentely removed." banner. Banner disappears on refresh or when going to a different page.

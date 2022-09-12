@@ -7,10 +7,10 @@ import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
-import DelSuccessPage from "./pages/DelSuccessPage";
 import NavBar from "./components/NavBar";
 
 function App() {
+  const [del, setDel] = useState(); //on refresh, set del to null
   const [curUser, setCurUser] = useState();
   const [loggedIn, setLoggedIn] = useState();
 
@@ -25,44 +25,63 @@ function App() {
         .then((responseJSON) => {
           console.log(responseJSON);
           setCurUser(responseJSON);
+        })
+        .then(() => {
+          if (curUser != "") {
+            setLoggedIn(true);
+            console.log(loggedIn + " true");
+            console.log(curUser + " curUser");
+          } else {
+            setLoggedIn(false);
+            console.log(loggedIn + " false");
+          }
         });
     }
 
     getCurUser();
   });
-  // if (curUser !== "") {
-  //   setLoggedIn(true);
-  //   console.log(loggedIn + " true");
-  //   console.log(curUser + " curUser");
-  // } else {
-  //   setLoggedIn(false);
-  //   console.log(loggedIn + " false");
-  // }
+
   return (
     <div>
       <Routes>
         <Route
           path="/"
-          element={<MainPage curUser={curUser} loggedIn={loggedIn} />}
+          element={
+            <MainPage
+              curUser={curUser}
+              del={del}
+              setDel={setDel}
+              loggedIn={loggedIn}
+            />
+          }
         ></Route>
-        <Route path="/Store" element={<StorePage curUser={curUser} />}></Route>
+        <Route
+          path="/Store"
+          element={<StorePage curUser={curUser} loggedIn={loggedIn} />}
+        ></Route>
         <Route
           path={`/Account/${curUser}`}
-          element={<AccountPage curUser={curUser} />}
+          element={
+            <AccountPage
+              curUser={curUser}
+              del={del}
+              setDel={setDel}
+              loggedIn={loggedIn}
+            />
+          }
         ></Route>
         <Route
           path="/SignIn"
-          element={<SignInPage curUser={curUser} />}
+          element={<SignInPage curUser={curUser} loggedIn={loggedIn} />}
         ></Route>
         <Route
           path="/SignUp"
-          element={<SignUpPage curUser={curUser} />}
+          element={<SignUpPage curUser={curUser} loggedIn={loggedIn} />}
         ></Route>
         <Route
           path="/SignUp/:username/Success"
           element={<SignUpSuccessPage />}
         ></Route>
-        <Route path="/delSuccess" element={<DelSuccessPage />}></Route>
       </Routes>
     </div>
   );

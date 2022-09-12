@@ -2,9 +2,10 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import { useNavigate, useParams } from "react-router-dom";
 
-const AccountPage = ({ curUser }) => {
+const AccountPage = ({ curUser, loggedIn, del, setDel }) => {
   const navigate = useNavigate();
   const { username } = useParams();
+  console.log(username + " this is username in url");
   async function delAcc(e) {
     e.preventDefault();
     if (
@@ -15,11 +16,13 @@ const AccountPage = ({ curUser }) => {
       await fetch(`http://localhost:5000/Account/${username}/delUser`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
-      }).then(
+      }).then(() => {
+        //set del to 1 for mainpage.js "account has been removed" banner
+        setDel(1);
         setTimeout(() => {
-          navigate("/delSuccess");
-        }, 300)
-      );
+          navigate("/");
+        }, 300);
+      });
     } else {
       console.log("nothing happened");
     }
@@ -28,7 +31,7 @@ const AccountPage = ({ curUser }) => {
   return (
     <div>
       <h1>Account Page</h1>
-      <NavBar curUser={curUser}/>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <a href="">
         <h2>Sell Item</h2>
       </a>

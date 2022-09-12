@@ -4,11 +4,11 @@ import SubBar from "../components/SubBar";
 import FilterBar from "../components/FilterBar";
 import CatalogSection from "../components/CatalogSection";
 
-const ShoppingPage = ({ curUser }) => {
+const ShoppingPage = ({ curUser, loggedIn }) => {
   return (
     <div>
       <h1>Shopping Page</h1>
-      <NavBar curUser={curUser} />
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <SubBar />
       <FilterBar />
       <CatalogSection />
