@@ -20,7 +20,7 @@ const AccountPage = ({ curUser, loggedIn, del, setDel }) => {
         () =>
           //set del to 1 for mainpage.js "account has been removed" banner
           setDel(1),
-
+        //del not setting IS NOT a time issue
         setTimeout(() => {
           navigate("/");
         }, 500)

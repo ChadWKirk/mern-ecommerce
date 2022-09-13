@@ -2,7 +2,12 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 Delete User:
 
-delete confirm not changing del value to bring up delete banner due to useState not updating immediately. Need to do something in MainPage useEffect to check for it or something.
+need to make it so that when navigating back to main page after deleting account,
+make del = 1 until next rerender. pass del to main page and navbar to conditionally render acc removed banner and sign in/up buttons.
+
+Sign up:
+
+- need to make sign up sign in the new user and navigate to success page when user is new (no confirm box)
 
 server:
 

@@ -9,10 +9,10 @@ import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 
 function App() {
-  const [del, setDel] = useState(); //on refresh, set del to null to remove acc removed banner
+  const [del, setDel] = useState();
   const [curUser, setCurUser] = useState();
   const [loggedIn, setLoggedIn] = useState();
-
+  console.log("render");
   //loading app useState to only return html after getCurUser finishes
   //to avoid having no curUser for signed in as: for a split second when app loads
   const [isLoading, setLoading] = useState(true);
@@ -62,14 +62,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <MainPage
-                curUser={curUser}
-                del={del}
-                setDel={setDel}
-                loggedIn={loggedIn}
-              />
-            }
+            element={<MainPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/Store"
@@ -77,14 +70,7 @@ function App() {
           ></Route>
           <Route
             path={`/Account/${curUser}`}
-            element={
-              <AccountPage
-                curUser={curUser}
-                del={del}
-                setDel={setDel}
-                loggedIn={loggedIn}
-              />
-            }
+            element={<AccountPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/SignIn"
