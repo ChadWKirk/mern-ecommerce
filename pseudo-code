@@ -2,7 +2,7 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 Delete User:
 
-delete not getting username from url due to curUser not updating in time on render. Need to make it so curUser doesn't get assigned until it is not undefined. MIGHT BE FIXED! NEED TO CHECK.
+delete confirm not changing del value to bring up delete banner due to useState not updating immediately. Need to do something in MainPage useEffect to check for it or something.
 
 server:
 
