@@ -10,6 +10,9 @@ import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 
 function App() {
   const [del, setDel] = useState();
+  // useEffect(() => {    //maybe can use dependancy array to only run when del changes
+  //   setDel(1);
+  // }, [del]);
   const [curUser, setCurUser] = useState();
   const [loggedIn, setLoggedIn] = useState();
   console.log("render");

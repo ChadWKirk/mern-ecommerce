@@ -3,7 +3,7 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 Delete User:
 
 need to make it so that when navigating back to main page after deleting account,
-make del = 1 until next rerender. pass del to main page and navbar to conditionally render acc removed banner and sign in/up buttons.
+make del = 1 until next rerender. pass del to main page and navbar to conditionally render acc removed banner and sign in/up buttons. Maybe can use dependancy array with useEffect.
 
 Sign up:
 
