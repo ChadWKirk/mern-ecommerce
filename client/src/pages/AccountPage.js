@@ -2,12 +2,13 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import { useNavigate, useParams } from "react-router-dom";
 
-const AccountPage = ({ curUser, loggedIn, del, setDel }) => {
+const AccountPage = ({ curUser, loggedIn }) => {
   const navigate = useNavigate();
   // const { username } = useParams();
   console.log(curUser + " this is username in url");
   async function delAcc(e) {
     e.preventDefault();
+
     if (
       window.confirm(
         `Are you sure you would like to permanantely delete your account "${curUser}"?`
@@ -16,13 +17,9 @@ const AccountPage = ({ curUser, loggedIn, del, setDel }) => {
       await fetch(`http://localhost:5000/Account/${curUser}/delUser`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
-      }).then(
-        () =>
-          //set del to 1 for mainpage.js "account has been removed" banner
-          setDel(1),
-        //del not setting IS NOT a time issue
+      }).then(() =>
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "/delSuccess";
         }, 500)
       );
     } else {

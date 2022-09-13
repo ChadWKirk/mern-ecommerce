@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import MainPage from "./pages/MainPage";
@@ -7,12 +7,9 @@ import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
+import DelSuccessPage from "./pages/DelSuccessPage";
 
 function App() {
-  const [del, setDel] = useState();
-  // useEffect(() => {    //maybe can use dependancy array to only run when del changes
-  //   setDel(1);
-  // }, [del]);
   const [curUser, setCurUser] = useState();
   const [loggedIn, setLoggedIn] = useState();
   console.log("render");
@@ -55,7 +52,7 @@ function App() {
     }
 
     getCurUser();
-  });
+  }, []);
 
   if (isLoading) {
     return null;
@@ -86,6 +83,10 @@ function App() {
           <Route
             path="/SignUp/:username/Success"
             element={<SignUpSuccessPage />}
+          ></Route>
+          <Route
+            path="/delSuccess"
+            element={<DelSuccessPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
         </Routes>
       </div>

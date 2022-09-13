@@ -45,6 +45,7 @@ const SignUpPage = ({ curUser, loggedIn }) => {
       })
         .then((response) => {
           if (response.status === 500) {
+            //if already signed in
             let yesOrNo = window.confirm(
               `This will sign you out of your account, ${curUser}. Are you sure you want to continue signing up as ${newUser.username}?`
             );
@@ -66,6 +67,9 @@ const SignUpPage = ({ curUser, loggedIn }) => {
             } else {
               console.log("no");
             }
+          } else if (response.ok) {
+            //if user is new
+            navigate(`/SignUp/${newUser.username}/Success`);
           }
         })
         .catch(() => {

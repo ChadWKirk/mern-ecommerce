@@ -1,13 +1,12 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-Delete User:
-
-need to make it so that when navigating back to main page after deleting account,
-make del = 1 until next rerender. pass del to main page and navbar to conditionally render acc removed banner and sign in/up buttons. Maybe can use dependancy array with useEffect.
+So far, CRUD works.
 
 Sign up:
 
-- need to make sign up sign in the new user and navigate to success page when user is new (no confirm box)
+- signing up as new user works
+- sometimes sign up confirm box doesn't sign users out
+- sometimes after confirm box, account page is blank
 
 server:
 
@@ -17,7 +16,3 @@ account page:
 
 - details like cc info and shipping address
 - add item listing to sell (need to make store page first)
-
-Sign Out:
-
-- might want to change findOne to just find to find all signed in users instead of just the first one it finds

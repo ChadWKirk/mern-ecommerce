@@ -79,11 +79,11 @@ app.post("/users", (req, response) => {
   var cursor = db_connect
     .collection("mern-ecommerce-users")
     .find({ signedIn: true });
-  var array;
+  var signedInArray;
   async function getArr() {
-    array = [];
+    signedInArray = [];
     await cursor.forEach((user) => {
-      array.push(user);
+      signedInArray.push(user);
     });
   }
   getArr();
@@ -95,14 +95,15 @@ app.post("/users", (req, response) => {
       if (err) {
         response.status(400).send("error");
         console.log("to array error");
-      } else if (result.length > 0 && tries == null) {
+      } else if (result.length > 1 && tries == null) {
         //check if user already exists
         console.log("Username already exists. Sign up failed.");
-      } else if (array.length > 0 && tries == null) {
+        // console.log(result);
+      } else if (signedInArray.length > 0 && tries == null) {
         //see if anyone else is signed in
         response.sendStatus(500);
         console.log("another user is already signed in.");
-      } else if (array.length > 0 && tries == 2) {
+      } else if (signedInArray.length > 0 && tries == 2) {
         console.log("settofalse");
         async function setToFalse() {
           //if pressing OK on are you sure box:
@@ -128,12 +129,21 @@ app.post("/users", (req, response) => {
       } else {
         //if user is new
         console.log("user is new");
-        db_connect
-          .collection("mern-ecommerce-users")
-          .insertOne(newUser, function (err, res) {
-            if (err) throw err;
-            response.json(res);
-          });
+        async function insertNew() {
+          //insertone as signedIn: true
+          await db_connect.collection("mern-ecommerce-users").insertOne(
+            {
+              username: req.body.username,
+              password: req.body.password,
+              signedIn: true,
+            },
+            function (err, res) {
+              if (err) throw err;
+              response.json(res);
+            }
+          );
+        }
+        insertNew();
       }
     });
 });
@@ -188,7 +198,7 @@ app.post("/SignOut", (req, res) => {
 
   db_connect
     .collection("mern-ecommerce-users")
-    .updateOne(
+    .updateMany(
       { signedIn: true },
       { $set: { signedIn: false } },
       function (err, res) {
@@ -204,6 +214,8 @@ app.delete("/Account/:username/delUser", (req, res) => {
   db_connect
     .collection("mern-ecommerce-users")
     .deleteOne({ username: req.params.username });
+
+  res.json("deleted");
 
   console.log("account deleted " + req.params.username); //req.params.username is whatever is in the URL at the position of :username
 });
