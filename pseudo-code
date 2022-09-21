@@ -1,10 +1,8 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
-So far, CRUD works.
-
 Styling:
 
-- need to figure out how to use flexbox in React
+- need to create catalog section styling
 
 Sign up:
 
@@ -18,5 +16,13 @@ server:
 
 account page:
 
-- details like cc info and shipping address
-- add item listing to sell (need to make store page first)
+- details like cc info and shipping address (database)
+
+Payment:
+
+- need to add paypal and stripe
+
+misc:
+
+- need to hash passwords
+- need to figure out how to securely store payment info
