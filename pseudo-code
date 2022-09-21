@@ -3,6 +3,26 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 Styling:
 
 - need to create catalog section styling
+- search bar needs search button with icon (probably bootstrap)
+- navbar icons need styling
+- need logo done
+- need to change Signed In As: to something more sleek to show who user is signed in as
+
+Catalog section:
+
+- when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
+- allow user to rate images
+- allow user to like an image which sends it to their likes section that they can go back to
+- allow to sort by new, old, price, rating high-low or ratings low-high
+
+Image-View Page:
+
+- need to make page user goes to when clicking on a picture
+- will have like button, ratings button, price, rating, add to cart button and buy now button
+
+Cart Page:
+
+-
 
 Sign up:
 
