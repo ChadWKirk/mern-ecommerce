@@ -2,6 +2,10 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 So far, CRUD works.
 
+Styling:
+
+- need to figure out how to use flexbox in React
+
 Sign up:
 
 - signing up as new user works

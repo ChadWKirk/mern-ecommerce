@@ -1,0 +1,26 @@
+body {
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.searchBar {
+  display: flex;
+  margin: auto;
+  align-items: center;
+}
+
+.navBar {
+  display: flex;
+  margin: auto;
+  align-items: center;
+}

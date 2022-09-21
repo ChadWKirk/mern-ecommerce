@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Logo from "../components/Logo";
 
 const SignUpPage = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
@@ -82,7 +83,7 @@ const SignUpPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <h1>Sign Up Page</h1>
+      <Logo />
       <NavBar curUser={curUser} loggedIn={loggedIn} />
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>

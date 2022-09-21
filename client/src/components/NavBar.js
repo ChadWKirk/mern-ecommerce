@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 
 const NavBar = ({ curUser, loggedIn }) => {
   let soButton;
@@ -9,12 +10,12 @@ const NavBar = ({ curUser, loggedIn }) => {
   if (loggedIn) {
     accButton = (
       <a href={`/Account/${curUser}`}>
-        <button>Account</button>
+        <Button>Account</Button>
       </a>
     );
     soButton = (
       <a href="/">
-        <button onClick={signOut}>Sign Out</button>
+        <Button onClick={signOut}>Sign Out</Button>
       </a>
     );
     siButton = null;
@@ -24,12 +25,12 @@ const NavBar = ({ curUser, loggedIn }) => {
     soButton = null;
     siButton = (
       <a href="/SignIn">
-        <button>Sign In</button>
+        <Button>Sign In</Button>
       </a>
     );
     suButton = (
       <a href="/SignUp">
-        <button>Sign Up</button>
+        <Button>Sign Up</Button>
       </a>
     );
   }
@@ -42,12 +43,12 @@ const NavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div>
+    <div className="navContainer navBar">
       <a href="/">
-        <button>Home</button>
+        <Button>Home</Button>
       </a>
       <a href="/Store">
-        <button>Store</button>
+        <Button>Store</Button>
       </a>
       {siButton}
       {suButton}

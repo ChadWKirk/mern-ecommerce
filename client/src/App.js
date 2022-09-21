@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+//pages
 import MainPage from "./pages/MainPage";
 import StorePage from "./pages/StorePage";
 import AccountPage from "./pages/AccountPage";
@@ -8,6 +8,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
+//bootstrap
 
 function App() {
   const [curUser, setCurUser] = useState();

@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../components/NavBar";
+import Logo from "../components/Logo";
 import { useNavigate, useParams } from "react-router-dom";
 
 const AccountPage = ({ curUser, loggedIn }) => {
@@ -29,7 +30,7 @@ const AccountPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <h1>Account Page</h1>
+      <Logo />
       <NavBar curUser={curUser} loggedIn={loggedIn} />
       <a href="">
         <h2>Sell Item</h2>
