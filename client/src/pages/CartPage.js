@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import NavBar from "../components/NavBar";
+import React from "react";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
+import NavBar from "../components/NavBar";
 import DropDown from "../components/DropDown";
 
-const MainPage = ({ curUser, loggedIn }) => {
+const CartPage = ({ curUser, loggedIn }) => {
   return (
     <div>
       <div className="navContainer">
@@ -13,8 +13,13 @@ const MainPage = ({ curUser, loggedIn }) => {
         <NavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
       <DropDown />
+      <div className="cartContainer">
+        <div>
+          <h1>Cart Page</h1>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default MainPage;
+export default CartPage;

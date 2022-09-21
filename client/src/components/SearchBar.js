@@ -2,8 +2,8 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className="navContainer searchBar">
-      <input></input>
+    <div>
+      <input className="searchBar"></input>
     </div>
   );
 };

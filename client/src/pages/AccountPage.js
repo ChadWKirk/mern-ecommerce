@@ -2,6 +2,8 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Logo from "../components/Logo";
 import { useNavigate, useParams } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+import DropDown from "../components/DropDown";
 
 const AccountPage = ({ curUser, loggedIn }) => {
   const navigate = useNavigate();
@@ -30,11 +32,11 @@ const AccountPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <Logo />
-      <NavBar curUser={curUser} loggedIn={loggedIn} />
-      <a href="">
-        <h2>Sell Item</h2>
-      </a>
+      <div className="navContainer">
+        <Logo />
+        <SearchBar />
+        <NavBar curUser={curUser} loggedIn={loggedIn} />
+      </div>
       <h2>Shipping Address:</h2>
       <p>shipping address</p>
       <a href="">Edit</a>

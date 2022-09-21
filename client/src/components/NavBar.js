@@ -7,6 +7,7 @@ const NavBar = ({ curUser, loggedIn }) => {
   let accButton;
   let siButton;
   let suButton;
+  let cartButton;
   if (loggedIn) {
     accButton = (
       <a href={`/Account/${curUser}`}>
@@ -18,11 +19,17 @@ const NavBar = ({ curUser, loggedIn }) => {
         <Button onClick={signOut}>Sign Out</Button>
       </a>
     );
+    cartButton = (
+      <a href="/Cart">
+        <Button>Cart</Button>
+      </a>
+    );
     siButton = null;
     suButton = null;
   } else {
     accButton = null;
     soButton = null;
+    cartButton = null;
     siButton = (
       <a href="/SignIn">
         <Button>Sign In</Button>
@@ -43,17 +50,12 @@ const NavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div className="navContainer navBar">
-      <a href="/">
-        <Button>Home</Button>
-      </a>
-      <a href="/Store">
-        <Button>Store</Button>
-      </a>
+    <div className="navBarContainer">
       {siButton}
       {suButton}
       {accButton}
       {soButton}
+      {cartButton}
       <h4>Signed in as: {curUser}</h4>
     </div>
   );

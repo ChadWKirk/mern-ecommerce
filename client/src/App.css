@@ -1,10 +1,18 @@
 body {
+  margin: 0;
+  padding: 0;
 }
 
 .navContainer {
+  padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+}
+
+.navBarContainer {
+  display: flex;
 }
 
 .logo {
@@ -14,13 +22,21 @@ body {
 }
 
 .searchBar {
-  display: flex;
-  margin: auto;
-  align-items: center;
+  border-radius: 3.5px;
+  padding: 4.5px;
+  padding-left: 5px;
+  width: 40em;
 }
 
-.navBar {
+.dropDownContainer {
   display: flex;
-  margin: auto;
   align-items: center;
+  justify-content: center;
+  background-color: gray;
+  height: 50px;
+}
+
+.dropDownContainer p {
+  width: 150px;
+  margin: auto;
 }

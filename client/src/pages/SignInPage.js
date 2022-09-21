@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Logo from "../components/Logo";
+import SearchBar from "../components/SearchBar";
 
 const SignInPage = ({ curUser, loggedIn }) => {
   var [curUser2, setCurUser] = useState({
@@ -65,8 +66,11 @@ const SignInPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <Logo />
-      <NavBar curUser={curUser} loggedIn={loggedIn} />
+      <div className="navContainer">
+        <Logo />
+        <SearchBar />
+        <NavBar curUser={curUser} loggedIn={loggedIn} />
+      </div>
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input id="username" onChange={onChangeName}></input>

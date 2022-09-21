@@ -8,6 +8,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
+import CartPage from "./pages/CartPage";
 //bootstrap
 
 function App() {
@@ -72,6 +73,10 @@ function App() {
           <Route
             path={`/Account/${curUser}`}
             element={<AccountPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path="/Cart"
+            element={<CartPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/SignIn"

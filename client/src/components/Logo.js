@@ -2,8 +2,10 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <div className="navContainer logo">
-      <h1>StoreLogo</h1>
+    <div>
+      <a href="/">
+        <h1>PicPocket</h1>
+      </a>
     </div>
   );
 };
