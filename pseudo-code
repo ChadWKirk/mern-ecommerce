@@ -10,6 +10,7 @@ Styling:
 
 Catalog section:
 
+- search bar goes to /search/whateverTheySearchFor. The search will pull up any image that has a corresponding tage or has that word in the title
 - when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
 - allow user to rate images
 - allow user to like an image which sends it to their likes section that they can go back to
@@ -18,7 +19,8 @@ Catalog section:
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
-- will have like button, ratings button, price, rating, add to cart button and buy now button
+- will have like button, ratings button, price, rating, tags, add to cart button and buy now button
+- When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
 
 Cart Page:
 
