@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
+import { BsCartCheck } from "react-icons/bs";
 
 const NavBar = ({ curUser, loggedIn }) => {
   let soButton;
@@ -21,7 +22,10 @@ const NavBar = ({ curUser, loggedIn }) => {
     );
     cartButton = (
       <a href="/Cart">
-        <Button>Cart</Button>
+        <Button className="cartButton">
+          <BsCartCheck size={36} className="cartIcon" />
+          <div>Cart</div>
+        </Button>
       </a>
     );
     siButton = null;

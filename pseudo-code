@@ -3,10 +3,10 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 Styling:
 
 - need to create catalog section styling
-- search bar needs search button with icon (probably bootstrap)
-- navbar icons need styling
+- navbar cart has blue underline for some reason
 - need logo done
 - need to change Signed In As: to something more sleek to show who user is signed in as
+- need category drop downs to come out even with the start of each category title
 
 Catalog section:
 
