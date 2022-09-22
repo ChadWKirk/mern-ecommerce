@@ -2,8 +2,9 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 How to manage images:
 
-- host images on some remote server and use their API to fetch them
-- put watermark and scale them to bad resolution on site until download
+- host images on Cloudinary and use their API to fetch them
+- put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
+- need to figure out how to get json array out of fetch for carousel
 
 Home Page:
 

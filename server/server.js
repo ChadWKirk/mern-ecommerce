@@ -4,6 +4,15 @@ require("dotenv").config({ path: "./config.env" });
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 
+//cloudinary image hosting
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "dtyg4ctfr",
+  api_key: "337187168292683",
+  api_secret: "QgDFmej_4ndnjnPhGBKcA8w_aLw",
+});
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -218,4 +227,21 @@ app.delete("/Account/:username/delUser", (req, res) => {
   res.json("deleted");
 
   console.log("account deleted " + req.params.username); //req.params.username is whatever is in the URL at the position of :username
+});
+
+//cloudinary routes
+//return an array of secure_url's for carousel to get
+app.get("/carouselImages", (req, res) => {
+  let carouselArr;
+  // carouselArr.push(
+  //         result.resources[0].secure_url,
+  //         result.resources[1].secure_url,
+  //         result.resources[2].secure_url
+  //       )
+  cloudinary.api
+    .resources({ max_results: 5 })
+    .then((result) => res.json(result.resources))
+    .catch((error) => {
+      console.log(error);
+    });
 });

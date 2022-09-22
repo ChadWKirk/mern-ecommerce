@@ -40,17 +40,6 @@ function App() {
             setLoggedIn(true);
             setLoading(false);
           }
-          // })
-          // .then(() => {
-          //   if (curUser !== "") {
-          //     // setLoading(false); //now that curUser and loggedIn are set, load app's HTML
-          //     console.log(loggedIn + " true");
-          //     console.log(curUser + " curUser");
-          //   } else {
-          //     setLoggedIn(false);
-          //     // setLoading(false); //now that curUser and loggedIn are set, load app's HTML
-          //     console.log(loggedIn + " false");
-          //   }
         });
     }
 
