@@ -2,6 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import { BsCartCheck } from "react-icons/bs";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const NavBar = ({ curUser, loggedIn }) => {
   let soButton;
@@ -11,9 +13,12 @@ const NavBar = ({ curUser, loggedIn }) => {
   let cartButton;
   if (loggedIn) {
     accButton = (
-      <a href={`/Account/${curUser}`}>
-        <Button>Account</Button>
-      </a>
+      <DropdownButton className="accDropDownButton" title={curUser}>
+        <Dropdown.Item>Likes</Dropdown.Item>
+        <Dropdown.Item href={`/Account/${curUser}`}>
+          User Settings
+        </Dropdown.Item>
+      </DropdownButton>
     );
     soButton = (
       <a href="/">
@@ -60,7 +65,7 @@ const NavBar = ({ curUser, loggedIn }) => {
       {accButton}
       {soButton}
       {cartButton}
-      <h4>Signed in as: {curUser}</h4>
+      {/* <h4>Signed in as: {curUser}</h4> */}
     </div>
   );
 };

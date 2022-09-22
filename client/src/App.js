@@ -10,6 +10,7 @@ import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
 import CartPage from "./pages/CartPage";
 //bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [curUser, setCurUser] = useState();

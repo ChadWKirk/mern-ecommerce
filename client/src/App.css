@@ -19,15 +19,16 @@ body {
   height: 60px;
 }
 
-.navBarContainer a .btn-primary {
-  height: 60px;
+.navBarContainer a {
+  text-decoration: none;
+}
+
+.navBarContainer .btn-primary {
+  height: 50px;
   background-color: rgb(246, 247, 247);
   color: gray;
   border: none;
-}
-
-.navBarContainer a .btn-primary:hover {
-  background-color: blue;
+  border-radius: 50px;
 }
 
 .logo {
@@ -70,15 +71,11 @@ body {
   align-items: center;
   padding-top: 5px;
   height: 100%;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-top-right-radius: 3.5px;
-  border-bottom-right-radius: 3.5px;
 }
 
 .cartButton div {
   margin-left: 2px;
-  margin-top: 15.5px;
+  margin-top: 21px;
   font-weight: 600;
   border: none;
 }
@@ -93,8 +90,8 @@ body {
 .d-flex .btn-primary {
   background-color: rgb(246, 247, 247);
   border: none;
-  min-width: 120px;
-  width: 100%;
+  padding: 0;
+  margin-left: calc(100% / 3.6);
   height: 40px;
   color: gray;
   font-weight: 600;
@@ -105,12 +102,13 @@ body {
   color: rgb(94, 94, 94);
 }
 
-.flex-even {
-  flex: 1;
-}
-
 .dropDownButton {
   margin: auto;
   color: red;
   flex: 1;
+}
+
+.carousel {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }

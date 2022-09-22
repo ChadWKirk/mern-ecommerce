@@ -5,9 +5,9 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 
 const DropDown = () => {
   return (
-    <div className="d-flex flex-grow-0">
-      <DropdownButton className="dropDownButton flex-even" title="Animals">
-        <Dropdown.Item>Cats</Dropdown.Item>
+    <div className="d-flex">
+      <DropdownButton className="dropDownButton" title="Animals">
+        <Dropdown.Item className="dropDownItem">Cats</Dropdown.Item>
         <Dropdown.Item>Dogs</Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownButton" title="Sports">
