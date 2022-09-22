@@ -2,7 +2,8 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 How to manage images:
 
-- put all images in a folder in the server DIR and save that name to mongoDB. grab the names on fetch to serve them.
+- host images on some remote server and use their API to fetch them
+- put watermark and scale them to bad resolution on site until download
 
 Home Page:
 
