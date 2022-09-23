@@ -15,7 +15,7 @@ Home Page:
 
 Styling:
 
-- need to create catalog section styling
+- need to create catalog section styling. Have flex and each flex item have random width between minwidth: 120px and max-width: 245px;. return each gallery item with a for loop or something.
 - need logo done
 
 Catalog section:
@@ -29,7 +29,9 @@ Catalog section:
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
+- url will be /images/title-uuid (reference shutterstock)
 - will have like button, ratings button, price, rating, tags, add to cart button and buy now button
+- Will have related images section under that main section detailed above
 - When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
 
 Cart Page:
@@ -48,7 +50,7 @@ server:
 
 account page:
 
-- details like cc info and shipping address (database)
+- details like payment info(database)
 
 Payment:
 
