@@ -95,6 +95,7 @@ body {
   height: 40px;
   color: gray;
   font-weight: 600;
+  font-size: 16px;
 }
 
 .d-flex .btn-primary:hover {
@@ -111,4 +112,8 @@ body {
 .carousel {
   margin-top: 10px;
   margin-bottom: 30px;
+}
+
+.d-block {
+  height: 700px;
 }
