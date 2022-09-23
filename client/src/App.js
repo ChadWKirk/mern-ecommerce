@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
 import CartPage from "./pages/CartPage";
+import SearchResultPage from "./pages/SearchResultPage";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="/Store"
             element={<StorePage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path="/Search/:searchQuery"
+            element={<SearchResultPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path={`/Account/${curUser}`}
