@@ -243,8 +243,8 @@ app.get("/carouselImages", (req, res) => {
 app.get("/search/:searchQuery", (req, res) => {
   console.log(req.params.searchQuery);
   cloudinary.api
-    .resources({ tags: true, context: true, metadata: true, max_results: 100 })
-    .then((result) => console.log(result.resources))
+    .resources({ tags: true, max_results: 100 })
+    .then((result) => res.json(result.resources))
     .catch((error) => {
       console.log(error);
     });

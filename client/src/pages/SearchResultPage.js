@@ -12,6 +12,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
   var searchArr = [];
   var resultsArr = [];
   const [resultsMap, setResultsMap] = useState();
+
   useEffect(() => {
     async function searchFetch() {
       await fetch(`http://localhost:5000/search/${searchQuery}`, {
@@ -24,15 +25,16 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
           .then((stringJSON) => JSON.parse(stringJSON))
           .then((parsedJSON) => (searchArr = parsedJSON))
       );
-      //   console.log(searchArr[0].tags);
-      //   console.log(searchQuery);
 
       for (var i = 0; i < searchArr.length; i++) {
-        if (searchArr[i].tags.includes(searchQuery)) {
+        if (
+          searchArr[i].tags.includes(searchQuery) ||
+          searchArr[i].public_id.includes(searchQuery)
+        ) {
           resultsArr.push(searchArr[i]);
         }
       }
-      //   console.log(resultsArr[0].secure_url);
+
       setResultsMap(
         resultsArr.map((element) => (
           <img
@@ -40,6 +42,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
             src={element.secure_url}
             width={250}
             height={250}
+            alt="img"
           ></img>
         ))
       );
