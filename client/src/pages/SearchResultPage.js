@@ -25,26 +25,42 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
           .then((stringJSON) => JSON.parse(stringJSON))
           .then((parsedJSON) => (searchArr = parsedJSON))
       );
-
+      //make everything lower case to allow case insensitive searching
       for (var i = 0; i < searchArr.length; i++) {
         if (
-          searchArr[i].tags.includes(searchQuery) ||
-          searchArr[i].public_id.includes(searchQuery)
+          searchArr[i].tags
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          searchArr[i].public_id
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
         ) {
           resultsArr.push(searchArr[i]);
         }
       }
-
+      //use split to get an array split by the /
+      //only output the public_id after the last /. last index of array meaning length-1
+      //replace all spaces with dashes
       setResultsMap(
-        resultsArr.map((element) => (
-          <img
-            key={element.public_id}
-            src={element.secure_url}
-            width={250}
-            height={250}
-            alt="img"
-          ></img>
-        ))
+        resultsArr.map((element) => {
+          let parts = element.public_id.split("/");
+          let result = parts[parts.length - 1];
+          return (
+            <a
+              key={element.asset_id}
+              href={`/image/${result.replaceAll(" ", "-")}`}
+            >
+              <img
+                width={1920}
+                height={1080}
+                src={element.secure_url}
+                alt="img"
+              ></img>
+            </a>
+          );
+        })
       );
     }
     searchFetch();
@@ -61,7 +77,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
       <div className="galleryContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
-            <h1>{searchQuery} Royalty-free images</h1>
+            <h2>{searchQuery} Royalty-free images</h2>
           </div>
           <div className="gallerySortBar d-flex">
             <DropdownButton className="galleryDropDownButton" title="Sort By">
@@ -73,14 +89,17 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
               <Dropdown.Item>Price Low-High</Dropdown.Item>
               <Dropdown.Item>Price High-Low</Dropdown.Item>
             </DropdownButton>
-            <DropdownButton className="dropDownButton" title="Image Type">
+            <DropdownButton
+              className="galleryDropDownButton"
+              title="Image Type"
+            >
               <Dropdown.Item>All types</Dropdown.Item>
               <Dropdown.Item>Photo</Dropdown.Item>
               <Dropdown.Item>Vector</Dropdown.Item>
             </DropdownButton>
           </div>
         </div>
-        <div className="galleryContainer">{resultsMap}</div>
+        <div className="gallery">{resultsMap}</div>
       </div>
     </div>
   );

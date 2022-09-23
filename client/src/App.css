@@ -80,15 +80,15 @@ body {
   border: none;
 }
 
-.d-flex {
+.dropDownMenu {
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(246, 247, 247);
-  height: 40px;
+  background-color: rgb(244, 244, 244);
+  height: 35px;
 }
 
-.d-flex .btn-primary {
-  background-color: rgb(246, 247, 247);
+.dropDownMenu .btn-primary {
+  background-color: rgb(244, 244, 244);
   border: none;
   padding: 0;
   margin-left: calc(100% / 3.6);
@@ -96,24 +96,83 @@ body {
   color: gray;
   font-weight: 600;
   font-size: 16px;
+  height: 35px;
 }
 
-.d-flex .btn-primary:hover {
+.dropDownMenu .btn-primary:hover {
   background-color: rgb(246, 247, 247);
   color: rgb(94, 94, 94);
 }
 
-.dropDownButton {
+.dropDownMenuButton {
   margin: auto;
   color: red;
   flex: 1;
 }
 
 .carousel {
-  margin-top: 10px;
   margin-bottom: 30px;
 }
 
 .d-block {
   height: 700px;
+}
+
+.galleryContainer {
+}
+
+.galleryHeadingAndSortContainer {
+  height: 130px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.galleryHeading {
+}
+
+.gallerySortBar {
+}
+
+.galleryDropDownButton .btn-primary {
+  background-color: rgb(246, 247, 247);
+  color: gray;
+  border: 1px solid;
+  border-color: rgba(123, 123, 123, 0.412);
+  border-radius: 20px;
+  width: 100px;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.galleryDropDownButton .btn-primary:hover {
+  color: gray;
+  border: 1px solid;
+  border-color: rgba(123, 123, 123, 0.412);
+
+  border-radius: 20px;
+  width: 100px;
+  background-color: rgba(104, 104, 104, 0.18);
+}
+
+/* have 3 images per row, get total width over display and divide by 3, get  */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery a img {
+  display: block;
+  max-width: 100%;
+  max-height: 250px;
+  width: auto;
+  height: auto;
+  padding: 4px;
+}
+
+.gallery a img:hover {
+  background-color: rgba(128, 128, 128, 0.181);
+  opacity: 0.9;
 }

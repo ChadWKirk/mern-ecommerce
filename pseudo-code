@@ -5,6 +5,11 @@ How to manage images:
 - host images on Cloudinary and use their API to fetch them
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
 
+Upload Images:
+
+- Going to allow users to upload images to the website
+- When user is uploading, Force them to categorize it into one or more hardcoded categories (Dogs, Cats, Trucks, etc.). Have a tree of categories, meaning if a pic is categorized as "Truck" it is also categorized under Automotive.
+
 Home Page:
 
 - after banner, have a section explaining what the website is
@@ -15,12 +20,12 @@ Home Page:
 
 Styling:
 
+- make search bar form flex/centered again
 - need to create catalog section styling. Have flex and each flex item have random width between minwidth: 120px and max-width: 245px;. return each gallery item with a for loop or something.
 - need logo done
 
 Catalog section:
 
-- search bar goes to /search/whateverTheySearchFor. The search will pull up any image that has a corresponding tage or has that word in the title
 - when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
 - allow user to rate images
 - allow user to like an image which sends it to their likes section that they can go back to
@@ -29,7 +34,6 @@ Catalog section:
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
-- url will be /images/title-uuid (reference shutterstock)
 - will have like button, ratings button, price, rating, tags, add to cart button and buy now button
 - Will have related images section under that main section detailed above
 - When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
@@ -43,6 +47,8 @@ Sign up:
 - signing up as new user works
 - sometimes sign up confirm box doesn't sign users out
 - sometimes after confirm box, account page is blank
+
+- send authentication email
 
 server:
 
