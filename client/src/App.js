@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 //pages
 import MainPage from "./pages/MainPage";
-import StorePage from "./pages/StorePage";
 import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -10,6 +9,7 @@ import SignUpSuccessPage from "./pages/SignUpSuccessPage";
 import DelSuccessPage from "./pages/DelSuccessPage";
 import CartPage from "./pages/CartPage";
 import SearchResultPage from "./pages/SearchResultPage";
+import MyPicsPage from "./pages/MyPicsPages";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -58,16 +58,16 @@ function App() {
             element={<MainPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
-            path="/Store"
-            element={<StorePage curUser={curUser} loggedIn={loggedIn} />}
-          ></Route>
-          <Route
             path="/Search/:searchQuery"
             element={<SearchResultPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path={`/Account/${curUser}`}
             element={<AccountPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path={`/Account/${curUser}/My-Pics`}
+            element={<MyPicsPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/Cart"

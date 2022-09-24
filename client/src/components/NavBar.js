@@ -14,7 +14,10 @@ const NavBar = ({ curUser, loggedIn }) => {
   if (loggedIn) {
     accButton = (
       <DropdownButton className="accDropDownButton" title={curUser}>
-        <Dropdown.Item>Likes</Dropdown.Item>
+        <Dropdown.Item href={`/Account/${curUser}/Likes`}>Likes</Dropdown.Item>
+        <Dropdown.Item href={`/Account/${curUser}/My-Pics`}>
+          My Pics
+        </Dropdown.Item>
         <Dropdown.Item href={`/Account/${curUser}`}>
           User Settings
         </Dropdown.Item>
@@ -65,7 +68,6 @@ const NavBar = ({ curUser, loggedIn }) => {
       {accButton}
       {soButton}
       {cartButton}
-      {/* <h4>Signed in as: {curUser}</h4> */}
     </div>
   );
 };

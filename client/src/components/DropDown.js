@@ -7,28 +7,52 @@ const DropDown = () => {
   return (
     <div className="d-flex dropDownMenu">
       <DropdownButton className="dropDownMenuButton" title="Animals">
-        <Dropdown.Item className="dropDownMenuItem">Cats</Dropdown.Item>
-        <Dropdown.Item>Dogs</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Cats">
+          Cats
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Dogs">
+          Dogs
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownMenuButton" title="Sports">
-        <Dropdown.Item>Baseball</Dropdown.Item>
-        <Dropdown.Item>Soccer</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Baseball">
+          Baseball
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Soccer">
+          Soccer
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownMenuButton" title="Technology">
-        <Dropdown.Item>Computers</Dropdown.Item>
-        <Dropdown.Item>Phones</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Computers">
+          Computers
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Phones">
+          Phones
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownMenuButton" title="Funny">
-        <Dropdown.Item>Funny Pets</Dropdown.Item>
-        <Dropdown.Item>Memes</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Funny-Pets">
+          Funny Pets
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Memes">
+          Memes
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownMenuButton" title="Outdoors">
-        <Dropdown.Item>Nature</Dropdown.Item>
-        <Dropdown.Item>City</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Nature">
+          Nature
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/City">
+          City
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton className="dropDownMenuButton" title="Automotive">
-        <Dropdown.Item>Cars</Dropdown.Item>
-        <Dropdown.Item>Trucks</Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Cars">
+          Cars
+        </Dropdown.Item>
+        <Dropdown.Item className="dropDownMenuItem" href="/search/Trucks">
+          Trucks
+        </Dropdown.Item>
       </DropdownButton>
     </div>
   );

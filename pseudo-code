@@ -2,13 +2,28 @@ https://github.com/ChadWKirk/mern-ecommerce.git
 
 How to manage images:
 
-- host images on Cloudinary and use their API to fetch them
+- host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
 
 Upload Images:
 
-- Going to allow users to upload images to the website
-- When user is uploading, Force them to categorize it into one or more hardcoded categories (Dogs, Cats, Trucks, etc.). Have a tree of categories, meaning if a pic is categorized as "Truck" it is also categorized under Automotive.
+- Use Cloudinary upload widget to upload
+- Upload to cloudinary then insert them into MongoDB with same POST request so you can add a likes value to the object of each image. And author.
+- to get author on upload, get it from url and pass to express.
+
+My Pics page:
+
+- Have a title like "My Pics"
+- under title, have gallery to show pics. have ability to sort pics just like in a search page
+- have the ability to check off pictures for mass delete
+- have upload button that brings up cloudinary upload widget
+- when clicking on a picture, it pops up in a widget where you can change the title, tags, description, and price. you can also delete from this page. It doesn't change the page it just pops up in front of everything like a widget.
+
+Likes page:
+
+- show liked pictures in a gallery like search page
+- able to sort like search page
+- able to search through liked images with little search bar to the right. automatically updates them without changing url
 
 Home Page:
 
@@ -27,14 +42,13 @@ Styling:
 Catalog section:
 
 - when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
-- allow user to rate images
 - allow user to like an image which sends it to their likes section that they can go back to
 - allow to sort by new, old, price, rating high-low or ratings low-high
 
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
-- will have like button, ratings button, price, rating, tags, add to cart button and buy now button
+- will have like button, price, tags, add to cart button and buy now button
 - Will have related images section under that main section detailed above
 - When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
 

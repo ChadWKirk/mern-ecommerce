@@ -1,12 +1,11 @@
 import React from "react";
 import NavBar from "../components/NavBar";
-import CategorySection from "../components/CategorySection";
-import FilterBar from "../components/FilterBar";
-import CatalogSection from "../components/CatalogSection";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
+import DropDown from "../components/DropDown";
+import CloudinaryUploadWidget from "../components/CloudinaryUploadWidget";
 
-const ShoppingPage = ({ curUser, loggedIn }) => {
+const MyPicsPage = ({ curUser, loggedIn }) => {
   return (
     <div>
       <div className="navContainer">
@@ -14,11 +13,11 @@ const ShoppingPage = ({ curUser, loggedIn }) => {
         <SearchBar />
         <NavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
-      <CategorySection />
-      <FilterBar />
-      <CatalogSection />
+      <DropDown />
+      <h1>My Pics</h1>
+      <CloudinaryUploadWidget />
     </div>
   );
 };
 
-export default ShoppingPage;
+export default MyPicsPage;
