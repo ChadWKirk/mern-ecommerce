@@ -67,7 +67,12 @@ const Carousel2 = () => {
   }, []);
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="carousel">
+    <Carousel
+      pause={false}
+      activeIndex={index}
+      onSelect={handleSelect}
+      className="carousel"
+    >
       <Carousel.Item>
         <img className="d-block w-100" src={slide1} alt="First slide" />
       </Carousel.Item>

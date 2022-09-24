@@ -173,6 +173,5 @@ body {
 }
 
 .gallery a img:hover {
-  background-color: rgba(128, 128, 128, 0.181);
   opacity: 0.9;
 }

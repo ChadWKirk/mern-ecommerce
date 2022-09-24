@@ -15,7 +15,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       </div>
       <DropDown />
       <h1>My Pics</h1>
-      <CloudinaryUploadWidget />
+      <CloudinaryUploadWidget curUser={curUser} />
     </div>
   );
 };

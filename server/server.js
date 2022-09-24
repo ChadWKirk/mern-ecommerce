@@ -239,7 +239,7 @@ app.get("/carouselImages", (req, res) => {
       console.log(error);
     });
 });
-
+//get images when searching
 app.get("/search/:searchQuery", (req, res) => {
   console.log(req.params.searchQuery);
   cloudinary.api
@@ -248,4 +248,14 @@ app.get("/search/:searchQuery", (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+// localtunnel url script lt --local-host 127.0.0.1 --port 5000 --subdomain picpocket
+//upload post
+app.post("/upload", (req, res) => {
+  //make sure it's working
+  console.log("upload");
+  //get the uploaded images
+  newUpload = req.body;
+  //insert them into MongoDB with a likes and uploaded by field added
+  console.log(newUpload);
 });

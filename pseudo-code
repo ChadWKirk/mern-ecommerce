@@ -37,7 +37,7 @@ Home Page:
 Styling:
 
 - make search bar form flex/centered again
-- need to create catalog section styling. Have flex and each flex item have random width between minwidth: 120px and max-width: 245px;. return each gallery item with a for loop or something.
+- gallery styling: have a total width to take up and have 3 images have a combined width of that total. must maintain aspect ratio. min width of each image about 200px.
 - need logo done
 
 Catalog section:

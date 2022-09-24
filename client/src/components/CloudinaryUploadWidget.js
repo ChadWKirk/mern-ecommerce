@@ -1,14 +1,13 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 
-class CloudinaryUploadWidget extends Component {
-  componentDidMount() {
+const CloudinaryUploadWidget = ({ curUser }) => {
+  useEffect(() => {
     var myWidget = window.cloudinary.createUploadWidget(
       {
         cloudName: "dtyg4ctfr",
         uploadPreset: "qpexpq57",
         sources: ["local"],
         folder: "PicPocket",
-        showAdvancedOptions: true,
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -23,15 +22,11 @@ class CloudinaryUploadWidget extends Component {
       },
       false
     );
-  }
-
-  render() {
-    return (
-      <button id="upload_widget" className="cloudinary-button">
-        Upload
-      </button>
-    );
-  }
-}
-
+  });
+  return (
+    <button id="upload_widget" className="cloudinary-button">
+      Upload
+    </button>
+  );
+};
 export default CloudinaryUploadWidget;
