@@ -10,6 +10,7 @@ Upload Images:
 - Use Cloudinary upload widget to upload
 - Upload to cloudinary then insert them into MongoDB with same POST request so you can add a likes value to the object of each image. And author.
 - to get author on upload, get it from url and pass to express.
+- to inform backend of upload via widget, use notification url from widget (see docs in bookmarks for notification url)
 
 My Pics page:
 
