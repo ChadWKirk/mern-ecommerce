@@ -245,12 +245,12 @@ body {
 }
 
 .addUploadIcon:hover {
-  color: rgb(75, 75, 147);
+  color: rgb(67, 67, 174);
 }
 
 .uploadPageContainer {
   min-height: 550px;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .uploadFormListContainer {

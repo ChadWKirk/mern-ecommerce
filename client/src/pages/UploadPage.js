@@ -11,6 +11,10 @@ import {
 } from "react-icons/io";
 
 const UploadPage = ({ curUser, loggedIn }) => {
+  var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
+  var file;
+  var newPic = { likes: 0, imageType: "", uploadedBy: curUser };
+
   const uploadFormListArray = [
     <div key={9}>
       <a className="addUploadIcon">
@@ -20,6 +24,10 @@ const UploadPage = ({ curUser, loggedIn }) => {
   ];
 
   const [uploadFormList, setUploadFormList] = useState(uploadFormListArray);
+
+  function onChangePic(e) {
+    file = e.target.files[0];
+  }
 
   let uploadForm = (
     <div key={Math.random(100)}>
@@ -33,7 +41,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
           </div>
           <div className="uploadFormInput">
             {/* only take image files and only certain types of image files */}
-            <input type="file"></input>
+            <input type="file" onChange={onChangePic}></input>
           </div>
           <div className="uploadFormDetailsContainer">
             <div className="uploadFormDetailsSubContainer">
@@ -79,8 +87,32 @@ const UploadPage = ({ curUser, loggedIn }) => {
     </div>
   );
 
-  function onSubmit() {
-    console.log(input.value);
+  async function onSubmit(e) {
+    e.preventDefault();
+    console.log(newPic);
+
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", "picpocket");
+
+    await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData,
+    })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    await fetch("http://localhost:5000/upload", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(newPic),
+    });
   }
 
   function addUpload() {

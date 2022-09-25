@@ -252,10 +252,18 @@ app.get("/search/:searchQuery", (req, res) => {
 // localtunnel url script lt --local-host 127.0.0.1 --port 5000 --subdomain picpocket
 //upload post
 app.post("/upload", (req, res) => {
+  //make variable to combine stuff from client and stuff from cloudinary (size etc.)
+  let newlyUploaded;
   //make sure it's working
   console.log("upload");
+  // console.log(req.body);
   //get the uploaded images
-  newUpload = req.body;
+  // newUpload = req.body.pic;
+  // console.log(newUpload);
+  //upload to cloudinary
+  cloudinary.uploader.upload("Cat03.jpg").then((result) => {
+    console.log(result);
+  });
   //insert them into MongoDB with a likes and uploaded by field added
-  console.log(newUpload);
+  // console.log(newlyUploaded);
 });
