@@ -7,10 +7,9 @@ How to manage images:
 
 Upload Images:
 
-- Use Cloudinary upload widget to upload
-- Upload to cloudinary then insert them into MongoDB with same POST request so you can add a likes value to the object of each image. And author.
+- Upload to cloudinary then insert them into MongoDB with same POST request so you can add a likes value to the object of each image. And author. And image type either photo or illustration
 - to get author on upload, get it from url and pass to express.
-- to inform backend of upload via widget, use notification url from widget (see docs in bookmarks for notification url)
+- when submitting upload, replace that individual upload form with a green check mark icon
 
 My Pics page:
 
@@ -25,6 +24,8 @@ Likes page:
 - show liked pictures in a gallery like search page
 - able to sort like search page
 - able to search through liked images with little search bar to the right. automatically updates them without changing url
+- able to check off multiple ones and click remove from likes with are you sure box
+- able to click three dots icon on individual images and hit remove from likes with are you sure box
 
 Home Page:
 
@@ -44,12 +45,13 @@ Catalog section:
 
 - when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
 - allow user to like an image which sends it to their likes section that they can go back to
-- allow to sort by new, old, price, rating high-low or ratings low-high
+- allow to sort by new, old, price, popular (amount of likes from most to least)
+- allow to filter by either photo or illustration
 
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
-- will have like button, price, tags, add to cart button and buy now button
+- will have title, like button, description, price, tags, add to cart button, buy now button and free download button
 - Will have related images section under that main section detailed above
 - When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
 

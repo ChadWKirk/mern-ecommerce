@@ -3,7 +3,6 @@ import NavBar from "../components/NavBar";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
 import DropDown from "../components/DropDown";
-import CloudinaryUploadWidget from "../components/CloudinaryUploadWidget";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
   return (
@@ -15,7 +14,6 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       </div>
       <DropDown />
       <h1>My Pics</h1>
-      <CloudinaryUploadWidget curUser={curUser} />
     </div>
   );
 };

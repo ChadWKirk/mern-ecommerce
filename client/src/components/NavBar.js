@@ -11,6 +11,8 @@ const NavBar = ({ curUser, loggedIn }) => {
   let siButton;
   let suButton;
   let cartButton;
+  let uploadButton;
+
   if (loggedIn) {
     accButton = (
       <DropdownButton className="accDropDownButton" title={curUser}>
@@ -22,6 +24,11 @@ const NavBar = ({ curUser, loggedIn }) => {
           User Settings
         </Dropdown.Item>
       </DropdownButton>
+    );
+    uploadButton = (
+      <a href={`/${curUser}/upload`}>
+        <Button>Upload</Button>
+      </a>
     );
     soButton = (
       <a href="/">
@@ -66,6 +73,7 @@ const NavBar = ({ curUser, loggedIn }) => {
       {siButton}
       {suButton}
       {accButton}
+      {uploadButton}
       {soButton}
       {cartButton}
     </div>

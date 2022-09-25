@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+//components
+import Footer from "./components/Footer";
 //pages
 import MainPage from "./pages/MainPage";
 import AccountPage from "./pages/AccountPage";
@@ -10,6 +12,8 @@ import DelSuccessPage from "./pages/DelSuccessPage";
 import CartPage from "./pages/CartPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import MyPicsPage from "./pages/MyPicsPages";
+import UploadPage from "./pages/UploadPage";
+import ImageViewPage from "./pages/ImageViewPage";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -62,12 +66,20 @@ function App() {
             element={<SearchResultPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
+            path="/image/testing"
+            element={<ImageViewPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
             path={`/Account/${curUser}`}
             element={<AccountPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path={`/Account/${curUser}/My-Pics`}
             element={<MyPicsPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path={`/${curUser}/upload`}
+            element={<UploadPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/Cart"
@@ -90,6 +102,7 @@ function App() {
             element={<DelSuccessPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
         </Routes>
+        <Footer />
       </div>
     );
   }
