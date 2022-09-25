@@ -238,3 +238,44 @@ body {
   display: flex;
   flex-direction: row;
 }
+
+.addUploadIcon {
+  cursor: pointer;
+  color: gray;
+}
+
+.addUploadIcon:hover {
+  color: rgb(75, 75, 147);
+}
+
+.uploadPageContainer {
+  min-height: 550px;
+  background-color: red;
+}
+
+.uploadFormListContainer {
+  min-height: 75%;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.uploadFormContainer {
+  width: 475px;
+  background-color: tan;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.removeUploadIcon {
+  cursor: pointer;
+  color: red;
+}
+
+.removeUploadIcon:hover {
+  color: rgb(182, 32, 32);
+}
