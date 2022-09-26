@@ -8,6 +8,8 @@ How to manage images:
 Like Button:
 
 - need to get like button to work. will have to find index of map array and re-render only that one with the like button changed. or just re-render the like button of that index.
+- to find index of clicked item, give each item an onClick function and pass it event and key. Now that onClick function will have the key in it in (). Make the key in each item the length of the array -1 to make it the index.
+- now you can say resultsMap[index] = html but with different like icon
 
 Search:
 
