@@ -15,11 +15,14 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
   const { searchQuery } = useParams();
   var searchArr = [];
   var resultsArr = [];
-  const [likeButton, setLikeButton] = useState(farHeart);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    console.log(liked);
+  }, [liked]);
 
   function likeFunction() {
-    console.log("like");
-    setLikeButton(faHeart);
+    setLiked((liked) => !liked);
   }
   const [resultsMap, setResultsMap] = useState();
 
@@ -67,8 +70,13 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
               <div className="image-overlay-container">
                 <div className="image-overlay-contents-like">
                   <FontAwesomeIcon
-                    onClick={likeFunction()}
-                    icon={likeButton}
+                    onClick={likeFunction}
+                    icon={farHeart}
+                    className="likeButton"
+                  />
+                  <FontAwesomeIcon
+                    style={{ opacity: liked ? 0 : 1 }}
+                    icon={faHeart}
                     className="likeButton"
                   />
                 </div>
@@ -79,7 +87,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
       );
     }
     searchFetch();
-  }, []);
+  }, [liked]);
 
   return (
     <div>

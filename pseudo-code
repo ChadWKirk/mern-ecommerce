@@ -5,6 +5,10 @@ How to manage images:
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
 
+Like Button:
+
+- need to get like button to work. will have to find index of map array and re-render only that one with the like button changed. or just re-render the like button of that index.
+
 Search:
 
 - make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa
