@@ -8,10 +8,9 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
-  const { searchQuery } = useParams();
-  var searchArr = [];
-  var resultsArr = [];
-  const [resultsMap, setResultsMap] = useState();
+  var myPicsArr;
+  var myPicsMap = [];
+  const [picsMapResults, setMapResults] = useState();
 
   useEffect(() => {
     async function myPicsFetch() {
@@ -19,7 +18,29 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
-        response.json().then((resJSON) => console.log(resJSON))
+        response.json().then((resJSON) => (myPicsArr = resJSON))
+      );
+
+      console.log(myPicsArr);
+
+      setMapResults(
+        myPicsArr.map((element) => {
+          let parts = element.public_id.split("/");
+          let result = parts[parts.length - 1];
+          return (
+            <a
+              key={element.asset_id}
+              href={`/image/${result.replaceAll(" ", "-")}`}
+            >
+              <img
+                width={1920}
+                height={1080}
+                src={element.secure_url}
+                alt="img"
+              ></img>
+            </a>
+          );
+        })
       );
     }
     myPicsFetch();
@@ -58,7 +79,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             </DropdownButton>
           </div>
         </div>
-        <div className="gallery">{resultsMap}</div>
+        <div className="gallery">{picsMapResults}</div>
       </div>
     </div>
   );

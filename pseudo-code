@@ -7,9 +7,10 @@ How to manage images:
 
 Upload Images:
 
-- Upload to cloudinary then insert them into MongoDB with same POST request so you can add a likes value to the object of each image. And author. And image type either photo or illustration
-- to get author on upload, get it from url and pass to express.
-- when submitting upload, replace that individual upload form with a green check mark icon
+- when submitting upload, replace that individual upload form with a green check mark icon, indicating upload complete
+- if upload failed, idk what to do GUI wise yet.
+- make it so can't upload without title given
+- deal with image view page going to proper URL and using the given title and description etc.
 
 My Pics page:
 
