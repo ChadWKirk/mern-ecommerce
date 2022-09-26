@@ -17,12 +17,16 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
   var resultsArr = [];
   const [liked, setLiked] = useState(false);
 
-  useEffect(() => {
-    console.log(liked);
-  }, [liked]);
+  // useEffect(() => {
+  //   console.log(resultsMap);
+  // }, [liked]);
 
-  function likeFunction() {
+  function likeFunction(e, key, url) {
     setLiked((liked) => !liked);
+    // console.log(key);
+    console.log(url);
+    // resultsMap[key] = 90;
+    console.log(resultsMap[key]);
   }
   const [resultsMap, setResultsMap] = useState();
 
@@ -53,15 +57,17 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
           resultsArr.push(searchArr[i]);
         }
       }
+      var count = -1;
       //use split to get an array split by the /
       //only output the public_id after the last /. last index of array meaning length-1
       //replace all spaces with dashes
       setResultsMap(
-        resultsArr.map((element) => {
+        resultsArr.map((element, key) => {
           let parts = element.public_id.split("/");
           let result = parts[parts.length - 1];
+          count = count + 1;
           return (
-            <a key={element.asset_id}>
+            <a key={count}>
               <img
                 src={element.secure_url}
                 alt="img"
@@ -70,13 +76,9 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
               <div className="image-overlay-container">
                 <div className="image-overlay-contents-like">
                   <FontAwesomeIcon
-                    onClick={likeFunction}
-                    icon={farHeart}
-                    className="likeButton"
-                  />
-                  <FontAwesomeIcon
-                    style={{ opacity: liked ? 0 : 1 }}
-                    icon={faHeart}
+                    onClick={(e) => likeFunction(e, key)}
+                    key={count + 1}
+                    icon={liked ? faHeart : farHeart}
                     className="likeButton"
                   />
                 </div>
