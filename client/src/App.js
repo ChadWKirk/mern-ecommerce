@@ -14,6 +14,7 @@ import SearchResultPage from "./pages/SearchResultPage";
 import MyPicsPage from "./pages/MyPicsPages";
 import UploadPage from "./pages/UploadPage";
 import ImageViewPage from "./pages/ImageViewPage";
+import LikesPage from "./pages/LikesPage";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -76,6 +77,10 @@ function App() {
           <Route
             path={`/Account/${curUser}/My-Pics`}
             element={<MyPicsPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path={`/Account/${curUser}/Likes`}
+            element={<LikesPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path={`/${curUser}/upload`}

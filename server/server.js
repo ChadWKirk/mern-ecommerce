@@ -252,18 +252,39 @@ app.get("/search/:searchQuery", (req, res) => {
 // localtunnel url script lt --local-host 127.0.0.1 --port 5000 --subdomain picpocket
 //upload post
 app.post("/upload", (req, res) => {
-  //make variable to combine stuff from client and stuff from cloudinary (size etc.)
-  let newlyUploaded;
+  let db_connect = dbo.getDb();
   //make sure it's working
   console.log("upload");
-  // console.log(req.body);
-  //get the uploaded images
-  // newUpload = req.body.pic;
-  // console.log(newUpload);
-  //upload to cloudinary
-  cloudinary.uploader.upload("Cat03.jpg").then((result) => {
-    console.log(result);
-  });
+  console.log(req.body);
   //insert them into MongoDB with a likes and uploaded by field added
-  // console.log(newlyUploaded);
+  db_connect.collection("mern-ecommerce-images").insertOne(req.body);
+});
+//My Likes GET
+app.get("/:username/likes", (req, res) => {
+  console.log("likes get");
+
+  // let db_connect = dbo.getDb();
+
+  // db_connect
+  //   .collection("mern-ecommerce-users")
+  //   .find({})
+});
+
+//My Pics GET
+app.get("/:username/my-pics", (req, res) => {
+  console.log("my pics get");
+  console.log(req.params.username);
+
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find({ uploadedBy: req.params.username })
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+      }
+    });
 });

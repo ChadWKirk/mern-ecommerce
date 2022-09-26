@@ -7,22 +7,63 @@ import { useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-const MyPicsPage = ({ curUser, loggedIn }) => {
+const LikesPage = ({ curUser, loggedIn }) => {
   const { searchQuery } = useParams();
   var searchArr = [];
   var resultsArr = [];
   const [resultsMap, setResultsMap] = useState();
 
   useEffect(() => {
-    async function myPicsFetch() {
-      await fetch(`http://localhost:5000/${curUser}/my-pics`, {
+    async function searchFetch() {
+      await fetch(`http://localhost:5000/${curUser}/likes`, {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
-        response.json().then((resJSON) => console.log(resJSON))
+        response
+          .json()
+          .then((resJSON) => JSON.stringify(resJSON))
+          .then((stringJSON) => JSON.parse(stringJSON))
+          .then((parsedJSON) => (searchArr = parsedJSON))
+      );
+      //make everything lower case to allow case insensitive searching
+      for (var i = 0; i < searchArr.length; i++) {
+        if (
+          searchArr[i].tags
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          searchArr[i].public_id
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        ) {
+          resultsArr.push(searchArr[i]);
+        }
+      }
+      //use split to get an array split by the /
+      //only output the public_id after the last /. last index of array meaning length-1
+      //replace all spaces with dashes
+      setResultsMap(
+        resultsArr.map((element) => {
+          let parts = element.public_id.split("/");
+          let result = parts[parts.length - 1];
+          return (
+            <a
+              key={element.asset_id}
+              href={`/image/${result.replaceAll(" ", "-")}`}
+            >
+              <img
+                width={1920}
+                height={1080}
+                src={element.secure_url}
+                alt="img"
+              ></img>
+            </a>
+          );
+        })
       );
     }
-    myPicsFetch();
+    searchFetch();
   }, []);
 
   return (
@@ -36,7 +77,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       <div className="galleryContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
-            <h2>My Pics</h2>
+            <h2>{searchQuery} Royalty-free images</h2>
           </div>
           <div className="gallerySortBar d-flex">
             <DropdownButton className="galleryDropDownButton" title="Sort By">
@@ -64,4 +105,4 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   );
 };
 
-export default MyPicsPage;
+export default LikesPage;

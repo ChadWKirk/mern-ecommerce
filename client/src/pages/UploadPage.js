@@ -27,6 +27,22 @@ const UploadPage = ({ curUser, loggedIn }) => {
 
   function onChangePic(e) {
     file = e.target.files[0];
+    // console.log(file);
+  }
+  var newTitle;
+  function onChangeTitle(e) {
+    e.preventDefault();
+    newTitle = e.target.value;
+  }
+  var newDescription;
+  function onChangeDescription(e) {
+    e.preventDefault();
+    newDescription = e.target.value;
+  }
+  var newPrice;
+  function onChangePrice(e) {
+    e.preventDefault();
+    newPrice = e.target.value;
   }
 
   let uploadForm = (
@@ -48,7 +64,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
               {/* don't allow anything but letters and numbers. no special characters */}
               <div>Title</div>
               <div>
-                <input></input>
+                <input onChange={onChangeTitle}></input>
               </div>
             </div>
             <div className="uploadFormDetailsSubContainer">
@@ -62,14 +78,14 @@ const UploadPage = ({ curUser, loggedIn }) => {
               {/* have max length of 500 characters */}
               <div>Description</div>
               <div>
-                <input></input>
+                <input onChange={onChangeDescription}></input>
               </div>
             </div>
             <div className="uploadFormDetailsSubContainer">
               {/* when free download box is checked, clear price input and grey it out and set price to "Free Download" */}
               <div>Price</div>
               <div>
-                <input></input>
+                <input onChange={onChangePrice}></input>
                 <input type="checkbox"></input>
                 <div>free download</div>
               </div>
@@ -89,29 +105,39 @@ const UploadPage = ({ curUser, loggedIn }) => {
 
   async function onSubmit(e) {
     e.preventDefault();
-    console.log(newPic);
 
     var formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
     formData.append("folder", "picpocket");
 
+    var uploadToMongoBody;
+
     await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
       method: "POST",
-      mode: "no-cors",
       body: formData,
     })
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) =>
+        result
+          .json()
+          .then(
+            (resJSON) => (
+              (uploadToMongoBody = resJSON), console.log(uploadToMongoBody)
+            )
+          )
+      )
       .catch((err) => {
         console.log(err);
       });
-
+    uploadToMongoBody.likes = 0;
+    uploadToMongoBody.uploadedBy = curUser;
+    uploadToMongoBody.title = newTitle;
+    uploadToMongoBody.description = newDescription;
+    uploadToMongoBody.price = newPrice;
     await fetch("http://localhost:5000/upload", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(newPic),
+      body: JSON.stringify(uploadToMongoBody),
     });
   }
 
