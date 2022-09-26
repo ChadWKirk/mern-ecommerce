@@ -5,10 +5,15 @@ How to manage images:
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
 
+Search:
+
+- make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa
+
 Upload Images:
 
-- when submitting upload, replace that individual upload form with a green check mark icon, indicating upload complete
-- if upload failed, idk what to do GUI wise yet.
+- on upload, have loading indicator in form
+- on upload success, replace upload form with green checkmark icon. remove that form from form array. remove that file from file array.
+- on upload fail, replace loading indicator with red icon indicating failure
 - make it so can't upload without title given
 - deal with image view page going to proper URL and using the given title and description etc.
 
@@ -39,7 +44,6 @@ Home Page:
 Styling:
 
 - make search bar form flex/centered again
-- gallery styling: have a total width to take up and have 3 images have a combined width of that total. must maintain aspect ratio. min width of each image about 200px.
 - need logo done
 
 Catalog section:

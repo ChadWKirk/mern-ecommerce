@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 //components
 import Footer from "./components/Footer";
+
 //pages
 import MainPage from "./pages/MainPage";
 import AccountPage from "./pages/AccountPage";

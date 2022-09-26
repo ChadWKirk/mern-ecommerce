@@ -6,6 +6,9 @@ import DropDown from "../components/DropDown";
 import { useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+//font awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan as farTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
   var myPicsArr;
@@ -33,11 +36,18 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               href={`/image/${result.replaceAll(" ", "-")}`}
             >
               <img
-                width={1920}
-                height={1080}
                 src={element.secure_url}
                 alt="img"
+                className="gallery-img"
               ></img>
+              <div className="image-overlay-container">
+                <div className="image-overlay-contents-delete">
+                  <FontAwesomeIcon
+                    icon={farTrashCan}
+                    className="deleteButton"
+                  />
+                </div>
+              </div>
             </a>
           );
         })

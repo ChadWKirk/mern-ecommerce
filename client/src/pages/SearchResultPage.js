@@ -6,11 +6,21 @@ import DropDown from "../components/DropDown";
 import { useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+//font awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const SearchResultPage = ({ curUser, loggedIn }) => {
   const { searchQuery } = useParams();
   var searchArr = [];
   var resultsArr = [];
+  const [likeButton, setLikeButton] = useState(farHeart);
+
+  function likeFunction() {
+    console.log("like");
+    setLikeButton(faHeart);
+  }
   const [resultsMap, setResultsMap] = useState();
 
   useEffect(() => {
@@ -48,16 +58,21 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
           let parts = element.public_id.split("/");
           let result = parts[parts.length - 1];
           return (
-            <a
-              key={element.asset_id}
-              href={`/image/${result.replaceAll(" ", "-")}`}
-            >
+            <a key={element.asset_id}>
               <img
-                width={1920}
-                height={1080}
                 src={element.secure_url}
                 alt="img"
+                className="gallery-img"
               ></img>
+              <div className="image-overlay-container">
+                <div className="image-overlay-contents-like">
+                  <FontAwesomeIcon
+                    onClick={likeFunction()}
+                    icon={likeButton}
+                    className="likeButton"
+                  />
+                </div>
+              </div>
             </a>
           );
         })
