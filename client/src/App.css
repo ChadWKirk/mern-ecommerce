@@ -355,26 +355,43 @@ body {
 .default {
   color: red;
   transition: 0.14s ease;
+  pointer-events: bounding-box;
+}
+
+.delete {
+  color: red;
+  transition: 0.14s ease;
+  pointer-events: bounding-box;
 }
 
 .liked {
   color: red;
   position: relative;
-  left: -50%;
+  left: -35%;
   top: 50%;
   transition: 0.1s ease;
+  pointer-events: bounding-box;
 }
 
 .invis {
   opacity: 0;
   /* z-index: -999; */
   /* position: absolute; */
-  left: -50%;
+  left: -35%;
   top: 50%;
+  pointer-events: bounding-box;
 }
 
 .emptyButton {
   z-index: -999;
   border: none;
   background-color: rgb(246, 247, 247);
+}
+
+.gone {
+  display: none;
+}
+
+.divCont {
+  background-color: blue;
 }
