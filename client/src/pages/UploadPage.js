@@ -4,55 +4,68 @@ import NavBar from "../components/NavBar";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
 import DropDown from "../components/DropDown";
-import {
-  IoMdAddCircle,
-  IoIosRemoveCircle,
-  IoMdRemoveCircleOutline,
-} from "react-icons/io";
+//font awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus as farSquarePlus } from "@fortawesome/free-regular-svg-icons";
+import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 
 const UploadPage = ({ curUser, loggedIn }) => {
+  //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
   var file;
-  var newPic = { likes: 0, imageType: "", uploadedBy: curUser };
 
+  //array of upload forms with Add button at the end to add or remove upload forms to
   const uploadFormListArray = [
-    <div key={9}>
+    <div onClick={addUpload} key={9} className="addUploadIconContainer">
       <a className="addUploadIcon">
-        <IoMdAddCircle size={76} onClick={addUpload} />
+        <FontAwesomeIcon font-size={76} icon={farSquarePlus} />
       </a>
     </div>,
   ];
 
+  //this is what gets rendered in the HTML
   const [uploadFormList, setUploadFormList] = useState(uploadFormListArray);
 
+  //when pic is chosen
   function onChangePic(e) {
     file = e.target.files[0];
-    // console.log(file);
   }
+
+  //when title input is changed
   var newTitle;
   function onChangeTitle(e) {
     e.preventDefault();
     newTitle = e.target.value;
   }
+
+  //when description input is changed
   var newDescription;
   function onChangeDescription(e) {
     e.preventDefault();
     newDescription = e.target.value;
   }
+
+  //when price input is changed
   var newPrice;
   function onChangePrice(e) {
     e.preventDefault();
     newPrice = e.target.value;
   }
 
+  //upload form template
   let uploadForm = (
-    <div key={Math.random(100)}>
+    <div key={Math.random(100)} className="uploadForm">
       <form onSubmit={onSubmit}>
         <div className="uploadFormContainer">
-          <div className="uploadFormMinusButton">
+          <div className="uploadFormMinusButton ">
             {/* when clicking remove button, clear all data from the form and conditionally un-render the form (revert back to original state) */}
             <a className="removeUploadIcon">
-              <IoIosRemoveCircle size={76} onClick={removeUpload} />
+              <FontAwesomeIcon
+                onClick={(e) => removeUpload(e)}
+                key={uploadFormListArray.length}
+                font-size={76}
+                icon={faCircleMinus}
+              />
             </a>
           </div>
           <div className="uploadFormInput">
@@ -103,9 +116,11 @@ const UploadPage = ({ curUser, loggedIn }) => {
     </div>
   );
 
+  //when form is submitted
   async function onSubmit(e) {
     e.preventDefault();
 
+    //to send in fetch
     var formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
@@ -113,6 +128,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
 
     var uploadToMongoBody;
 
+    //send post request to cloudinary api upload endpoint url
     await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
       method: "POST",
       body: formData,
@@ -129,11 +145,15 @@ const UploadPage = ({ curUser, loggedIn }) => {
       .catch((err) => {
         console.log(err);
       });
+
+    //add fields to fetch response to get ready to send to MongoDB
     uploadToMongoBody.likes = 0;
     uploadToMongoBody.uploadedBy = curUser;
     uploadToMongoBody.title = newTitle;
     uploadToMongoBody.description = newDescription;
     uploadToMongoBody.price = newPrice;
+
+    //send to mongoDB
     await fetch("http://localhost:5000/upload", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -141,24 +161,25 @@ const UploadPage = ({ curUser, loggedIn }) => {
     });
   }
 
+  //when you click the plus icon
   function addUpload() {
-    console.log("add");
-    console.log(uploadFormListArray);
     uploadFormListArray.unshift(uploadForm);
     setUploadFormList([...uploadFormListArray]);
-    console.log(uploadFormListArray);
   }
 
-  function removeUpload() {
-    console.log("remove");
-    //use splice and index of to find index of one to remove
-    setUploadFormList(
-      <div>
-        <a className="addUploadIcon">
-          <IoMdAddCircle size={76} onClick={addUpload} />
-        </a>
-      </div>
-    );
+  //when you click the minus icon
+  function removeUpload(e) {
+    console.log(uploadFormListArray);
+    console.log(e);
+
+    // get index of item clicked by setting key to index and passing it into onclick event
+    // setUploadFormList(
+    //   <div>
+    //     <a className="addUploadIcon">
+    //       {/* <IoMdAddCircle size={76} onClick={addUpload} /> */}
+    //     </a>
+    //   </div>
+    // );
   }
 
   return (
@@ -171,9 +192,6 @@ const UploadPage = ({ curUser, loggedIn }) => {
       <DropDown />
       <div className="uploadPageContainer">
         <div className="uploadPageTitle">Upload</div>
-        {/* when clicking plus button, conditionally render upload form and make new one to the right */}
-
-        {/* when submitting form, get curUser value and send it as uploadedBy property of image */}
         <div className="uploadFormListContainer">{uploadFormList}</div>
       </div>
     </div>

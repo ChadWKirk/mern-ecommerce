@@ -311,18 +311,40 @@ body {
   flex-direction: row;
 }
 
+.addUploadIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 475px;
+  height: 430px;
+  border: 2px solid black;
+  border-radius: 20px;
+  pointer-events: bounding-box;
+}
+
+.addUploadIconContainer:hover {
+  background-color: lightgray;
+  transition: ease 0.1s;
+  cursor: pointer;
+}
+
+.addUploadIconContainer:hover .addUploadIcon {
+  color: rgb(67, 67, 174);
+  transition: ease 0.1s;
+}
+
 .addUploadIcon {
   cursor: pointer;
   color: gray;
-}
-
-.addUploadIcon:hover {
-  color: rgb(67, 67, 174);
+  transition: ease 0.12s;
 }
 
 .uploadPageContainer {
   min-height: 550px;
-  /* background-color: red; */
+}
+
+.uploadForm {
+  pointer-events: bounding-box;
 }
 
 .uploadFormListContainer {
@@ -346,6 +368,7 @@ body {
 .removeUploadIcon {
   cursor: pointer;
   color: red;
+  pointer-events: none;
 }
 
 .removeUploadIcon:hover {
