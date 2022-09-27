@@ -14,14 +14,17 @@ const LikeTestPage = () => {
     var likeCounter = 0;
 
     function changeLikeStatus(e) {
-      if (e.target.attributes[0].value == 0) {
+      if (e.target.innerHTML == "like") {
         setLikeStatus("unlike");
-        e.target.attributes[0].value = 1;
+        e.target.innerHTML = "unlike";
+        e.target.attributes[0].value = "liked";
+        console.log("test");
       } else {
         setLikeStatus("like");
-        e.target.attributes[0].value = 0;
+        e.target.innerHTML = "like";
+        e.target.attributes[0].value = "default";
       }
-      console.log(e.target.attributes[0].value);
+      console.log(e);
     }
     setMapArr(
       startArr.map((element) => {
@@ -32,11 +35,11 @@ const LikeTestPage = () => {
         return (
           <div key={count}>
             <button
+              className="default"
               likes={likeCounter}
               onClick={(e) => changeLikeStatus(e)}
-              style={{ color: likeStatus == "like" ? "red" : "blue" }}
             >
-              {likeStatus}
+              like
             </button>
           </div>
         );

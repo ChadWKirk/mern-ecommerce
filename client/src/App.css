@@ -351,3 +351,11 @@ body {
 .removeUploadIcon:hover {
   color: rgb(182, 32, 32);
 }
+
+.default {
+  color: red;
+}
+
+.liked {
+  color: blue;
+}
