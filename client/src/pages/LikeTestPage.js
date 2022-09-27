@@ -1,52 +1,58 @@
 import { React, useEffect, useState } from "react";
+//font awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const LikeTestPage = () => {
   //give an array to map over
   const startArr = [1, 2];
   //map results array
   const [mapArr, setMapArr] = useState();
-  //content of button
-  const [likeStatus, setLikeStatus] = useState("like");
   useEffect(() => {
     //set up counter to represent index of item in map arr
     var count = -1;
     //set up an attribute to see if each button is acting individually
-    var likeCounter = 0;
+    var liked;
 
-    function changeLikeStatus(e) {
-      if (e.target.innerHTML == "like") {
-        setLikeStatus("unlike");
-        e.target.innerHTML = "unlike";
-        e.target.attributes[0].value = "liked";
-        console.log("test");
+    function changeLikeStatus(e, liked) {
+      if (
+        e.target.farthestViewportElement.attributes[4].value ==
+        "svg-inline--fa fa-heart liked invis"
+      ) {
+        e.target.farthestViewportElement.attributes[4].value =
+          "svg-inline--fa fa-heart liked";
       } else {
-        setLikeStatus("like");
-        e.target.innerHTML = "like";
-        e.target.attributes[0].value = "default";
+        e.target.farthestViewportElement.attributes[4].value =
+          "svg-inline--fa fa-heart liked invis";
       }
-      console.log(e);
+      console.log("clicked");
     }
     setMapArr(
       startArr.map((element) => {
         //increment each of these per element of map array
         count = count + 1;
-        likeCounter = likeCounter + 1;
 
         return (
           <div key={count}>
-            <button
-              className="default"
-              likes={likeCounter}
-              onClick={(e) => changeLikeStatus(e)}
-            >
-              like
+            <button className="emptyButton">
+              <FontAwesomeIcon
+                liked="false"
+                className="default"
+                icon={farHeart}
+              />
+              <FontAwesomeIcon
+                liked="true"
+                className="liked invis"
+                onClick={(e, liked) => changeLikeStatus(e, liked)}
+                icon={faHeart}
+              />
             </button>
           </div>
         );
       })
     );
-  }, [likeStatus]); //re-render every time likeStatus changes.
-  //doesn't work until both buttons are changed for some reason
+  }, []);
 
   return <div>{mapArr}</div>;
 };

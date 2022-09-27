@@ -354,8 +354,27 @@ body {
 
 .default {
   color: red;
+  transition: 0.14s ease;
 }
 
 .liked {
-  color: blue;
+  color: red;
+  position: relative;
+  left: -50%;
+  top: 50%;
+  transition: 0.1s ease;
+}
+
+.invis {
+  opacity: 0;
+  /* z-index: -999; */
+  /* position: absolute; */
+  left: -50%;
+  top: 50%;
+}
+
+.emptyButton {
+  z-index: -999;
+  border: none;
+  background-color: rgb(246, 247, 247);
 }
