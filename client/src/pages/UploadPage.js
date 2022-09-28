@@ -13,7 +13,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
   //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
   var file;
-
+  const [count, setCount] = useState(-1);
   //array of upload forms with Add button at the end to add or remove upload forms to
   const uploadFormListArray = [
     <div onClick={addUpload} key={9} className="addUploadIconContainer">
@@ -54,7 +54,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
 
   //upload form template
   let uploadForm = (
-    <div key={Math.random(100)} className="uploadForm">
+    <div key={Math.random(100)} formcount={count} className="uploadForm">
       <form onSubmit={onSubmit}>
         <div className="uploadFormContainer">
           <div className="uploadFormMinusButton ">
@@ -163,23 +163,19 @@ const UploadPage = ({ curUser, loggedIn }) => {
 
   //when you click the plus icon
   function addUpload() {
-    uploadFormListArray.unshift(uploadForm);
-    setUploadFormList([...uploadFormListArray]);
+    // uploadFormListArray.unshift(uploadForm);
+
+    // setUploadFormList([...uploadFormListArray]);
+    setCount(count, count + 1);
+    console.log(uploadFormListArray);
+    console.log(count);
   }
 
   //when you click the minus icon
   function removeUpload(e) {
     console.log(uploadFormListArray);
-    console.log(e);
-
-    // get index of item clicked by setting key to index and passing it into onclick event
-    // setUploadFormList(
-    //   <div>
-    //     <a className="addUploadIcon">
-    //       {/* <IoMdAddCircle size={76} onClick={addUpload} /> */}
-    //     </a>
-    //   </div>
-    // );
+    delete uploadFormListArray[2]; //need to get index from click
+    setUploadFormList([...uploadFormListArray]);
   }
 
   return (

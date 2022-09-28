@@ -368,7 +368,6 @@ body {
 .removeUploadIcon {
   cursor: pointer;
   color: red;
-  pointer-events: none;
 }
 
 .removeUploadIcon:hover {
