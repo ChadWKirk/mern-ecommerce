@@ -1,5 +1,13 @@
 https://github.com/ChadWKirk/mern-ecommerce.git
 
+Concepts to brush up on:
+
+React props (how they are passed and what equals what)
+React state (when it visibly updates, how to increment state using previous state)
+CSS (flexbox, position, display)
+JSON parsing (JSON.parse(), JSON.stringify(), response.json())
+How to handle individual components in an array (ToDo tutorial)
+
 How to manage images:
 
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.

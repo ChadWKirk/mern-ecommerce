@@ -374,6 +374,10 @@ body {
   color: rgb(182, 32, 32);
 }
 
+.removeUploadIconSVG {
+  pointer-events: none;
+}
+
 .default {
   color: red;
   transition: 0.14s ease;

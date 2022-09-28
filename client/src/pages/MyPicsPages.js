@@ -28,12 +28,12 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
       setMapResults(
         myPicsArr.map((element) => {
-          let parts = element.public_id.split("/");
-          let result = parts[parts.length - 1];
+          // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
+          // let result = parts[parts.length - 1];
           return (
             <a
               key={element.asset_id}
-              href={`/image/${result.replaceAll(" ", "-")}`}
+              // href={`/image/${result.replaceAll(" ", "-")}`}
             >
               <img
                 src={element.secure_url}
