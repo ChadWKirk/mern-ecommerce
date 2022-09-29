@@ -311,58 +311,75 @@ body {
   flex-direction: row;
 }
 
-.addUploadIconContainer {
+.uploadPageTitle {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.uploadForm {
+  background-color: rgb(221, 224, 224);
+  border: 6px dashed rgb(171, 172, 172);
+  width: 300px;
+  height: 250px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 475px;
-  height: 430px;
-  border: 2px solid black;
-  border-radius: 20px;
-  pointer-events: bounding-box;
+  margin-top: 80px;
+  position: relative;
 }
 
-.addUploadIconContainer:hover {
-  background-color: lightgray;
-  transition: ease 0.1s;
+.uploadFormContents input {
+  opacity: 0;
   cursor: pointer;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  z-index: 1001;
 }
 
-.addUploadIconContainer:hover .addUploadIcon {
-  color: rgb(67, 67, 174);
-  transition: ease 0.1s;
+.uploadFormContents {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.addUploadIcon {
+.addUploadButton {
+  z-index: 1000;
+  cursor: pointer;
+  position: absolute;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(60, 113, 226);
+  color: white;
   cursor: pointer;
   color: gray;
   transition: ease 0.12s;
+  width: 100px;
+  height: 40px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+.addUploadButton:hover {
+  background-color: rgb(53, 101, 204);
+  transition: 0.1s ease;
+}
+
+.uploadFormListContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .uploadPageContainer {
   min-height: 550px;
-}
-
-.uploadForm {
-  pointer-events: bounding-box;
-}
-
-.uploadFormListContainer {
-  min-height: 75%;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  flex-grow: 1;
-}
-
-.uploadFormContainer {
-  width: 475px;
-  background-color: tan;
-  border: 1px solid black;
-  border-radius: 20px;
 }
 
 .removeUploadIcon {
@@ -376,48 +393,4 @@ body {
 
 .removeUploadIconSVG {
   pointer-events: none;
-}
-
-.default {
-  color: red;
-  transition: 0.14s ease;
-  pointer-events: bounding-box;
-}
-
-.delete {
-  color: red;
-  transition: 0.14s ease;
-  pointer-events: bounding-box;
-}
-
-.liked {
-  color: red;
-  position: relative;
-  left: -35%;
-  top: 50%;
-  transition: 0.1s ease;
-  pointer-events: bounding-box;
-}
-
-.invis {
-  opacity: 0;
-  /* z-index: -999; */
-  /* position: absolute; */
-  left: -35%;
-  top: 50%;
-  pointer-events: bounding-box;
-}
-
-.emptyButton {
-  z-index: -999;
-  border: none;
-  background-color: rgb(246, 247, 247);
-}
-
-.gone {
-  display: none;
-}
-
-.divCont {
-  background-color: blue;
 }

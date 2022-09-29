@@ -5,40 +5,12 @@ import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
 import DropDown from "../components/DropDown";
 import UploadForm from "../components/UploadForm";
-import UploadForms from "../components/UploadForms";
-import AddUploadButton from "../components/AddUploadButton";
 
 const UploadPage = ({ curUser, loggedIn }) => {
-  //array of pics (to use for multi select input)
-  const [picsArr, setPicsArr] = useState([]);
+  const [files, setFiles] = useState([]);
 
-  const [count, setCount] = useState(0);
-  //array of upload forms with Add button at the end to add or remove upload forms to
-
-  const [uploadForms, setUploadForms] = useState([]);
-
-  //when you click the plus icon
-  function addUpload() {
-    setCount((count) => count + 1);
-    setUploadForms((uploadForms) => [...uploadForms, 0]);
-  }
-
-  function onMultiPic(e) {
-    //for loop to inject picsArr with each file instead of FileList
-    var newArr = [];
-    for (var i = 0; i < e.target.files.length; i++) {
-      newArr.push({ pic: e.target.files[i].name });
-      console.log(e.target.files[i].name);
-    }
-    setUploadForms((uploadForms) => [...uploadForms, ...newArr]);
-  }
-
-  //when you click the minus icon
-  function removeUpload(e) {
-    var newArr = uploadForms.filter(
-      (uploadForm) => uploadForm.idx != e.target.attributes[1].value
-    );
-    setUploadForms(newArr);
+  function removeFile(filename) {
+    setFiles(files.filter((file) => file.name !== filename));
   }
 
   return (
@@ -50,16 +22,20 @@ const UploadPage = ({ curUser, loggedIn }) => {
       </div>
       <DropDown />
       <div className="uploadPageContainer">
-        <div className="uploadPageTitle">Upload</div>
+        <div className="uploadPageTitle">Upload Files</div>
         <div className="uploadFormListContainer">
-          <UploadForms
+          <UploadForm
             curUser={curUser}
-            // onSubmit={(e) => onSubmit(e)}
-            uploadForms={uploadForms}
-            onClick={(e) => removeUpload(e)}
-            onMultiPic={(e) => onMultiPic(e)}
+            files={files}
+            setFiles={setFiles}
+            removeFile={removeFile}
           />
-          <AddUploadButton onClick={addUpload} />
+          <div>
+            All done!{" "}
+            <a href={`/Account/${curUser}/My-Pics`}>
+              Click here to go to My Pics
+            </a>
+          </div>
         </div>
       </div>
     </div>
