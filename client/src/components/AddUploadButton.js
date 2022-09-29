@@ -8,7 +8,7 @@ const AddUploadButton = ({ onClick }) => {
   return (
     <div onClick={onClick} key={9} className="addUploadIconContainer">
       <a className="addUploadIcon">
-        <FontAwesomeIcon font-size={76} icon={farSquarePlus} />
+        <FontAwesomeIcon fontSize={76} icon={farSquarePlus} />
       </a>
     </div>
   );

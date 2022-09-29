@@ -1,15 +1,16 @@
-import { React, useState } from "react";
+import { React } from "react";
 import UploadForm from "./UploadForm";
 
-const UploadForms = ({ uploadForms, onClick, curUser }) => {
+const UploadForms = ({ uploadForms, onClick, onMultiPic, curUser }) => {
   return (
     <>
-      {uploadForms.map((uploadForm) => (
+      {uploadForms.map((uploadForm, index) => (
         <UploadForm
           curUser={curUser}
-          key={uploadForm.idx}
-          num={uploadForm.idx}
+          key={index}
+          pic={uploadForm.pic}
           onClick={onClick}
+          onMultiPic={onMultiPic}
         />
       ))}
     </>

@@ -3,12 +3,12 @@ import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 
-const UploadForm = ({ id, onClick, num, curUser }) => {
+const UploadForm = ({ id, onClick, num, curUser, onMultiPic, pic }) => {
   //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
-  var file;
+  // var file;
 
-  const [pic, setPic] = useState("");
+  const [picture, setPicture] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
@@ -24,14 +24,14 @@ const UploadForm = ({ id, onClick, num, curUser }) => {
       alert("no title");
     } else if (!price) {
       alert("no price");
-    } else if (!pic) {
+    } else if (!picture) {
       alert("no pic");
     } else if (!imageType) {
       alert("no image type");
     } else {
       //to send in fetch
       var formData = new FormData();
-      formData.append("file", pic);
+      formData.append("file", picture);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
       formData.append("folder", "picpocket");
 
@@ -81,7 +81,7 @@ const UploadForm = ({ id, onClick, num, curUser }) => {
             <a onClick={onClick} className="removeUploadIcon" num={num}>
               <FontAwesomeIcon
                 className="removeUploadIconSVG"
-                font-size={76}
+                fontSize={76}
                 icon={faCircleMinus}
               />
             </a>
@@ -90,7 +90,9 @@ const UploadForm = ({ id, onClick, num, curUser }) => {
             {/* only take image files and only certain types of image files */}
             <input
               type="file"
-              onChange={(e) => setPic(e.target.files[0])}
+              onChange={onMultiPic}
+              value={pic ? pic : null}
+              multiple
             ></input>
           </div>
           <div className="uploadFormDetailsContainer">

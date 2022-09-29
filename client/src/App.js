@@ -17,6 +17,7 @@ import UploadPage from "./pages/UploadPage";
 import ImageViewPage from "./pages/ImageViewPage";
 import LikesPage from "./pages/LikesPage";
 import LikeTestPage from "./pages/LikeTestPage";
+import ManyTestPage from "./pages/ManyTestPage";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -88,6 +89,10 @@ function App() {
           <Route
             path={`/${curUser}/upload`}
             element={<UploadPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path={`/${curUser}/many-test`}
+            element={<ManyTestPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/Cart"

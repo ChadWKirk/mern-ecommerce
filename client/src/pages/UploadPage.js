@@ -9,75 +9,35 @@ import UploadForms from "../components/UploadForms";
 import AddUploadButton from "../components/AddUploadButton";
 
 const UploadPage = ({ curUser, loggedIn }) => {
-  //cloudinary preset and file for formData
-  var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
-  var file;
+  //array of pics (to use for multi select input)
+  const [picsArr, setPicsArr] = useState([]);
+
   const [count, setCount] = useState(0);
   //array of upload forms with Add button at the end to add or remove upload forms to
-  var uploadFormListArray = [];
 
   const [uploadForms, setUploadForms] = useState([]);
-
-  //when form is submitted
-  // async function onSubmit(e) {
-  //   e.preventDefault();
-  //   console.log("submit");
-
-  //   //to send in fetch
-  //   var formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  //   formData.append("folder", "picpocket");
-
-  //   var uploadToMongoBody;
-
-  //   //send post request to cloudinary api upload endpoint url
-  //   await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((result) =>
-  //       result
-  //         .json()
-  //         .then(
-  //           (resJSON) => (
-  //             (uploadToMongoBody = resJSON), console.log(uploadToMongoBody)
-  //           )
-  //         )
-  //     )
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-
-  //   //add fields to fetch response to get ready to send to MongoDB
-  //   uploadToMongoBody.likes = 0;
-  //   uploadToMongoBody.uploadedBy = curUser;
-  //   uploadToMongoBody.title = UploadForm.title;
-  //   uploadToMongoBody.description = UploadForm.description;
-  //   uploadToMongoBody.price = UploadForm.price;
-
-  //   //send to mongoDB
-  //   await fetch("http://localhost:5000/upload", {
-  //     method: "POST",
-  //     headers: { "Content-type": "application/json" },
-  //     body: JSON.stringify(uploadToMongoBody),
-  //   });
-  // }
 
   //when you click the plus icon
   function addUpload() {
     setCount((count) => count + 1);
-    setUploadForms((uploadForms) => [...uploadForms, { idx: count }]);
+    setUploadForms((uploadForms) => [...uploadForms, 0]);
+  }
+
+  function onMultiPic(e) {
+    //for loop to inject picsArr with each file instead of FileList
+    var newArr = [];
+    for (var i = 0; i < e.target.files.length; i++) {
+      newArr.push({ pic: e.target.files[i].name });
+      console.log(e.target.files[i].name);
+    }
+    setUploadForms((uploadForms) => [...uploadForms, ...newArr]);
   }
 
   //when you click the minus icon
   function removeUpload(e) {
-    // console.log(e.target.attributes[1].value);
-    console.log(uploadForms);
     var newArr = uploadForms.filter(
       (uploadForm) => uploadForm.idx != e.target.attributes[1].value
     );
-    console.log(newArr);
     setUploadForms(newArr);
   }
 
@@ -97,6 +57,7 @@ const UploadPage = ({ curUser, loggedIn }) => {
             // onSubmit={(e) => onSubmit(e)}
             uploadForms={uploadForms}
             onClick={(e) => removeUpload(e)}
+            onMultiPic={(e) => onMultiPic(e)}
           />
           <AddUploadButton onClick={addUpload} />
         </div>
