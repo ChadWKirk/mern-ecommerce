@@ -10,7 +10,7 @@ import {
 const ImageItem = ({ image, deleteFile }) => {
   return (
     <li className="imageItem" key={image.name}>
-      <FontAwesomeIcon icon={faFileAlt} />
+      <img src={image.secure_url} width={40} height={40}></img>
       <div>{image.name}</div>
       <div className="uploadingIcon">
         {image.isUploading && (
@@ -18,6 +18,7 @@ const ImageItem = ({ image, deleteFile }) => {
         )}
         {!image.isUploading && (
           <FontAwesomeIcon
+            style={{ cursor: "pointer" }}
             icon={faTrash}
             onClick={() => deleteFile(image.name)}
           />

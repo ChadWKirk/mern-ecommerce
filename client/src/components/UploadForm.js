@@ -62,6 +62,7 @@ const UploadForm = ({
       })
         .then((res) => {
           image.isUploading = false;
+          image.secure_url = uploadToMongoBody.secure_url;
           setImagesToUpload((imagesToUpload) => [...imagesToUpload, image]);
         })
         .catch((err) => {

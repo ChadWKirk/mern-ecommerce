@@ -399,10 +399,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* background-color: red; */
   width: 300px;
   justify-content: center;
   align-items: center;
+  list-style: none;
+  padding-left: 0;
 }
 
 .imageItem {
