@@ -10,12 +10,7 @@ import {
 const ImageItem = ({ image, deleteImageFromBackEnd }) => {
   return (
     <li className="imageItem" key={image.name}>
-      <img
-        src={image.secure_url}
-        width={100}
-        height={100}
-        alt="Waiting For Image"
-      ></img>
+      <img src={image.secure_url} width={100} height={100}></img>
       <div>{image.name}</div>
       <div className="uploadingIcon">
         {image.isUploading && (

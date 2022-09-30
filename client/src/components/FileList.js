@@ -11,11 +11,12 @@ const FileList = ({ imagesToUpload, removeImageFromUploadFrontEnd }) => {
       .then((res) => removeImageFromUploadFrontEnd(imageName))
       .catch((err) => console.error(err));
   }
+
   return (
     <ul className="fileList">
       {imagesToUpload?.map((image) => (
         <ImageItem
-          key={image.name}
+          key={Math.random(100)}
           image={image}
           deleteImageFromBackEnd={deleteImageFromBackEnd}
         />

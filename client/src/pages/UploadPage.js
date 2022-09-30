@@ -37,10 +37,8 @@ const UploadPage = ({ curUser, loggedIn }) => {
             removeImageFromUploadFrontEnd={removeImageFromUploadFrontEnd}
           />
           <div>
-            All done?{" "}
-            <a href={`/Account/${curUser}/My-Pics`}>
-              Click here to go to My Pics
-            </a>
+            All done? Edit in{" "}
+            <a href={`/Account/${curUser}/My-Pics`}>My Pics</a>
           </div>
         </div>
       </div>

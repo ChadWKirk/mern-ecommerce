@@ -11,20 +11,16 @@ const UploadForm = ({
 }) => {
   //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
-
-  useEffect(() => {
-    console.log(imagesToUpload);
-  }, [imagesToUpload]);
+  var targetFilesArray = [];
 
   async function uploadHandler(e) {
-    var targetFilesArray = [];
-
+    e.preventDefault();
     for (var i = 0; i < e.target.files.length; i++) {
       const image = e.target.files[i];
       image.isUploading = true;
       targetFilesArray.push(image);
+      setImagesToUpload((imagesToUpload) => [...imagesToUpload, image]);
       console.log(targetFilesArray + " target files");
-      setImagesToUpload(targetFilesArray);
 
       //to send in fetch
       const formData = new FormData();
@@ -64,7 +60,9 @@ const UploadForm = ({
           image.isUploading = false;
           image.secure_url = uploadToMongoBody.secure_url;
           image.publicId = uploadToMongoBody.public_id;
-          setImagesToUpload((imagesToUpload) => [...targetFilesArray]);
+          image.assetId = uploadToMongoBody.asset_id;
+          setImagesToUpload((imagesToUpload) => [...imagesToUpload]);
+          console.log(imagesToUpload);
         })
         .catch((err) => {
           console.error(err);
@@ -73,19 +71,85 @@ const UploadForm = ({
     }
   }
 
+  async function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    for (var i = 0; i < e.dataTransfer.files.length; i++) {
+      const image = e.dataTransfer.files[i];
+      image.isUploading = true;
+      targetFilesArray.push(image);
+      setImagesToUpload((imagesToUpload) => [...imagesToUpload, image]);
+      console.log(targetFilesArray + " target files");
+
+      //to send in fetch
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+      formData.append("folder", "picpocket");
+
+      var uploadToMongoBody;
+
+      //send post request to cloudinary api upload endpoint url
+      await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((result) =>
+          result.json().then((resJSON) => (uploadToMongoBody = resJSON))
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+
+      //add fields to fetch response to get ready to send to MongoDB
+      uploadToMongoBody.likes = 0;
+      uploadToMongoBody.uploadedBy = curUser;
+      uploadToMongoBody.title = image.name;
+      uploadToMongoBody.description = "";
+      uploadToMongoBody.price = "$0.00";
+      uploadToMongoBody.imageType = "photo";
+
+      //send to mongoDB
+      fetch("http://localhost:5000/upload", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(uploadToMongoBody),
+      })
+        .then((res) => {
+          image.isUploading = false;
+          image.secure_url = uploadToMongoBody.secure_url;
+          image.publicId = uploadToMongoBody.public_id;
+          image.assetId = uploadToMongoBody.asset_id;
+          console.log(image);
+          setImagesToUpload((imagesToUpload) => [...imagesToUpload]);
+        })
+        .catch((err) => {
+          console.error(err);
+          removeImageFromUpload(image.name);
+        });
+    }
+  }
+
+  function overrideEventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
     <div>
-      <form className="uploadForm">
+      <form
+        className="uploadForm"
+        onDrop={(e) => handleDrop(e)}
+        onDragOver={(e) => overrideEventDefaults(e)}
+        onDragEnter={(e) => overrideEventDefaults(e)}
+        onDragLeave={(e) => overrideEventDefaults(e)}
+      >
         <div style={{ position: "absolute", top: -30, left: -7, fontSize: 16 }}>
           Upload
         </div>
         <div className="uploadFormContents">
-          <input
-            type="file"
-            multiple
-            onChange={(e) => uploadHandler(e)}
-            onDrop={(e) => uploadHandler(e)}
-          />
+          <input type="file" multiple onChange={(e) => uploadHandler(e)} />
           <button className="addUploadButton">
             <FontAwesomeIcon
               fontSize={24}

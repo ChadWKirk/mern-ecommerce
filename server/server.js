@@ -307,7 +307,7 @@ app.post("/deleteImage", (req, res) => {
     .collection("mern-ecommerce-images")
     .deleteOne(myQuery, function (err, obj) {
       if (err) throw err;
-      console.log("1 document deleted");
+      console.log("1 document deleted. Public Id = " + req.body.public_id);
     });
   return res.status(200).json({ result: true, msg: "file deleted" });
 });
