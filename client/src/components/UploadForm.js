@@ -1,31 +1,34 @@
 import { React, useEffect, useState } from "react";
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const UploadForm = ({ curUser, files, setFiles, removeFile }) => {
+const UploadForm = ({
+  curUser,
+  imagesToUpload,
+  setImagesToUpload,
+  removeImageFromUpload,
+}) => {
   //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
 
   useEffect(() => {
-    console.log(files);
-  }, [files]);
+    console.log(imagesToUpload);
+  }, [imagesToUpload]);
 
   async function uploadHandler(e) {
-    var newArr = [];
-    console.log("done");
+    var targetFilesArray = [];
 
     for (var i = 0; i < e.target.files.length; i++) {
-      console.log(i);
-      const file = e.target.files[i];
-      file.isUploading = true;
-      newArr.push(file);
+      const image = e.target.files[i];
+      image.isUploading = true;
+      targetFilesArray.push(image);
+      console.log(targetFilesArray + " target files");
+      setImagesToUpload(targetFilesArray);
 
-      setFiles(newArr);
       //to send in fetch
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
       formData.append("folder", "picpocket");
 
@@ -46,7 +49,7 @@ const UploadForm = ({ curUser, files, setFiles, removeFile }) => {
       //add fields to fetch response to get ready to send to MongoDB
       uploadToMongoBody.likes = 0;
       uploadToMongoBody.uploadedBy = curUser;
-      uploadToMongoBody.title = file.name;
+      uploadToMongoBody.title = image.name;
       uploadToMongoBody.description = "";
       uploadToMongoBody.price = "$0.00";
       uploadToMongoBody.imageType = "photo";
@@ -56,19 +59,16 @@ const UploadForm = ({ curUser, files, setFiles, removeFile }) => {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(uploadToMongoBody),
-      });
+      })
+        .then((res) => {
+          image.isUploading = false;
+          setImagesToUpload((imagesToUpload) => [...imagesToUpload, image]);
+        })
+        .catch((err) => {
+          console.error(err);
+          removeImageFromUpload(image.name);
+        });
     }
-    // .then((res) => {
-    //   // file.isUploading = false;
-    //   // setFiles([...files, file]);
-    //   console.log("done");
-    // })
-    // .catch((err) => {
-    //   console.error(err);
-    //   removeFile(file.name);
-    // });
-
-    // console.log("done");
   }
 
   return (

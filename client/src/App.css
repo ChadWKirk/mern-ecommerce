@@ -394,3 +394,23 @@ body {
 .removeUploadIconSVG {
   pointer-events: none;
 }
+
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* background-color: red; */
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(54, 145, 185);
+  color: white;
+  width: 300px;
+  padding: 10px;
+}

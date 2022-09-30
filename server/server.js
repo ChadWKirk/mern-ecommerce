@@ -258,6 +258,7 @@ app.post("/upload", (req, res) => {
   console.log(req.body);
   //insert them into MongoDB with a likes and uploaded by field added
   db_connect.collection("mern-ecommerce-images").insertOne(req.body);
+  res.json("uploaded");
 });
 //My Likes GET
 app.get("/:username/likes", (req, res) => {
@@ -287,4 +288,9 @@ app.get("/:username/my-pics", (req, res) => {
         res.json(result);
       }
     });
+});
+//delete image
+app.delete("/deleteImage/:imageName", (req, res) => {
+  console.log("file deleted");
+  return res.status(200).json({ result: true, msg: "file deleted" });
 });

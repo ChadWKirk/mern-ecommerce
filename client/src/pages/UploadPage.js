@@ -4,12 +4,15 @@ import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
 import DropDown from "../components/DropDown";
 import UploadForm from "../components/UploadForm";
+import FileList from "../components/FileList";
 
 const UploadPage = ({ curUser, loggedIn }) => {
-  const [files, setFiles] = useState();
+  const [imagesToUpload, setImagesToUpload] = useState([]);
 
-  function removeFile(filename) {
-    setFiles(files.filter((file) => file.name !== filename));
+  function removeImageFromUpload(imageName) {
+    setImagesToUpload(
+      imagesToUpload.filter((image) => image.name !== imageName)
+    );
   }
 
   return (
@@ -21,13 +24,17 @@ const UploadPage = ({ curUser, loggedIn }) => {
       </div>
       <DropDown />
       <div className="uploadPageContainer">
-        <div className="uploadPageTitle">Upload Files</div>
+        <div className="uploadPageTitle">Upload Pics</div>
         <div className="uploadFormListContainer">
           <UploadForm
             curUser={curUser}
-            files={files}
-            setFiles={setFiles}
-            removeFile={removeFile}
+            imagesToUpload={imagesToUpload}
+            setImagesToUpload={setImagesToUpload}
+            removeImageFromUpload={removeImageFromUpload}
+          />
+          <FileList
+            imagesToUpload={imagesToUpload}
+            removeImageFromUpload={removeImageFromUpload}
           />
           <div>
             All done!{" "}
