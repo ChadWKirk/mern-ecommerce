@@ -9,7 +9,7 @@ import FileList from "../components/FileList";
 const UploadPage = ({ curUser, loggedIn }) => {
   const [imagesToUpload, setImagesToUpload] = useState([]);
 
-  function removeImageFromUpload(imageName) {
+  function removeImageFromUploadFrontEnd(imageName) {
     setImagesToUpload(
       imagesToUpload.filter((image) => image.name !== imageName)
     );
@@ -30,11 +30,11 @@ const UploadPage = ({ curUser, loggedIn }) => {
             curUser={curUser}
             imagesToUpload={imagesToUpload}
             setImagesToUpload={setImagesToUpload}
-            removeImageFromUpload={removeImageFromUpload}
+            removeImageFromUploadFrontEnd={removeImageFromUploadFrontEnd}
           />
           <FileList
             imagesToUpload={imagesToUpload}
-            removeImageFromUpload={removeImageFromUpload}
+            removeImageFromUploadFrontEnd={removeImageFromUploadFrontEnd}
           />
           <div>
             All done?{" "}

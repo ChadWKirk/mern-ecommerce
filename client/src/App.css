@@ -319,7 +319,7 @@ body {
 .uploadForm {
   background-color: rgb(221, 224, 224);
   border: 6px dashed rgb(171, 172, 172);
-  width: 300px;
+  width: 600px;
   height: 250px;
   display: flex;
   flex-direction: column;
@@ -333,8 +333,8 @@ body {
   opacity: 0;
   cursor: pointer;
   position: relative;
-  width: 100px;
-  height: 40px;
+  width: 200px;
+  height: 80px;
   z-index: 1001;
 }
 
@@ -359,8 +359,8 @@ body {
   cursor: pointer;
   color: gray;
   transition: ease 0.12s;
-  width: 100px;
-  height: 40px;
+  width: 200px;
+  height: 80px;
   border-radius: 3px;
   border: 1px solid black;
 }
@@ -399,7 +399,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 300px;
+  width: 600px;
   justify-content: center;
   align-items: center;
   list-style: none;
@@ -412,6 +412,17 @@ body {
   align-items: center;
   background-color: rgb(54, 145, 185);
   color: white;
-  width: 300px;
+  width: 600px;
+  height: 120px;
   padding: 10px;
+  animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

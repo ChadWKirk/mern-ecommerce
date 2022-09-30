@@ -1,10 +1,14 @@
 import React from "react";
 import ImageItem from "./ImageItem";
 
-const FileList = ({ imagesToUpload, removeImageFromUpload }) => {
-  async function deleteFileHandler(imageName) {
-    await fetch(`http://localhost:5000/deleteImage/${imageName}`)
-      .then((res) => removeImageFromUpload(imageName))
+const FileList = ({ imagesToUpload, removeImageFromUploadFrontEnd }) => {
+  async function deleteImageFromBackEnd(imageName, publicId) {
+    await fetch(`http://localhost:5000/deleteImage/`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ public_id: publicId }),
+    })
+      .then((res) => removeImageFromUploadFrontEnd(imageName))
       .catch((err) => console.error(err));
   }
   return (
@@ -13,7 +17,7 @@ const FileList = ({ imagesToUpload, removeImageFromUpload }) => {
         <ImageItem
           key={image.name}
           image={image}
-          deleteFile={deleteFileHandler}
+          deleteImageFromBackEnd={deleteImageFromBackEnd}
         />
       ))}
     </ul>

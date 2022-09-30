@@ -63,7 +63,8 @@ const UploadForm = ({
         .then((res) => {
           image.isUploading = false;
           image.secure_url = uploadToMongoBody.secure_url;
-          setImagesToUpload((imagesToUpload) => [...imagesToUpload, image]);
+          image.publicId = uploadToMongoBody.public_id;
+          setImagesToUpload((imagesToUpload) => [...targetFilesArray]);
         })
         .catch((err) => {
           console.error(err);
@@ -86,8 +87,12 @@ const UploadForm = ({
             onDrop={(e) => uploadHandler(e)}
           />
           <button className="addUploadButton">
-            <FontAwesomeIcon style={{ color: "white" }} icon={faPlus} />
-            <div style={{ color: "white" }}>Upload</div>
+            <FontAwesomeIcon
+              fontSize={24}
+              style={{ color: "white" }}
+              icon={faPlus}
+            />
+            <div style={{ color: "white", fontSize: 28 }}>Upload</div>
           </button>
           <div style={{ opacity: 0.4, fontWeight: 400 }}>Drag n' Drop</div>
           <div className="uploadFormCaption">

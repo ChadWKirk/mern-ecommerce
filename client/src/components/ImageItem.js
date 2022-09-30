@@ -7,10 +7,15 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-const ImageItem = ({ image, deleteFile }) => {
+const ImageItem = ({ image, deleteImageFromBackEnd }) => {
   return (
     <li className="imageItem" key={image.name}>
-      <img src={image.secure_url} width={40} height={40}></img>
+      <img
+        src={image.secure_url}
+        width={100}
+        height={100}
+        alt="Waiting For Image"
+      ></img>
       <div>{image.name}</div>
       <div className="uploadingIcon">
         {image.isUploading && (
@@ -18,9 +23,10 @@ const ImageItem = ({ image, deleteFile }) => {
         )}
         {!image.isUploading && (
           <FontAwesomeIcon
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", marginRight: 10 }}
             icon={faTrash}
-            onClick={() => deleteFile(image.name)}
+            fontSize={20}
+            onClick={() => deleteImageFromBackEnd(image.name, image.publicId)}
           />
         )}
       </div>

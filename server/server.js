@@ -290,7 +290,24 @@ app.get("/:username/my-pics", (req, res) => {
     });
 });
 //delete image
-app.delete("/deleteImage/:imageName", (req, res) => {
-  console.log("file deleted");
+app.post("/deleteImage", (req, res) => {
+  //delete from cloudinary
+  cloudinary.uploader
+    .destroy(req.body.public_id, { invalidate: true })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  //delete from mongodb
+  let db_connect = dbo.getDb();
+  var myQuery = { public_id: req.body.public_id };
+  db_connect
+    .collection("mern-ecommerce-images")
+    .deleteOne(myQuery, function (err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+    });
   return res.status(200).json({ result: true, msg: "file deleted" });
 });
