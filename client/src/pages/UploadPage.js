@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
@@ -7,7 +6,7 @@ import DropDown from "../components/DropDown";
 import UploadForm from "../components/UploadForm";
 
 const UploadPage = ({ curUser, loggedIn }) => {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState();
 
   function removeFile(filename) {
     setFiles(files.filter((file) => file.name !== filename));
