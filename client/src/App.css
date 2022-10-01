@@ -326,6 +326,16 @@ body {
   justify-content: center;
   margin-top: 80px;
   /* position: relative; */
+  transition: 0.1s ease;
+}
+
+.uploadForm:hover {
+  background-color: rgba(186, 207, 251, 0.918);
+  border: 6px dashed rgb(55, 137, 209);
+}
+
+.uploadForm:hover .addUploadButton {
+  background-color: rgb(56, 104, 207);
 }
 
 .uploadFormContents {
@@ -351,7 +361,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 200px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 50px;
 }
@@ -366,11 +376,11 @@ body {
   color: white;
   cursor: pointer;
   color: gray;
-  transition: ease 0.12s;
   width: 200px;
   height: 80px;
   border-radius: 3px;
   border: 1px solid black;
+  margin-top: 25px;
 }
 
 .addUploadButton:hover {
@@ -379,7 +389,9 @@ body {
 }
 
 .uploadFormCaption {
-  margin-bottom: 20px;
+  margin-top: 55px;
+  font-weight: 400;
+  opacity: 0.5;
 }
 
 .uploadFormListContainer {
