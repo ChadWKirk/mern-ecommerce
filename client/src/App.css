@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(246, 247, 247);
+  background-color: #e7e7e7;
 }
 
 .navContainer {
@@ -25,22 +25,40 @@ body {
 
 .navBarContainer .btn-primary {
   height: 50px;
-  background-color: rgb(246, 247, 247);
-  color: gray;
+  background-color: #e7e7e7;
+  color: rgb(81, 81, 81);
+  font-size: 20px;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
+}
+
+.navBarContainer .btn-primary:hover {
+  background-color: #3d6098;
+  color: #e7e7e7;
 }
 
 .logo {
   display: flex;
   align-items: center;
   margin: auto;
+  color: #3d6098;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #3d6098;
+  text-decoration: none;
 }
 
 .searchContainer {
   display: flex;
   align-items: center;
   height: 40px;
+}
+
+.searchButton {
+  background-color: #f04b4c;
+  border: none;
 }
 
 .searchBar {
@@ -81,27 +99,28 @@ body {
 }
 
 .dropDownMenu {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(244, 244, 244);
+  background-color: #3d6098;
+  color: #e7e7e7;
   height: 35px;
 }
 
 .dropDownMenu .btn-primary {
-  background-color: rgb(244, 244, 244);
+  background-color: #3d6098;
+  color: #e7e7e7;
   border: none;
   padding: 0;
   margin-left: calc(100% / 3.6);
-  height: 40px;
-  color: gray;
   font-weight: 600;
   font-size: 16px;
   height: 35px;
 }
 
 .dropDownMenu .btn-primary:hover {
-  background-color: rgb(246, 247, 247);
-  color: rgb(94, 94, 94);
+  background-color: #3d6098;
+  color: #e7e7e7;
 }
 
 .dropDownMenuButton {
@@ -131,7 +150,12 @@ body {
   color: white;
 }
 
+.galleryMainContainer {
+  overflow: hidden;
+}
+
 .galleryContainer {
+  width: 80%;
 }
 
 .galleryHeadingAndSortContainer {
@@ -172,18 +196,29 @@ body {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
+  padding-left: 20px;
+  padding-right: 110px;
+  background-color: rgba(197, 208, 216, 0.545);
+  border-top: 2px solid rgba(169, 169, 169, 0.21);
+
+  height: 100vh;
+  overflow: scroll;
 }
 
 .gallery a {
   position: relative;
+  border-radius: 20px;
+
   flex-grow: 1;
-  height: 300px;
+  height: 210px;
   cursor: pointer;
   background-color: rgb(43, 43, 43);
 }
 
 .gallery-img {
+  border-radius: 20px;
+
   display: block;
   width: 100%;
   height: 100%;
@@ -259,6 +294,21 @@ body {
 .gallery::after {
   content: "";
   flex-grow: 999;
+}
+
+.galleryEditorContainer {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top: 2px solid rgba(169, 169, 169, 0.21);
+}
+
+.galleryAndEditorContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.uploadFormContainer {
+  width: 25vw;
 }
 
 .brochureContainer {

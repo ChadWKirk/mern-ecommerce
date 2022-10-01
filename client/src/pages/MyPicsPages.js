@@ -8,7 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan as farTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
   var myPicsArr;
@@ -42,10 +42,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               ></img>
               <div className="image-overlay-container">
                 <div className="image-overlay-contents-delete">
-                  <FontAwesomeIcon
-                    icon={farTrashCan}
-                    className="deleteButton"
-                  />
+                  {/* <FontAwesomeIcon icon={faTrash} className="deleteButton" /> */}
                 </div>
               </div>
             </a>
@@ -57,14 +54,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <div className="navContainer">
         <Logo />
         <SearchBar />
         <NavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
       <DropDown />
-      <div className="galleryContainer">
+      <div className="galleryMainContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
             <h2>My Pics</h2>
@@ -72,10 +69,13 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
           <div className="gallerySortBar d-flex">
             <DropdownButton className="galleryDropDownButton" title="Sort By">
               <Dropdown.Item className="galleryDropDownItem">
-                Popular
+                Most Recent
               </Dropdown.Item>
-              <Dropdown.Item>Ratings Low-High</Dropdown.Item>
-              <Dropdown.Item>Ratings High-Low</Dropdown.Item>
+              <Dropdown.Item>Oldest</Dropdown.Item>
+              <Dropdown.Item>A - Z</Dropdown.Item>
+              <Dropdown.Item>Z - A</Dropdown.Item>
+              <Dropdown.Item>Likes Low-High</Dropdown.Item>
+              <Dropdown.Item>Likes High-Low</Dropdown.Item>
               <Dropdown.Item>Price Low-High</Dropdown.Item>
               <Dropdown.Item>Price High-Low</Dropdown.Item>
             </DropdownButton>
@@ -89,7 +89,76 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             </DropdownButton>
           </div>
         </div>
-        <div className="gallery">{picsMapResults}</div>
+        <div className="galleryAndEditorContainer">
+          <div className="gallery">{picsMapResults}</div>
+          <div className="galleryEditorContainer">
+            <form className="uploadFormContainer">
+              <div>
+                <div className="uploadFormMinusButton ">
+                  {/* when clicking remove button, clear all data from the form and conditionally un-render the form (revert back to original state) */}
+                  <a className="removeUploadIcon">
+                    <FontAwesomeIcon
+                      className="removeUploadIconSVG"
+                      fontSize={76}
+                      icon={faTrash}
+                    />
+                  </a>
+                </div>
+                <div className="uploadFormDetailsContainer">
+                  <div className="uploadFormDetailsSubContainer">
+                    {/* don't allow anything but letters and numbers. no special characters */}
+                    <div>Title</div>
+                    <div>
+                      <input
+                      // value={title}
+                      // onChange={(e) => setTitle(e.target.value)}
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="uploadFormDetailsSubContainer">
+                    {/* copy how cloudinary lets you add tags. maybe bootstrap */}
+                    <div>Tags</div>
+                    <div>
+                      <input></input>
+                    </div>
+                  </div>
+                  <div className="uploadFormDetailsSubContainer">
+                    {/* have max length of 500 characters */}
+                    <div>Description</div>
+                    <div>
+                      <input
+                      // value={description}
+                      // onChange={(e) => setDescription(e.target.value)}
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="uploadFormDetailsSubContainer">
+                    {/* when free download box is checked, clear price input and grey it out and set price to "Free Download" */}
+                    <div>Price</div>
+                    <div>
+                      <input
+                      // value={price}
+                      // onChange={(e) => setPrice(e.target.value)}
+                      ></input>
+                      <input type="checkbox"></input>
+                      <div>free download</div>
+                    </div>
+                  </div>
+                  <div className="uploadFormDetailsSubContainer">
+                    <div>Image type</div>
+                    <div>
+                      <input
+                      // value={imageType}
+                      // onChange={(e) => setImageType(e.target.value)}
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+                <button>Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

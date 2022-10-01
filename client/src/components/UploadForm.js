@@ -89,7 +89,6 @@ const UploadForm = ({
               />
               <div style={{ color: "white", fontSize: 28 }}>Upload</div>
             </button>
-
             <div className="uploadFormCaption">
               Supported Files: JPEG, JPG, PNG
             </div>
