@@ -254,7 +254,8 @@ app.get("/search/:searchQuery", (req, res) => {
 app.post("/upload", (req, res) => {
   let db_connect = dbo.getDb();
   //make sure it's working
-  console.log("upload");
+  console.log("upload test start");
+  console.log("upload test start");
   console.log(req.body);
   //insert them into MongoDB with a likes and uploaded by field added
   db_connect.collection("mern-ecommerce-images").insertOne(req.body);

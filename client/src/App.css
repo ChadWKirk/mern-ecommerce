@@ -322,35 +322,43 @@ body {
   width: 600px;
   height: 250px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
-  align-items: center;
   margin-top: 80px;
-  position: relative;
-}
-
-.uploadFormContents input {
-  opacity: 0;
-  cursor: pointer;
-  position: relative;
-  width: 200px;
-  height: 80px;
-  z-index: 1001;
+  /* position: relative; */
 }
 
 .uploadFormContents {
-  position: relative;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
+.uploadFormContents input {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  width: 600px;
+  height: 250px;
+  z-index: 1001;
+  background-color: red;
+}
+
+.uploadFormInputButtonAndCaptions {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+
 .addUploadButton {
   z-index: 1000;
   cursor: pointer;
-  position: absolute;
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -368,6 +376,10 @@ body {
 .addUploadButton:hover {
   background-color: rgb(53, 101, 204);
   transition: 0.1s ease;
+}
+
+.uploadFormCaption {
+  margin-bottom: 20px;
 }
 
 .uploadFormListContainer {
@@ -425,4 +437,9 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.dragOverCSS {
+  background-color: rgb(205, 220, 252);
+  border: 6px dashed rgb(55, 137, 209);
 }
