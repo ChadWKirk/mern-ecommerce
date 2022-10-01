@@ -286,6 +286,10 @@ body {
   background-color: rgb(43, 43, 43);
 }
 
+.priceInputFlex {
+  display: flex;
+}
+
 .border {
   border: 1000px solid blue;
 }
