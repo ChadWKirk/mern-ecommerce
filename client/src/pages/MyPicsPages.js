@@ -27,24 +27,36 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       console.log(myPicsArr);
 
       setMapResults(
-        myPicsArr.map((element) => {
+        myPicsArr.map((element, index) => {
           // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
           // let result = parts[parts.length - 1];
+          let assetId = element.asset_id;
           return (
             <a
               key={element.asset_id}
+              onClick={(e) => {
+                document.querySelector("#titleInputID").value =
+                  myPicsArr[index].title;
+                document.querySelector("#tagsInputID").value =
+                  myPicsArr[index].tags;
+                document.querySelector("#descriptionInputID").value =
+                  myPicsArr[index].description;
+                document.querySelector("#priceInputID").value =
+                  myPicsArr[index].price;
+                document.querySelector("#imageTypeInputID").value =
+                  myPicsArr[index].imageType;
+                document.querySelector("#previewImageForEditor").src =
+                  myPicsArr[index].secure_url;
+                // e.currentTarget.classList.toggle("border");
+              }}
               // href={`/image/${result.replaceAll(" ", "-")}`}
             >
               <img
                 src={element.secure_url}
                 alt="img"
-                className="gallery-img"
+                className="myPicsGallery-img"
               ></img>
-              <div className="image-overlay-container">
-                <div className="image-overlay-contents-delete">
-                  {/* <FontAwesomeIcon icon={faTrash} className="deleteButton" /> */}
-                </div>
-              </div>
+              <div className="image-overlay-container"></div>
             </a>
           );
         })
@@ -52,6 +64,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     }
     myPicsFetch();
   }, []);
+
+  function clickingMyPic(e, assetId) {
+    console.log(assetId);
+  }
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -61,10 +77,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         <NavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
       <DropDown />
-      <div className="galleryMainContainer">
+      <div className="myPicsGalleryMainContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
-            <h2>My Pics</h2>
+            <p>My Pics</p>
           </div>
           <div className="gallerySortBar d-flex">
             <DropdownButton className="galleryDropDownButton" title="Sort By">
@@ -89,72 +105,68 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             </DropdownButton>
           </div>
         </div>
-        <div className="galleryAndEditorContainer">
-          <div className="gallery">{picsMapResults}</div>
-          <div className="galleryEditorContainer">
-            <form className="uploadFormContainer">
+        <div className="myPicsGalleryAndEditorContainer">
+          <div className="myPicsGallery">{picsMapResults}</div>
+          <div className="myPicsGalleryEditorContainer">
+            <form className="editorFormContainer">
               <div>
-                <div className="uploadFormMinusButton ">
-                  {/* when clicking remove button, clear all data from the form and conditionally un-render the form (revert back to original state) */}
-                  <a className="removeUploadIcon">
-                    <FontAwesomeIcon
-                      className="removeUploadIconSVG"
-                      fontSize={76}
-                      icon={faTrash}
-                    />
-                  </a>
-                </div>
-                <div className="uploadFormDetailsContainer">
-                  <div className="uploadFormDetailsSubContainer">
+                <img id="previewImageForEditor" alt="idk" src={""}></img>
+                <div className="editorFormDetailsContainer">
+                  <div className="editorFormDetailsSubContainer">
                     {/* don't allow anything but letters and numbers. no special characters */}
                     <div>Title</div>
                     <div>
                       <input
-                      // value={title}
-                      // onChange={(e) => setTitle(e.target.value)}
+                        id="titleInputID"
+                        // value={title}
+                        // onChange={(e) => setTitle(e.target.value)}
                       ></input>
                     </div>
                   </div>
-                  <div className="uploadFormDetailsSubContainer">
+                  <div className="editorFormDetailsSubContainer">
                     {/* copy how cloudinary lets you add tags. maybe bootstrap */}
                     <div>Tags</div>
                     <div>
-                      <input></input>
+                      <input id="tagsInputID"></input>
                     </div>
                   </div>
-                  <div className="uploadFormDetailsSubContainer">
+                  <div className="editorFormDetailsSubContainer">
                     {/* have max length of 500 characters */}
                     <div>Description</div>
                     <div>
                       <input
-                      // value={description}
-                      // onChange={(e) => setDescription(e.target.value)}
+                        id="descriptionInputID"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
                       ></input>
                     </div>
                   </div>
-                  <div className="uploadFormDetailsSubContainer">
+                  <div className="editorFormDetailsSubContainer">
                     {/* when free download box is checked, clear price input and grey it out and set price to "Free Download" */}
                     <div>Price</div>
-                    <div>
+                    <div className="editorFormDetailsSubContainer">
                       <input
-                      // value={price}
-                      // onChange={(e) => setPrice(e.target.value)}
+                        id="priceInputID"
+                        // value={price}
+                        // onChange={(e) => setPrice(e.target.value)}
                       ></input>
                       <input type="checkbox"></input>
                       <div>free download</div>
                     </div>
                   </div>
-                  <div className="uploadFormDetailsSubContainer">
+                  <div className="editorFormDetailsSubContainer">
                     <div>Image type</div>
                     <div>
                       <input
-                      // value={imageType}
-                      // onChange={(e) => setImageType(e.target.value)}
+                        id="imageTypeInputID"
+                        // value={imageType}
+                        // onChange={(e) => setImageType(e.target.value)}
                       ></input>
                     </div>
                   </div>
                 </div>
                 <button>Submit</button>
+                <FontAwesomeIcon icon={faTrash} />
               </div>
             </form>
           </div>

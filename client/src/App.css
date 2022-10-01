@@ -53,7 +53,9 @@ body {
 .searchContainer {
   display: flex;
   align-items: center;
-  height: 40px;
+  justify-content: center;
+  height: 100%;
+  background-color: #3d6098;
 }
 
 .searchButton {
@@ -67,16 +69,30 @@ body {
   padding: 4.5px;
   padding-left: 5px;
   width: 40em;
-  height: 100%;
+  height: 40px;
 }
 
 .searchContainer .btn-primary {
   padding-top: 5px;
-  height: 100%;
+  height: 40px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   border-top-right-radius: 3.5px;
   border-bottom-right-radius: 3.5px;
+}
+
+.searchContainer .btn-primary:hover {
+  background-color: #db4444;
+}
+
+.searchIcon {
+  color: white;
+  transition: 0.18s ease;
+}
+
+.searchContainer .btn-primary:hover .searchIcon {
+  color: #eeeeee;
+  transition: 0.14s ease;
 }
 
 .cartIcon {
@@ -120,7 +136,7 @@ body {
 
 .dropDownMenu .btn-primary:hover {
   background-color: #3d6098;
-  color: #e7e7e7;
+  color: orange;
 }
 
 .dropDownMenuButton {
@@ -150,11 +166,64 @@ body {
   color: white;
 }
 
-.galleryMainContainer {
+/*Search Results and My Likes Gallery CSS*/
+
+.galleryContainer {
+}
+
+.galleryHeadingAndSortContainer {
+  height: 130px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.galleryHeading {
+  font-size: 28px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-left: 20px;
+  background-color: rgba(197, 208, 216, 0.545);
+  border-top: 2px solid rgba(169, 169, 169, 0.21);
+}
+
+.gallery a {
+  position: relative;
+  flex-grow: 1;
+  height: 300px;
+  cursor: pointer;
+  background-color: rgb(43, 43, 43);
+}
+
+.gallery-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: 0.14s ease;
+}
+
+.gallery a:hover .gallery-img {
+  opacity: 0.8;
+  transition: 0.1s ease;
+}
+
+.gallery::after {
+  content: "";
+  flex-grow: 999;
+}
+
+/*My Pics gallery CSS*/
+
+.myPicsGalleryMainContainer {
   overflow: hidden;
 }
 
-.galleryContainer {
+.myPicsGalleryContainer {
   width: 80%;
 }
 
@@ -162,11 +231,14 @@ body {
   height: 130px;
   padding: 20px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
+  width: 72%;
 }
 
 .galleryHeading {
+  font-size: 28px;
 }
 
 .gallerySortBar {
@@ -193,7 +265,7 @@ body {
   background-color: rgba(104, 104, 104, 0.18);
 }
 
-.gallery {
+.myPicsGallery {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -201,31 +273,32 @@ body {
   padding-right: 110px;
   background-color: rgba(197, 208, 216, 0.545);
   border-top: 2px solid rgba(169, 169, 169, 0.21);
-
   height: 100vh;
   overflow: scroll;
 }
 
-.gallery a {
+.myPicsGallery a {
   position: relative;
   border-radius: 20px;
-
   flex-grow: 1;
   height: 210px;
   cursor: pointer;
   background-color: rgb(43, 43, 43);
 }
 
-.gallery-img {
-  border-radius: 20px;
+.border {
+  border: 1000px solid blue;
+}
 
+.myPicsGallery-img {
+  border-radius: 20px;
   display: block;
   width: 100%;
   height: 100%;
   transition: 0.14s ease;
 }
 
-.gallery a:hover .gallery-img {
+.myPicsGallery a:hover .myPicsGallery-img {
   opacity: 0.8;
   transition: 0.1s ease;
 }
@@ -291,24 +364,40 @@ body {
   transition: 0.1s ease;
 }
 
-.gallery::after {
+.myPicsgallery::after {
   content: "";
   flex-grow: 999;
 }
 
-.galleryEditorContainer {
+.myPicsGalleryEditorContainer {
   padding-left: 20px;
   padding-right: 20px;
   border-top: 2px solid rgba(169, 169, 169, 0.21);
+  background-color: #e7e7e7;
 }
 
-.galleryAndEditorContainer {
+.myPicsGalleryAndEditorContainer {
   display: flex;
   flex-direction: row;
 }
 
-.uploadFormContainer {
+.editorFormContainer {
   width: 25vw;
+}
+
+#previewImageForEditor {
+  width: 100%;
+  max-height: 300px;
+  margin-bottom: 10px;
+}
+
+.editorFormDetailsSubContainer {
+  font-size: 20px;
+}
+
+.editorFormDetailsSubContainer input {
+  width: 100%;
+  border-radius: 5px;
 }
 
 .brochureContainer {

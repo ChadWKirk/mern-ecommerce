@@ -19,11 +19,11 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="searchContainer">
-      <form onSubmit={onSubmit}>
+    <div>
+      <form className="searchContainer" onSubmit={onSubmit}>
         <input className="searchBar" onChange={onChange}></input>
         <Button className="searchButton" type="submit">
-          <FaCameraRetro size={26} />
+          <FaCameraRetro size={26} className="searchIcon" />
         </Button>
       </form>
     </div>
