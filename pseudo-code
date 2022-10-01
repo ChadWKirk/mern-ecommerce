@@ -25,19 +25,13 @@ Search:
 
 Upload Images:
 
-- on upload, have loading indicator in form
-- on upload success, replace upload form with green checkmark icon. remove that form from form array. remove that file from file array.
-- on upload fail, replace loading indicator with red icon indicating failure
-- make it so can't upload without title given
 - deal with image view page going to proper URL and using the given title and description etc.
 
 My Pics page:
 
-- Have a title like "My Pics"
+- DEAL WITH EDIT SUCCESS/FAILURE
 - under title, have gallery to show pics. have ability to sort pics just like in a search page
 - have the ability to check off pictures for mass delete
-- have upload button that brings up cloudinary upload widget
-- when clicking on a picture, it pops up in a widget where you can change the title, tags, description, and price. you can also delete from this page. It doesn't change the page it just pops up in front of everything like a widget.
 
 Likes page:
 

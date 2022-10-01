@@ -11,9 +11,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
-  var myPicsArr;
+  var picsPushArr = [];
+  const [myPicsArr, setMyPicsArr] = useState([]);
   var myPicsMap = [];
   const [picsMapResults, setMapResults] = useState();
+
+  const [picture, setPicture] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageType, setImageType] = useState("");
 
   useEffect(() => {
     async function myPicsFetch() {
@@ -21,13 +29,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
-        response.json().then((resJSON) => (myPicsArr = resJSON))
+        response.json().then((resJSON) => (picsPushArr = resJSON))
       );
 
-      console.log(myPicsArr);
+      setMyPicsArr(picsPushArr);
+      console.log(picsPushArr);
 
       setMapResults(
-        myPicsArr.map((element, index) => {
+        picsPushArr.map((element, index) => {
           // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
           // let result = parts[parts.length - 1];
           let assetId = element.asset_id;
@@ -36,17 +45,17 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               key={element.asset_id}
               onClick={(e) => {
                 document.querySelector("#titleInputID").value =
-                  myPicsArr[index].title;
+                  picsPushArr[index].title;
                 document.querySelector("#tagsInputID").value =
-                  myPicsArr[index].tags;
+                  picsPushArr[index].tags;
                 document.querySelector("#descriptionInputID").value =
-                  myPicsArr[index].description;
+                  picsPushArr[index].description;
                 document.querySelector("#priceInputID").value =
-                  myPicsArr[index].price;
+                  picsPushArr[index].price;
                 document.querySelector("#imageTypeInputID").value =
-                  myPicsArr[index].imageType;
+                  picsPushArr[index].imageType;
                 document.querySelector("#previewImageForEditor").src =
-                  myPicsArr[index].secure_url;
+                  picsPushArr[index].secure_url;
                 // e.currentTarget.classList.toggle("border");
               }}
               // href={`/image/${result.replaceAll(" ", "-")}`}
@@ -65,8 +74,17 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     myPicsFetch();
   }, []);
 
-  function clickingMyPic(e, assetId) {
-    console.log(assetId);
+  async function submitForm(e) {
+    e.preventDefault();
+    myPicsArr[7].title = title;
+    myPicsArr[7].description = description;
+    myPicsArr[7].price = price;
+    console.log("submit attempt");
+    await fetch(`http://localhost:5000/update/${curUser}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(myPicsArr[7]),
+    });
   }
 
   return (
@@ -108,7 +126,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         <div className="myPicsGalleryAndEditorContainer">
           <div className="myPicsGallery">{picsMapResults}</div>
           <div className="myPicsGalleryEditorContainer">
-            <form className="editorFormContainer">
+            <form
+              className="editorFormContainer"
+              onSubmit={(e) => submitForm(e)}
+            >
               <div>
                 <img id="previewImageForEditor" alt="idk" src={""}></img>
                 <div className="editorFormDetailsContainer">
@@ -118,8 +139,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                     <div>
                       <input
                         id="titleInputID"
-                        // value={title}
-                        // onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -136,8 +156,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                     <div>
                       <input
                         id="descriptionInputID"
-                        // value={description}
-                        // onChange={(e) => setDescription(e.target.value)}
+                        onChange={(e) => setDescription(e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -147,8 +166,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                     <div className="editorFormDetailsSubContainer">
                       <input
                         id="priceInputID"
-                        // value={price}
-                        // onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value)}
                       ></input>
                       <input type="checkbox"></input>
                       <div>free download</div>
@@ -159,8 +177,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                     <div>
                       <input
                         id="imageTypeInputID"
-                        // value={imageType}
-                        // onChange={(e) => setImageType(e.target.value)}
+                        onChange={(e) => setImageType(e.target.value)}
                       ></input>
                     </div>
                   </div>

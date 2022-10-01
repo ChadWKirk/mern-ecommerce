@@ -249,6 +249,7 @@ app.get("/search/:searchQuery", (req, res) => {
       console.log(error);
     });
 });
+
 // localtunnel url script lt --local-host 127.0.0.1 --port 5000 --subdomain picpocket
 //upload post
 app.post("/upload", (req, res) => {
@@ -261,6 +262,7 @@ app.post("/upload", (req, res) => {
   db_connect.collection("mern-ecommerce-images").insertOne(req.body);
   res.json("uploaded");
 });
+
 //My Likes GET
 app.get("/:username/likes", (req, res) => {
   console.log("likes get");
@@ -290,6 +292,7 @@ app.get("/:username/my-pics", (req, res) => {
       }
     });
 });
+
 //delete image
 app.post("/deleteImage", (req, res) => {
   //delete from cloudinary
@@ -311,4 +314,36 @@ app.post("/deleteImage", (req, res) => {
       console.log("1 document deleted. Public Id = " + req.body.public_id);
     });
   return res.status(200).json({ result: true, msg: "file deleted" });
+});
+
+//update image info
+app.put("/update/:username", async (req, res) => {
+  console.log("update test");
+  var mongoReplacement;
+  //update in cloudinary
+  await cloudinary.uploader
+    .rename(req.body.public_id, `picpocket/${req.body.title}`, {
+      invalidate: true,
+    })
+    .then((result) => {
+      mongoReplacement = result;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  //update in MongoDB
+  let db_connect = dbo.getDb();
+  var myQuery = { public_id: req.body.public_id };
+
+  mongoReplacement["likes"] = req.body.likes;
+  mongoReplacement.uploadedBy = req.params.username;
+  mongoReplacement.title = req.body.title;
+  mongoReplacement.description = req.body.description;
+  mongoReplacement.price = req.body.price;
+  mongoReplacement.imageType = req.body.imageType;
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .replaceOne(myQuery, mongoReplacement);
 });
