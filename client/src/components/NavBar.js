@@ -15,7 +15,7 @@ const NavBar = ({ curUser, loggedIn }) => {
 
   if (loggedIn) {
     accButton = (
-      <DropdownButton className="accDropDownButton" title={curUser}>
+      <DropdownButton title={curUser}>
         <Dropdown.Item href={`/Account/${curUser}/Likes`}>Likes</Dropdown.Item>
         <Dropdown.Item href={`/Account/${curUser}/My-Pics`}>
           My Pics
@@ -37,8 +37,8 @@ const NavBar = ({ curUser, loggedIn }) => {
     );
     cartButton = (
       <a href="/Cart">
-        <Button className="cartButton">
-          <BsCartCheck size={36} className="cartIcon" />
+        <Button className="navbar__cartBtn">
+          <BsCartCheck size={36} className="navbar__cartIcon" />
           <div>Cart</div>
         </Button>
       </a>
@@ -69,7 +69,7 @@ const NavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div className="navBarContainer">
+    <div className="navbar">
       {siButton}
       {suButton}
       {accButton}

@@ -67,13 +67,13 @@ const Carousel2 = () => {
   }, []);
 
   return (
-    <div className="carouselContainer">
-      <div className="carouselText">Sell your images for free</div>
+    <div className="carousel__container">
+      <div className="carousel__overlayText">Sell your images for free</div>
       <Carousel
         pause={false}
         activeIndex={index}
         onSelect={handleSelect}
-        className="carousel"
+        className="carousel__contents"
       >
         <Carousel.Item>
           <img className="d-block w-100" src={slide1} alt="First slide" />

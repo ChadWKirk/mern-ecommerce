@@ -1,7 +1,7 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  background-color: #e7e7e7;
+  box-sizing: border-box;
 }
 
 .navContainer {
@@ -13,17 +13,17 @@ body {
   justify-content: space-between;
 }
 
-.navBarContainer {
+.navbar {
   display: flex;
   align-items: center;
   height: 60px;
 }
 
-.navBarContainer a {
+.navbar a {
   text-decoration: none;
 }
 
-.navBarContainer .btn-primary {
+.navbar .btn-primary {
   height: 50px;
   background-color: #e7e7e7;
   color: rgb(81, 81, 81);
@@ -32,7 +32,7 @@ body {
   border-radius: 10px;
 }
 
-.navBarContainer .btn-primary:hover {
+.navbar .btn-primary:hover {
   background-color: #3d6098;
   color: #e7e7e7;
 }
@@ -95,19 +95,19 @@ body {
   transition: 0.14s ease;
 }
 
-.cartIcon {
+.navbar__cartIcon {
   padding: 0px;
   margin-top: 0px;
 }
 
-.cartButton {
+.navbar__cartBtn {
   display: flex;
   align-items: center;
   padding-top: 5px;
   height: 100%;
 }
 
-.cartButton div {
+.navbar__cartBtn div {
   margin-left: 2px;
   margin-top: 21px;
   font-weight: 600;
@@ -139,13 +139,13 @@ body {
   color: orange;
 }
 
-.dropDownMenuButton {
+.dropDownMenu__button {
   margin: auto;
   color: red;
   flex: 1;
 }
 
-.carousel {
+.carousel__contents {
   margin-bottom: 30px;
 }
 
@@ -153,10 +153,10 @@ body {
   height: 700px;
 }
 
-.carouselContainer {
+.carousel__container {
 }
 
-.carouselText {
+.carousel__overlayText {
   position: absolute;
   z-index: 100;
   width: 100%;
