@@ -67,8 +67,8 @@ const NavBar = ({ curUser, loggedIn }) => {
     soButton = null;
     cartButton = null;
     siButton = (
-      <a href="/SignIn">
-        <Button>Sign In</Button>
+      <a href="/SignIn" style={{ color: "black" }}>
+        Sign In
       </a>
     );
     suButton = (
@@ -89,7 +89,7 @@ const NavBar = ({ curUser, loggedIn }) => {
     <div className="navbar">
       <div>
         <a href="/" className="logo">
-          <h1>PicPocket</h1>
+          <h1 className="logo__color-blue">PicPocket</h1>
         </a>
       </div>
       <form className="search__container" onSubmit={onSubmit}>

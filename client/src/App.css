@@ -4,43 +4,65 @@
   box-sizing: border-box;
 }
 
+.mainPage__bg {
+  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
+    no-repeat;
+  background-size: cover;
+  height: 70vh;
+  background-color: rgba(23, 45, 212, 0.312);
+  background-blend-mode: darken;
+}
+
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-left: 1rem;
   padding-right: 1rem;
+  gap: 40px;
 }
 
 .navbar a {
   text-decoration: none;
+  color: white;
+  font-size: 1rem;
 }
 
 .navbar__buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
   font-size: 1rem;
 }
 
 .navbar .btn-primary {
   height: 50px;
-  background-color: #e7e7e7;
-  color: rgb(81, 81, 81);
+  background-color: #debb0c;
+  color: rgb(77, 77, 77);
+  font-weight: bold;
   border: none;
   border-radius: 10px;
+  font-size: 1rem;
 }
 
 .navbar .btn-primary:hover {
-  background-color: #3d6098;
-  color: #e7e7e7;
+  background-color: #debb0c;
+  color: rgb(77, 77, 77);
 }
 
 .logo {
   display: flex;
   align-items: center;
-  color: #3d6098;
   text-decoration: none;
+}
+
+.logo__color-white {
+  color: white;
+}
+
+.logo__color-blue {
+  color: blue;
 }
 
 .logo h1 {
@@ -48,9 +70,10 @@
 }
 
 .logo:hover {
-  color: #3d6098;
   text-decoration: none;
 }
+
+/* Home Page Navbar Searchbar */
 
 .carousel__search-container {
   position: relative;
@@ -63,23 +86,25 @@
   border: none;
   background: none;
   position: absolute;
-  top: 1px;
-  right: 80px;
+  top: 2px;
+  right: 55px;
 }
 
 .carousel__search-bar {
   border: none;
   border-radius: 10px;
-  width: 29em;
-  font-size: 1.25rem;
+  width: 38rem;
+  font-size: 1rem;
+  font-weight: 500;
   padding: 0.5rem 1.25rem;
-  padding-right: 50px;
+  padding-right: 55px;
   outline: none;
+  color: #747474;
 }
 
 .carousel__search-icon {
-  color: #9d9d9d;
-  font-size: 1.5rem;
+  color: #747474;
+  font-size: 1.25rem;
   transition: 0.05s ease;
 }
 
@@ -88,35 +113,38 @@
   transition: 0.05s ease;
 }
 
+/* Normal Navbar Searchbar */
+
 .search__container {
-  background-color: red;
+  flex-grow: 1;
   position: relative;
-  width: 35ch;
-  margin: auto;
 }
 
 .search__button {
   border: none;
   background: none;
   position: absolute;
-  top: 1px;
-  right: 80px;
+  top: 9px;
+  right: 18px;
 }
 
 .search__bar {
   border: none;
   background-color: #e7e7e7;
   border-radius: 10px;
-  width: 29em;
-  font-size: 1.25rem;
+  width: 100%;
+  flex-grow: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #747474;
   padding: 0.5rem 1.25rem;
-  padding-right: 50px;
+  padding-right: 64px;
   outline: none;
 }
 
 .search__icon {
-  color: #9d9d9d;
-  font-size: 1.5rem;
+  color: #747474;
+  font-size: 1.25rem;
   transition: 0.05s ease;
 }
 
@@ -178,7 +206,8 @@
 .carousel__contents {
 }
 
-.d-block {
+.heroImage {
+  width: 100%;
   height: 450px;
   object-fit: cover;
 }
@@ -200,6 +229,23 @@
 .carousel__overlay p {
   width: 35ch;
   margin: auto;
+}
+
+.carousel__overlay-categories {
+  margin: auto;
+  width: 72ch;
+  font-size: 1rem;
+  padding: 0.7rem;
+}
+
+.carousel__overlay-categories a {
+  padding: 0.25rem;
+  color: white;
+  transition: 0.1s ease-in-out;
+}
+
+.carousel__overlay-categories a:hover {
+  color: rgb(130, 196, 224);
 }
 
 /*Search Results and My Likes Gallery CSS*/

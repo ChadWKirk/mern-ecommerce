@@ -6,7 +6,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 const Carousel2 = () => {
   //on load, fetch 5 random images and use them as variables in the img src
   //resJSON will be an array of secure_url's
-  const [slide1, setSlide1] = useState();
+  const [heroImage, setHeroImage] = useState();
 
   var slideArr = [];
 
@@ -51,7 +51,7 @@ const Carousel2 = () => {
 
       console.log(random + " randommm");
 
-      setSlide1(slideArr[random[0]].secure_url);
+      setHeroImage(slideArr[random[0]].secure_url);
     }
     getCarouselImages();
   }, []);
@@ -90,22 +90,21 @@ const Carousel2 = () => {
             />
           </button>
         </form>
+        <div className="carousel__overlay-categories">
+          Try these: <a href="http://localhost:3000/search/Nature">Nature</a>,
+          <a href="http://localhost:3000/search/Cats">Cats</a>,
+          <a href="http://localhost:3000/search/Dogs">Dogs</a>,
+          <a href="http://localhost:3000/search/Tech">Tech</a>,
+          <a href="http://localhost:3000/search/Landscape">Landscape</a>
+        </div>
       </div>
-      <Carousel
-        pause={false}
+      <div
         activeIndex={index}
         onSelect={handleSelect}
         className="carousel__contents"
       >
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            height={400}
-            src={slide1}
-            alt="Second slide"
-          />
-        </Carousel.Item>
-      </Carousel>
+        {/* <img className="heroImage" src={heroImage} alt="Hero Image" /> */}
+      </div>
     </div>
   );
 };

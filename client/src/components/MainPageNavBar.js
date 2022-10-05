@@ -51,11 +51,7 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
     accButton = null;
     soButton = null;
     cartButton = null;
-    siButton = (
-      <a href="/SignIn">
-        <Button>Sign In</Button>
-      </a>
-    );
+    siButton = <a href="/SignIn">Sign In</a>;
     suButton = (
       <a href="/SignUp">
         <Button>Sign Up</Button>
@@ -71,10 +67,10 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div className="navbar">
+    <div className="navbar bg-none">
       <div>
         <a href="/" className="logo">
-          <h1>PicPocket</h1>
+          <h1 className="logo__color-white">PicPocket</h1>
         </a>
       </div>
       <div className="navbar__buttons">
