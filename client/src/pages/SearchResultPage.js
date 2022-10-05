@@ -93,9 +93,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <div className="navContainer">
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <DropDown />
       <div className="galleryContainer">
         <div className="galleryHeadingAndSortContainer">

@@ -10,11 +10,11 @@ const MainPage = ({ curUser, loggedIn }) => {
       <MainPageNavBar curUser={curUser} loggedIn={loggedIn} />
       <DropDown />
       <Carousel2 />
-      <div>
-        Sign up now!
-        <a href="/SignUp">
-          <Button>Sign Up</Button>
-        </a>
+      <div className="mainPage__randomGallery-container">
+        <h1>Free Stock Photos</h1>
+        <div>ok</div>
+        <div>ok</div>
+        <div>ok</div>
       </div>
     </div>
   );

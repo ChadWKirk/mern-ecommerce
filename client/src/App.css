@@ -8,7 +8,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -17,11 +16,17 @@
   text-decoration: none;
 }
 
+.navbar__buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 1rem;
+}
+
 .navbar .btn-primary {
   height: 50px;
   background-color: #e7e7e7;
   color: rgb(81, 81, 81);
-  font-size: 20px;
   border: none;
   border-radius: 10px;
 }
@@ -34,9 +39,12 @@
 .logo {
   display: flex;
   align-items: center;
-  margin: auto;
   color: #3d6098;
   text-decoration: none;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
 }
 
 .logo:hover {
@@ -55,22 +63,23 @@
   border: none;
   background: none;
   position: absolute;
-  top: -2px;
-  right: 500px;
+  top: 1px;
+  right: 80px;
 }
 
 .carousel__search-bar {
   border: none;
-  border-radius: 18px;
-  width: 15em;
-  font-size: 2.7rem;
-  padding: 0.25rem 1rem;
+  border-radius: 10px;
+  width: 29em;
+  font-size: 1.25rem;
+  padding: 0.5rem 1.25rem;
+  padding-right: 50px;
   outline: none;
 }
 
 .carousel__search-icon {
   color: #9d9d9d;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   transition: 0.05s ease;
 }
 
@@ -80,32 +89,34 @@
 }
 
 .search__container {
-  width: 35ch;
-  display: flex;
+  background-color: red;
   position: relative;
+  width: 35ch;
+  margin: auto;
 }
 
 .search__button {
   border: none;
   background: none;
   position: absolute;
-  top: 15px;
-  right: -200px;
+  top: 1px;
+  right: 80px;
 }
 
 .search__bar {
-  background-color: #e7e7e7;
   border: none;
-  border-radius: 18px;
-  width: 15em;
-  font-size: 2.7rem;
-  padding: 0.25rem 1rem;
+  background-color: #e7e7e7;
+  border-radius: 10px;
+  width: 29em;
+  font-size: 1.25rem;
+  padding: 0.5rem 1.25rem;
+  padding-right: 50px;
   outline: none;
 }
 
 .search__icon {
   color: #9d9d9d;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   transition: 0.05s ease;
 }
 
@@ -149,7 +160,7 @@
   padding: 0;
   margin-left: calc(100% / 3.6);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1rem;
   height: 35px;
 }
 
@@ -165,11 +176,11 @@
 }
 
 .carousel__contents {
-  margin-bottom: 30px;
 }
 
 .d-block {
-  height: 700px;
+  height: 450px;
+  object-fit: cover;
 }
 
 .carousel__container {
@@ -177,7 +188,7 @@
 
 .carousel__overlay {
   width: 100%;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: bold;
   position: absolute;
   top: 30%;
@@ -471,7 +482,6 @@
   font-size: 17px;
   height: 10%;
   padding: 35px;
-  margin-top: 10px;
 }
 
 .imageViewContainer {

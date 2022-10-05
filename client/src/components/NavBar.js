@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import SearchBar from "./SearchBar";
 
 const NavBar = ({ curUser, loggedIn }) => {
   let soButton;
@@ -103,7 +102,7 @@ const NavBar = ({ curUser, loggedIn }) => {
           <FontAwesomeIcon icon={faMagnifyingGlass} className="search__icon" />
         </button>
       </form>
-      <div>
+      <div className="navbar__buttons">
         {siButton}
         {suButton}
         {accButton}

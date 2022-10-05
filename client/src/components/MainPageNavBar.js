@@ -77,12 +77,14 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
           <h1>PicPocket</h1>
         </a>
       </div>
-      {siButton}
-      {suButton}
-      {accButton}
-      {uploadButton}
-      {soButton}
-      {cartButton}
+      <div className="navbar__buttons">
+        {siButton}
+        {suButton}
+        {accButton}
+        {uploadButton}
+        {soButton}
+        {cartButton}
+      </div>
     </div>
   );
 };
