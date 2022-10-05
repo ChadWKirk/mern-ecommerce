@@ -67,7 +67,7 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div className="navbar bg-none">
+    <div className="navbar">
       <div>
         <a href="/" className="logo">
           <h1 className="logo__color-white">PicPocket</h1>

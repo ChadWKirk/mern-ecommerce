@@ -230,10 +230,10 @@ app.delete("/Account/:username/delUser", (req, res) => {
 });
 
 //cloudinary routes
-//return an array of secure_url's for carousel to get
-app.get("/carouselImages", (req, res) => {
+//get random images for main page
+app.get("/randomImages", (req, res) => {
   cloudinary.api
-    .resources({ max_results: 30 })
+    .resources({ max_results: 12 })
     .then((result) => res.json(result.resources))
     .catch((error) => {
       console.log(error);

@@ -1,10 +1,62 @@
 import React, { useState, useEffect, useRef } from "react";
-import Button from "react-bootstrap/Button";
 import MainPageNavBar from "../components/MainPageNavBar";
-import DropDown from "../components/DropDown";
 import Carousel2 from "../components/Carousel";
 
 const MainPage = ({ curUser, loggedIn }) => {
+  //on load, fetch random images and use them as variables in the img src
+  //resJSON will be an array of secure_url's
+  const [randomGallery, setRandomGallery] = useState([]);
+
+  var slideArr = [];
+
+  useEffect(() => {
+    //get random number to get random index from slide array
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    async function getRandomImages() {
+      await fetch("http://localhost:5000/randomImages", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      }).then((response) =>
+        response
+          .json()
+          .then((resJSON) => JSON.stringify(resJSON))
+          .then((stringJSON) => JSON.parse(stringJSON))
+          .then((parsedJSON) => (slideArr = parsedJSON))
+      );
+      console.log(slideArr);
+      //shuffling an array to get better randomization than just math.random
+      var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+      function shuffle(o) {
+        for (
+          var j, x, i = o.length;
+          i;
+          j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+        );
+        return o;
+      }
+
+      var random = shuffle(numbers);
+
+      console.log(random + " random");
+
+      setRandomGallery(
+        slideArr.map((element, index) => {
+          var imgSRC = slideArr[random[index]].secure_url;
+          return (
+            <div key={index}>
+              <img src={imgSRC}></img>
+            </div>
+          );
+        })
+      );
+    }
+    getRandomImages();
+  }, []);
+
   return (
     <div>
       <div className="mainPage__bg">
@@ -13,10 +65,12 @@ const MainPage = ({ curUser, loggedIn }) => {
         <Carousel2 />
       </div>
       <div className="mainPage__randomGallery-container">
+        <div className="mainPage__randomGallery-sorting">
+          <button>Most Recent</button>
+          <button>Most Popular</button>
+        </div>
         <h1>Free Stock Photos</h1>
-        <div>ok</div>
-        <div>ok</div>
-        <div>ok</div>
+        <div className="mainPage__randomGallery-gallery">{randomGallery}</div>
       </div>
     </div>
   );

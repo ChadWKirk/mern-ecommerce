@@ -24,7 +24,7 @@ const Carousel2 = () => {
     }
 
     async function getCarouselImages() {
-      await fetch("http://localhost:5000/carouselImages", {
+      await fetch("http://localhost:5000/randomImages", {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>

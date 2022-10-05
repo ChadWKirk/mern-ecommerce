@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+button {
+  border: none;
+  background: none;
+}
+
 .mainPage__bg {
   background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
     no-repeat;
@@ -249,6 +254,31 @@
 }
 
 /*Search Results and My Likes Gallery CSS*/
+
+.mainPage__randomGallery-container {
+}
+
+.mainPage__randomGallery-container h1 {
+  font-size: 1.5rem;
+}
+
+.mainPage__randomGallery-sorting {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+.mainPage__randomGallery-sorting button {
+  font-size: 1rem;
+}
+
+.mainPage__randomGallery-gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
 
 .galleryContainer {
 }
