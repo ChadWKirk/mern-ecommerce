@@ -4,19 +4,13 @@
   box-sizing: border-box;
 }
 
-.navContainer {
-  padding: 20px;
-  height: 60px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .navbar {
   display: flex;
   align-items: center;
-  height: 60px;
+  justify-content: space-between;
+  height: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .navbar a {
@@ -50,49 +44,74 @@
   text-decoration: none;
 }
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background-color: #3d6098;
+.carousel__search-container {
+  position: relative;
+  width: 35ch;
+  margin: auto;
+  margin-top: 1rem;
 }
 
-.searchButton {
-  background-color: #f04b4c;
+.carousel__search-button {
   border: none;
+  background: none;
+  position: absolute;
+  top: -2px;
+  right: 500px;
 }
 
-.searchBar {
-  border-top-left-radius: 3.5px;
-  border-bottom-left-radius: 3.5px;
-  padding: 4.5px;
-  padding-left: 5px;
-  width: 40em;
-  height: 40px;
+.carousel__search-bar {
+  border: none;
+  border-radius: 18px;
+  width: 15em;
+  font-size: 2.7rem;
+  padding: 0.25rem 1rem;
+  outline: none;
 }
 
-.searchContainer .btn-primary {
-  padding-top: 5px;
-  height: 40px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-top-right-radius: 3.5px;
-  border-bottom-right-radius: 3.5px;
+.carousel__search-icon {
+  color: #9d9d9d;
+  font-size: 2.5rem;
+  transition: 0.05s ease;
 }
 
-.searchContainer .btn-primary:hover {
-  background-color: #db4444;
+.carousel__search-button:hover .search-icon {
+  color: #3d6098;
+  transition: 0.05s ease;
 }
 
-.searchIcon {
-  color: white;
-  transition: 0.18s ease;
+.search__container {
+  width: 35ch;
+  display: flex;
+  position: relative;
 }
 
-.searchContainer .btn-primary:hover .searchIcon {
-  color: #eeeeee;
-  transition: 0.14s ease;
+.search__button {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 15px;
+  right: -200px;
+}
+
+.search__bar {
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 18px;
+  width: 15em;
+  font-size: 2.7rem;
+  padding: 0.25rem 1rem;
+  outline: none;
+}
+
+.search__icon {
+  color: #9d9d9d;
+  font-size: 2.5rem;
+  transition: 0.05s ease;
+}
+
+.search__button:hover .search__icon {
+  color: #3d6098;
+  transition: 0.05s ease;
 }
 
 .navbar__cartIcon {
@@ -156,14 +175,20 @@
 .carousel__container {
 }
 
-.carousel__overlayText {
-  position: absolute;
-  z-index: 100;
+.carousel__overlay {
   width: 100%;
-  margin-top: 200px;
-  text-align: center;
-  font-size: 100px;
+  font-size: 3.5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 30%;
+  z-index: 100;
   color: white;
+  margin: auto;
+}
+
+.carousel__overlay p {
+  width: 35ch;
+  margin: auto;
 }
 
 /*Search Results and My Likes Gallery CSS*/

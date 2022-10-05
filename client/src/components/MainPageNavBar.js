@@ -6,30 +6,14 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import SearchBar from "./SearchBar";
 
-const NavBar = ({ curUser, loggedIn }) => {
+const MainPageNavBar = ({ curUser, loggedIn }) => {
   let soButton;
   let accButton;
   let siButton;
   let suButton;
   let cartButton;
   let uploadButton;
-
-  //go to /search/whateverYouSearchFor when hitting enter or clicking search button
-  var navigate = useNavigate();
-  let inputValue;
-
-  function onChange(event) {
-    inputValue = event.target.value;
-    console.log(inputValue);
-  }
-
-  function onSubmit() {
-    navigate(`/search/${inputValue}`);
-  }
 
   if (loggedIn) {
     accButton = (
@@ -93,26 +77,14 @@ const NavBar = ({ curUser, loggedIn }) => {
           <h1>PicPocket</h1>
         </a>
       </div>
-      <form className="search__container" onSubmit={onSubmit}>
-        <input
-          className="search__bar"
-          placeholder="Search for free photos"
-          onChange={onChange}
-        ></input>
-        <button className="search__button" type="submit">
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="search__icon" />
-        </button>
-      </form>
-      <div>
-        {siButton}
-        {suButton}
-        {accButton}
-        {uploadButton}
-        {soButton}
-        {cartButton}
-      </div>
+      {siButton}
+      {suButton}
+      {accButton}
+      {uploadButton}
+      {soButton}
+      {cartButton}
     </div>
   );
 };
 
-export default NavBar;
+export default MainPageNavBar;

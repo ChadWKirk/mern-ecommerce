@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaCameraRetro } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 
@@ -20,11 +21,15 @@ const SearchBar = () => {
 
   return (
     <div>
-      <form className="searchContainer" onSubmit={onSubmit}>
-        <input className="searchBar" onChange={onChange}></input>
-        <Button className="searchButton" type="submit">
-          <FaCameraRetro size={26} className="searchIcon" />
-        </Button>
+      <form className="search__container" onSubmit={onSubmit}>
+        <input
+          className="search__bar"
+          placeholder="Search for free photos"
+          onChange={onChange}
+        ></input>
+        <button className="search__button" type="submit">
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="search__icon" />
+        </button>
       </form>
     </div>
   );
