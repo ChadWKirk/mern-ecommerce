@@ -6,11 +6,7 @@ import SearchBar from "../components/SearchBar";
 const DelSuccessPage = ({ curUser, loggedIn }) => {
   return (
     <div>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <h3>User account has been removed.</h3>
     </div>
   );

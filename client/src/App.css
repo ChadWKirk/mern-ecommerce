@@ -22,8 +22,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
   gap: 40px;
 }
 
@@ -256,10 +256,16 @@ button {
 /*Search Results and My Likes Gallery CSS*/
 
 .mainPage__randomGallery-container {
+  width: 90%;
+  margin: auto;
 }
 
 .mainPage__randomGallery-container h1 {
   font-size: 1.5rem;
+  padding: 3.5rem;
+  padding-top: 0;
+  padding-bottom: 2.75rem;
+  padding-left: 0;
 }
 
 .mainPage__randomGallery-sorting {
@@ -275,9 +281,43 @@ button {
 
 .mainPage__randomGallery-gallery {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   flex-wrap: wrap;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mainPage__randomGallery-div {
+  width: 350px;
+  height: 600px;
+  flex-grow: 1;
+  position: relative;
+  font-size: 1rem;
+  color: rgb(73, 73, 73);
+}
+
+.mainPage__randomGallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mainPage__randomGallery-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.mainPage__randomGallery-download {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.75rem;
 }
 
 .galleryContainer {

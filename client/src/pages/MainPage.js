@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import MainPageNavBar from "../components/MainPageNavBar";
 import Carousel2 from "../components/Carousel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 const MainPage = ({ curUser, loggedIn }) => {
   //on load, fetch random images and use them as variables in the img src
@@ -46,9 +49,19 @@ const MainPage = ({ curUser, loggedIn }) => {
       setRandomGallery(
         slideArr.map((element, index) => {
           var imgSRC = slideArr[random[index]].secure_url;
+          var author = slideArr[random[index]].uploadedBy;
           return (
-            <div key={index}>
-              <img src={imgSRC}></img>
+            <div key={index} className="mainPage__randomGallery-div">
+              <img src={imgSRC} className="mainPage__randomGallery-img"></img>
+              <FontAwesomeIcon
+                icon={farHeart}
+                className="mainPage__randomGallery-heart"
+              ></FontAwesomeIcon>
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="mainPage__randomGallery-download"
+              ></FontAwesomeIcon>
+              <p>{author}</p>
             </div>
           );
         })

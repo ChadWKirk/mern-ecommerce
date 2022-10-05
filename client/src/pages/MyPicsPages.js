@@ -89,12 +89,8 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
-      <DropDown />
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
+      {/* <DropDown /> */}
       <div className="myPicsGalleryMainContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">

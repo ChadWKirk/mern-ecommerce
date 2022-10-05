@@ -12,11 +12,7 @@ const ImageViewPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <DropDown />
       <div className="imageViewContainer">
         <div className="imageViewDetailsContainer">

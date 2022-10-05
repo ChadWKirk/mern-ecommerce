@@ -32,11 +32,7 @@ const AccountPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <h2>Shipping Address:</h2>
       <p>shipping address</p>
       <a href="">Edit</a>

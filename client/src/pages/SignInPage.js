@@ -66,11 +66,7 @@ const SignInPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input id="username" onChange={onChangeName}></input>

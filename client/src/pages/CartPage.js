@@ -7,11 +7,7 @@ import DropDown from "../components/DropDown";
 const CartPage = ({ curUser, loggedIn }) => {
   return (
     <div>
-      <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
-      </div>
+      <NavBar curUser={curUser} loggedIn={loggedIn} />
       <DropDown />
       <div className="cartContainer">
         <div>
