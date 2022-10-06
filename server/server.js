@@ -232,26 +232,26 @@ app.delete("/Account/:username/delUser", (req, res) => {
 //cloudinary routes
 //get random images for main page
 app.get("/randomImages", (req, res) => {
-  cloudinary.api
-    .resources({ max_results: 12 })
-    .then((result) => res.json(result.resources))
-    .catch((error) => {
-      console.log(error);
-    });
-
-  // let db_connect = dbo.getDb();
-
-  // db_connect
-  //   .collection("mern-ecommerce-images")
-  //   .find()
-  //   .limit(12)
-  //   .toArray(function (err, result) {
-  //     if (err) {
-  //       res.status(400).send("Error fetching listings!");
-  //     } else {
-  //       res.json(result);
-  //     }
+  // cloudinary.api
+  //   .resources({ max_results: 12 })
+  //   .then((result) => res.json(result.resources))
+  //   .catch((error) => {
+  //     console.log(error);
   //   });
+
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+      }
+    });
 });
 //get images when searching
 app.get("/search/:searchQuery", (req, res) => {

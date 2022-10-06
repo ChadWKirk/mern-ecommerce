@@ -51,14 +51,15 @@ const MainPage = ({ curUser, loggedIn }) => {
 
       setRandomGallery(
         slideArr.map((element, index) => {
-          var imgSRC = slideArr[random[index]].secure_url;
-          var author = slideArr[random[index]].uploadedBy;
+          var imgSRC = slideArr[2].secure_url;
+          var author = slideArr[2].uploadedBy;
           var likeButton;
-          if (element.likedBy == curUser) {
+          // console.log(slideArr[2].likedBy.includes(curUser));
+          if (slideArr[2].likedBy.includes(curUser)) {
             likeButton = (
               <FontAwesomeIcon
                 onClick={(e) => handleLike(e)}
-                icon={isLiked ? faHeart : farHeart}
+                icon={faHeart}
                 className="mainPage__randomGallery-heart heartRed"
               ></FontAwesomeIcon>
             );
@@ -66,7 +67,7 @@ const MainPage = ({ curUser, loggedIn }) => {
             likeButton = (
               <FontAwesomeIcon
                 onClick={(e) => handleLike(e)}
-                icon={isLiked ? faHeart : farHeart}
+                icon={farHeart}
                 className="mainPage__randomGallery-heart"
               ></FontAwesomeIcon>
             );
@@ -76,7 +77,8 @@ const MainPage = ({ curUser, loggedIn }) => {
               <img src={imgSRC} className="mainPage__randomGallery-img"></img>
               <div className="mainPage__randomGallery-imgOverlay">
                 <a
-                  assetID={element.asset_id}
+                  assetid={element.asset_id}
+                  likedby={element.likedBy}
                   className="mainPage__randomGallery-heartA"
                   onClick={(e) => handleLike(e)}
                 >
@@ -103,15 +105,21 @@ const MainPage = ({ curUser, loggedIn }) => {
   }, []);
 
   async function handleLike(e) {
-    setIsLiked(!isLiked);
-    console.log(e);
-    if (isLiked) {
-      //use asset ID in E to make GET request and add curUser to that
-      //asset ID's image's likedBy array
+    console.log(e.target.attributes);
+
+    if (e.target.attributes[1].value.includes(curUser)) {
+      console.log("unlike");
     } else {
-      //use asset ID in E to make GET request and remove curUser from
-      //that asset ID's image's likedBy array
+      console.log("like");
     }
+
+    // if (isLiked) {
+    //   //use asset ID in E to make GET request and add curUser to that
+    //   //asset ID's image's likedBy array
+    // } else {
+    //   //use asset ID in E to make GET request and remove curUser from
+    //   //that asset ID's image's likedBy array
+    // }
   }
 
   const [isActiveRec, setActiveRec] = useState(true);
