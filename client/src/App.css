@@ -9,6 +9,10 @@ button {
   background: none;
 }
 
+.opacity0 {
+  opacity: 0;
+}
+
 .mainPage__bg {
   background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
     no-repeat;
@@ -310,6 +314,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: 10px;
 }
 
 .mainPage__randomGallery-heartA {
@@ -321,22 +326,26 @@ button {
   text-decoration: none;
   color: rgb(73, 73, 73);
   border-radius: 10px;
-  padding: 0.75rem;
+  padding: 1.3rem;
 }
 
 .mainPage__randomGallery-heart {
   border-radius: 10px;
   pointer-events: none;
+  position: absolute;
+  top: 14px;
+  left: 14px;
 }
 
 .heartRed {
   color: red;
+  z-index: 100;
 }
 
 .mainPage__randomGallery-downloadA {
   cursor: pointer;
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   right: 10px;
   background-color: white;
   text-decoration: none;
@@ -350,12 +359,31 @@ button {
   border-radius: 10px;
 }
 
-.mainPage__randomGallery-imgOverlay a:hover {
+.mainPage__randomGallery-heartA:hover {
   background-color: #f1f1f1;
 }
 
-.mainPage__randomGallery-download:hover {
+.mainPage__randomGallery-downloadA:hover {
   background-color: #f1f1f1;
+}
+
+.mainPage__randomGallery-overlayAuthor {
+  cursor: pointer;
+  position: absolute;
+  bottom: 7px;
+  left: 10px;
+  text-decoration: none;
+  color: #f1f1f1;
+  font-weight: 800;
+  font-size: 1rem;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.mainPage__randomGallery-overlayAuthor:hover {
+  background: none;
+  color: #f1f1f1;
+  text-decoration: underline;
 }
 
 .galleryContainer {

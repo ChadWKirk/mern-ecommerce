@@ -281,11 +281,15 @@ app.post("/upload", (req, res) => {
 app.get("/:username/likes", (req, res) => {
   console.log("likes get");
 
-  // let db_connect = dbo.getDb();
+  let db_connect = dbo.getDb();
 
-  // db_connect
-  //   .collection("mern-ecommerce-users")
-  //   .find({})
+  let result = db_connect
+    .collection("mern-ecommerce-images")
+    .find({ likedBy: req.params.username })
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 //My Pics GET
@@ -360,4 +364,50 @@ app.put("/update/:username", async (req, res) => {
   db_connect
     .collection("mern-ecommerce-images")
     .replaceOne(myQuery, mongoReplacement);
+});
+
+//update likedBy
+//add to likedBy
+app.post("/addLikedBy/:assetID/:username", (req, res) => {
+  let imgAssetID = req.params.assetID;
+  let user = req.params.username;
+
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .updateOne({ asset_id: imgAssetID }, { $push: { likedBy: user } });
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .findOne({ asset_id: imgAssetID }, function (err, user) {
+      if (err) {
+        console.log(err);
+      } else if (user) {
+        console.log("user not found");
+        // res.json("none"); //send username in resopnse to react fetch
+      }
+    });
+
+  console.log("add like");
+});
+
+//remove from likedBy
+app.post("/removeLikedBy/:assetID/:username", (req, res) => {
+  let imgAssetID = req.params.assetID;
+  let user = req.params.username;
+
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .updateOne({ asset_id: imgAssetID }, { $pull: { likedBy: user } });
+
+  // db_connect
+  //   .collection("mern-ecommerce-images")
+  //   .findOne({ asset_id: imgAssetID }, function (err, img) {
+  //     if (img) console.log(img);
+  //   });
+
+  console.log("remove like");
 });

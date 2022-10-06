@@ -11,7 +11,7 @@ const MainPage = ({ curUser, loggedIn }) => {
   //on load, fetch random images and use them as variables in the img src
   //resJSON will be an array of secure_url's
   const [randomGallery, setRandomGallery] = useState([]);
-  const [isLiked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState(false);
 
   var slideArr = [];
 
@@ -34,42 +34,56 @@ const MainPage = ({ curUser, loggedIn }) => {
       );
       console.log(slideArr);
       //shuffling an array to get better randomization than just math.random
-      var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+      // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-      function shuffle(o) {
-        for (
-          var j, x, i = o.length;
-          i;
-          j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
-        );
-        return o;
-      }
+      // function shuffle(o) {
+      //   for (
+      //     var j, x, i = o.length;
+      //     i;
+      //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+      //   );
+      //   return o;
+      // }
 
-      var random = shuffle(numbers);
+      // var random = shuffle(numbers);
 
-      console.log(random + " random");
+      // console.log(random + " random");
 
       setRandomGallery(
         slideArr.map((element, index) => {
-          var imgSRC = slideArr[2].secure_url;
-          var author = slideArr[2].uploadedBy;
+          var imgSRC = slideArr[index].secure_url;
+          var author = slideArr[index].uploadedBy;
           var likeButton;
           // console.log(slideArr[2].likedBy.includes(curUser));
-          if (slideArr[2].likedBy.includes(curUser)) {
+          if (slideArr[index].likedBy.includes(curUser)) {
             likeButton = (
-              <FontAwesomeIcon
-                onClick={(e) => handleLike(e)}
-                icon={faHeart}
-                className="mainPage__randomGallery-heart heartRed"
-              ></FontAwesomeIcon>
+              <div>
+                <FontAwesomeIcon
+                  onClick={(e) => handleLike(e)}
+                  icon={faHeart}
+                  className="mainPage__randomGallery-heart heartRed"
+                ></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  onClick={(e) => handleLike(e)}
+                  icon={farHeart}
+                  className="mainPage__randomGallery-heart opacity0"
+                ></FontAwesomeIcon>
+              </div>
             );
           } else {
             likeButton = (
-              <FontAwesomeIcon
-                onClick={(e) => handleLike(e)}
-                icon={farHeart}
-                className="mainPage__randomGallery-heart"
-              ></FontAwesomeIcon>
+              <div>
+                <FontAwesomeIcon
+                  onClick={(e) => handleLike(e)}
+                  icon={faHeart}
+                  className="mainPage__randomGallery-heart heartRed opacity0"
+                ></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  onClick={(e) => handleLike(e)}
+                  icon={farHeart}
+                  className="mainPage__randomGallery-heart"
+                ></FontAwesomeIcon>
+              </div>
             );
           }
           return (
@@ -77,16 +91,13 @@ const MainPage = ({ curUser, loggedIn }) => {
               <img src={imgSRC} className="mainPage__randomGallery-img"></img>
               <div className="mainPage__randomGallery-imgOverlay">
                 <a
-                  assetid={element.asset_id}
-                  likedby={element.likedBy}
+                  assetid={slideArr[index].asset_id}
+                  likedby={slideArr[index].likedBy}
                   className="mainPage__randomGallery-heartA"
                   onClick={(e) => handleLike(e)}
                 >
                   {/* put like button here based on likedBy if statement ^^^ */}
-                  <FontAwesomeIcon
-                    icon={farHeart}
-                    className="mainPage__randomGallery-heart"
-                  ></FontAwesomeIcon>
+                  {likeButton}
                 </a>
                 <a className="mainPage__randomGallery-downloadA">
                   <FontAwesomeIcon
@@ -94,7 +105,9 @@ const MainPage = ({ curUser, loggedIn }) => {
                     className="mainPage__randomGallery-download"
                   ></FontAwesomeIcon>
                 </a>
-                <p>{author}</p>
+                <a className="mainPage__randomGallery-overlayAuthor">
+                  {author}
+                </a>
               </div>
             </div>
           );
@@ -102,15 +115,28 @@ const MainPage = ({ curUser, loggedIn }) => {
       );
     }
     getRandomImages();
-  }, []);
-
+  }, [isLiked]);
+  //only runs 6 times. one more than array length. coincidence?
   async function handleLike(e) {
-    console.log(e.target.attributes);
-
-    if (e.target.attributes[1].value.includes(curUser)) {
-      console.log("unlike");
-    } else {
-      console.log("like");
+    // console.log(e.target.attributes);
+    let currentLikedByArr = e.target.attributes[1].value;
+    let imgAssetID = e.target.attributes[0].value;
+    setIsLiked(!isLiked);
+    if (currentLikedByArr.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/removeLikedBy/${imgAssetID}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      );
+      console.log(currentLikedByArr);
+    } else if (!currentLikedByArr.includes(curUser)) {
+      await fetch(`http://localhost:5000/addLikedBy/${imgAssetID}/${curUser}`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+      });
+      console.log(currentLikedByArr);
     }
 
     // if (isLiked) {
