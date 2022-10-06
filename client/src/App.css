@@ -10,7 +10,7 @@ button {
 }
 
 .mainPage__bg {
-  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg")
+  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
     no-repeat;
   background-size: cover;
   height: 70vh;
@@ -280,20 +280,23 @@ button {
 }
 
 .mainPage__randomGallery-gallery {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
+  columns: 3 300px;
+  gap: 15px;
+  margin-bottom: 100px;
 }
 
 .mainPage__randomGallery-div {
-  width: 350px;
-  max-height: 600px;
-  flex-grow: 1;
   position: relative;
   font-size: 1rem;
   color: rgb(73, 73, 73);
+}
+
+.mainPage__randomGallery-imgOverlay {
+  opacity: 0;
+}
+
+.mainPage__randomGallery-div:hover .mainPage__randomGallery-imgOverlay {
+  opacity: 1;
 }
 
 .buttonClicked {
@@ -309,22 +312,50 @@ button {
   object-fit: cover;
 }
 
-.mainPage__randomGallery-heart {
+.mainPage__randomGallery-heartA {
+  cursor: pointer;
   position: absolute;
   top: 10px;
   right: 10px;
   background-color: white;
+  text-decoration: none;
+  color: rgb(73, 73, 73);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.mainPage__randomGallery-heart {
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.heartRed {
+  color: red;
+}
+
+.mainPage__randomGallery-downloadA {
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: white;
+  text-decoration: none;
+  color: rgb(73, 73, 73);
   border-radius: 10px;
   padding: 0.75rem;
 }
 
 .mainPage__randomGallery-download {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: white;
+  pointer-events: none;
   border-radius: 10px;
-  padding: 0.75rem;
+}
+
+.mainPage__randomGallery-imgOverlay a:hover {
+  background-color: #f1f1f1;
+}
+
+.mainPage__randomGallery-download:hover {
+  background-color: #f1f1f1;
 }
 
 .galleryContainer {
@@ -563,48 +594,16 @@ button {
   border-radius: 5px;
 }
 
-.brochureContainer {
-  display: flex;
-  flex-direction: column;
-  width: 66%;
-  height: auto;
-  margin: auto;
-}
-
-.brochItemContainer {
-  display: flex;
-  height: auto;
-}
-
-.brochItemTitleContainer {
-  width: 170%;
-}
-
-.brochItemTitleContainer div {
-  align-self: center;
-  font-size: 70px;
-  font-weight: 700;
-}
-
-.brochItemPContainer {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-}
-
-.brochItemPContainer div {
-  font-size: 35px;
-}
-
 .footerContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
   color: grey;
   background-color: rgb(45, 45, 45);
-  font-size: 17px;
+  font-size: 1rem;
   height: 10%;
-  padding: 35px;
+  padding: 2rem;
+  margin-top: 6.5rem;
 }
 
 .imageViewContainer {
