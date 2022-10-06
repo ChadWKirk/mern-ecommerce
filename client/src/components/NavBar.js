@@ -86,10 +86,10 @@ const NavBar = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div className="navbar">
+    <div className="navbar navbar__darken">
       <div>
         <a href="/" className="logo">
-          <h1 className="logo__color-blue">PicPocket</h1>
+          <h1>PicPocket</h1>
         </a>
       </div>
       <form className="search__container" onSubmit={onSubmit}>

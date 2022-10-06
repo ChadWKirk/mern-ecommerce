@@ -31,6 +31,10 @@ button {
   gap: 40px;
 }
 
+.navbar__darken {
+  background-color: rgb(55, 57, 65);
+}
+
 .navbar a {
   text-decoration: none;
   color: white;
@@ -392,6 +396,7 @@ button {
 .galleryHeadingAndSortContainer {
   padding: 2rem;
   margin: auto;
+  margin-top: 1.5rem;
 }
 
 .galleryHeading {
@@ -466,7 +471,7 @@ button {
   gap: 20px;
   margin: auto;
   justify-content: center;
-  margin-bottom: 5rem;
+  margin-bottom: 3.7rem;
 }
 
 .galleryDropDownButton .btn-primary {

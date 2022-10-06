@@ -41,24 +41,19 @@ const LikesPage = ({ curUser, loggedIn }) => {
       //only output the public_id after the last /. last index of array meaning length-1
       //replace all spaces with dashes
       setResultsMap(
-        likesArr.map((element) => {
+        likesArr.map((element, index) => {
           let parts = element.public_id.split("/");
           let result = parts[parts.length - 1];
-          console.log(element);
+
           return (
-            <a
-              key={element.asset_id}
-              href={`/image/${result.replaceAll(" ", "-")}`}
-              // className="mainPage__randomGallery-div"
-            >
-              <img
-                width={1920}
-                height={1080}
-                src={element.secure_url}
-                alt="img"
-                // className="mainPage__randomGallery-img"
-              ></img>
-            </a>
+            <div key={index} className="mainPage__randomGallery-div">
+              <a href={`/image/${result.replaceAll(" ", "-")}`}>
+                <img
+                  src={element.secure_url}
+                  className="mainPage__randomGallery-img"
+                ></img>
+              </a>
+            </div>
           );
         })
       );
@@ -93,7 +88,12 @@ const LikesPage = ({ curUser, loggedIn }) => {
             <Dropdown.Item>Vector</Dropdown.Item>
           </DropdownButton>
         </div>
-        <div className="mainPage__randomGallery-gallery">{resultsMap}</div>
+        <div
+          className="mainPage__randomGallery-gallery"
+          style={{ marginLeft: "1rem", marginRight: "1rem" }}
+        >
+          {resultsMap}
+        </div>
       </div>
     </div>
   );
