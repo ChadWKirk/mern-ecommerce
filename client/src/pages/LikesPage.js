@@ -49,12 +49,14 @@ const LikesPage = ({ curUser, loggedIn }) => {
             <a
               key={element.asset_id}
               href={`/image/${result.replaceAll(" ", "-")}`}
+              // className="mainPage__randomGallery-div"
             >
               <img
                 width={1920}
                 height={1080}
                 src={element.secure_url}
                 alt="img"
+                // className="mainPage__randomGallery-img"
               ></img>
             </a>
           );
@@ -67,33 +69,31 @@ const LikesPage = ({ curUser, loggedIn }) => {
   return (
     <div>
       <NavBar curUser={curUser} loggedIn={loggedIn} />
-      <DropDown />
+      {/* <DropDown /> */}
       <div className="galleryContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
             <h2>Your Likes</h2>
-          </div>
-          <div className="gallerySortBar d-flex">
-            <DropdownButton className="galleryDropDownButton" title="Sort By">
-              <Dropdown.Item className="galleryDropDownItem">
-                Popular
-              </Dropdown.Item>
-              <Dropdown.Item>Ratings Low-High</Dropdown.Item>
-              <Dropdown.Item>Ratings High-Low</Dropdown.Item>
-              <Dropdown.Item>Price Low-High</Dropdown.Item>
-              <Dropdown.Item>Price High-Low</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton
-              className="galleryDropDownButton"
-              title="Image Type"
-            >
-              <Dropdown.Item>All types</Dropdown.Item>
-              <Dropdown.Item>Photo</Dropdown.Item>
-              <Dropdown.Item>Vector</Dropdown.Item>
-            </DropdownButton>
+            <p>x images and x videos liked by curUser link</p>
           </div>
         </div>
-        <div className="gallery">{resultsMap}</div>
+        <div className="gallerySortBar d-flex">
+          <DropdownButton className="galleryDropDownButton" title="Sort By">
+            <Dropdown.Item className="galleryDropDownItem">
+              Popular
+            </Dropdown.Item>
+            <Dropdown.Item>Ratings Low-High</Dropdown.Item>
+            <Dropdown.Item>Ratings High-Low</Dropdown.Item>
+            <Dropdown.Item>Price Low-High</Dropdown.Item>
+            <Dropdown.Item>Price High-Low</Dropdown.Item>
+          </DropdownButton>
+          <DropdownButton className="galleryDropDownButton" title="Image Type">
+            <Dropdown.Item>All types</Dropdown.Item>
+            <Dropdown.Item>Photo</Dropdown.Item>
+            <Dropdown.Item>Vector</Dropdown.Item>
+          </DropdownButton>
+        </div>
+        <div className="mainPage__randomGallery-gallery">{resultsMap}</div>
       </div>
     </div>
   );
