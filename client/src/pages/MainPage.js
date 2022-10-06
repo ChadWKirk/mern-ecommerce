@@ -70,6 +70,28 @@ const MainPage = ({ curUser, loggedIn }) => {
     getRandomImages();
   }, []);
 
+  const [isActiveRec, setActiveRec] = useState(true);
+  const [isActivePop, setActivePop] = useState(false);
+
+  function handleClickRec() {
+    if (isActiveRec) {
+      setActiveRec(true);
+    } else if (!isActiveRec) {
+      setActiveRec(true);
+      setActivePop(false);
+    }
+  }
+
+  function handleClickPop() {
+    if (isActiveRec) {
+      setActivePop(true);
+      setActiveRec(false);
+    } else if (!isActivePop) {
+      setActivePop(true);
+      setActiveRec(false);
+    }
+  }
+
   return (
     <div>
       <div className="mainPage__bg">
@@ -79,8 +101,18 @@ const MainPage = ({ curUser, loggedIn }) => {
       </div>
       <div className="mainPage__randomGallery-container">
         <div className="mainPage__randomGallery-sorting">
-          <button>Most Recent</button>
-          <button>Most Popular</button>
+          <button
+            onClick={() => handleClickRec()}
+            className={isActiveRec ? "buttonClicked" : "buttonNotClicked"}
+          >
+            Most Recent
+          </button>
+          <button
+            onClick={() => handleClickPop()}
+            className={isActivePop ? "buttonClicked" : "buttonNotClicked"}
+          >
+            Most Popular
+          </button>
         </div>
         <h1>Free Stock Photos</h1>
         <div className="mainPage__randomGallery-gallery">{randomGallery}</div>

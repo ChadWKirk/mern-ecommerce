@@ -10,7 +10,7 @@ button {
 }
 
 .mainPage__bg {
-  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
+  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg")
     no-repeat;
   background-size: cover;
   height: 70vh;
@@ -289,11 +289,18 @@ button {
 
 .mainPage__randomGallery-div {
   width: 350px;
-  height: 600px;
+  max-height: 600px;
   flex-grow: 1;
   position: relative;
   font-size: 1rem;
   color: rgb(73, 73, 73);
+}
+
+.buttonClicked {
+  color: white;
+  background-color: black;
+  border-radius: 25px;
+  padding: 0.75rem;
 }
 
 .mainPage__randomGallery-img {
