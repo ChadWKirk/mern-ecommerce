@@ -35,6 +35,11 @@ button {
   background-color: rgb(55, 57, 65);
 }
 
+.navbar__white {
+  background-color: rgb(255, 255, 255);
+  outline: solid 1px #e7e7e7;
+}
+
 .navbar a {
   text-decoration: none;
   color: white;
@@ -221,7 +226,7 @@ button {
 
 .heroImage {
   width: 100%;
-  height: 450px;
+  height: 28.125rem;
   object-fit: cover;
 }
 
@@ -290,7 +295,7 @@ button {
 .mainPage__randomGallery-gallery {
   columns: 3 300px;
   gap: 15px;
-  margin-bottom: 100px;
+  margin-bottom: 6.25rem;
 }
 
 .mainPage__randomGallery-div {
@@ -474,6 +479,14 @@ button {
   margin-bottom: 3.7rem;
 }
 
+.myPicsGallerySortBar {
+  gap: 20px;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  background-color: rgba(197, 208, 216, 0.545);
+  border-top: 2px solid rgba(169, 169, 169, 0.21);
+}
+
 .galleryDropDownButton .btn-primary {
   background-color: rgb(246, 247, 247);
   color: gray;
@@ -501,6 +514,7 @@ button {
   gap: 20px;
   padding-left: 20px;
   padding-right: 110px;
+  padding-top: 1rem;
   background-color: rgba(197, 208, 216, 0.545);
   border-top: 2px solid rgba(169, 169, 169, 0.21);
   height: 100vh;
@@ -508,12 +522,42 @@ button {
 }
 
 .myPicsGallery a {
+  width: 200px;
+  height: 225px;
+  outline: 2px solid #e7e7e7;
+  background-color: lightblue;
+  border-radius: 10px;
   position: relative;
-  border-radius: 20px;
-  flex-grow: 1;
-  height: 210px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.myPicsGallery__img-title {
+  background-color: rgb(241, 241, 241);
+  font-weight: bold;
+  padding: 1rem;
+  padding-top: 0.6rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 200px;
+}
+
+.checkbox {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
   cursor: pointer;
-  background-color: rgb(43, 43, 43);
+  z-index: 10000;
+}
+
+.myPicsGallery__imageOverlay-container {
 }
 
 .priceInputFlex {
@@ -525,16 +569,20 @@ button {
 }
 
 .myPicsGallery-img {
-  border-radius: 20px;
+  width: 200px;
+  height: 180px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   display: block;
-  width: 100%;
-  height: 100%;
-  transition: 0.14s ease;
+  object-fit: cover;
+}
+
+.myPicsGallery a:hover {
+  box-shadow: 0px 5px 6px rgba(85, 85, 85, 0.673);
+  transition: 0.1s ease-in-out;
 }
 
 .myPicsGallery a:hover .myPicsGallery-img {
-  opacity: 0.8;
-  transition: 0.1s ease;
 }
 
 .image-overlay-container {
@@ -604,15 +652,17 @@ button {
 }
 
 .myPicsGalleryEditorContainer {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.25rem;
   border-top: 2px solid rgba(169, 169, 169, 0.21);
   background-color: #e7e7e7;
 }
 
 .myPicsGalleryAndEditorContainer {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  grid-template-rows: auto;
 }
 
 .editorFormContainer {

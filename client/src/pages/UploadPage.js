@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
-import Logo from "../components/Logo";
-import SearchBar from "../components/SearchBar";
+import WhiteNavBar from "../components/WhiteNavBar";
 import DropDown from "../components/DropDown";
 import UploadForm from "../components/UploadForm";
 import FileList from "../components/FileList";
@@ -18,13 +16,10 @@ const UploadPage = ({ curUser, loggedIn }) => {
   return (
     <div>
       <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
+        <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
-      <DropDown />
       <div className="uploadPageContainer">
-        <div className="uploadPageTitle">Upload Pics</div>
+        <div className="uploadPageTitle">Upload Your Pics</div>
         <div className="uploadFormListContainer">
           <UploadForm
             curUser={curUser}
