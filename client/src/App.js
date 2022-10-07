@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 //pages
 import MainPage from "./pages/MainPage";
+import MainPageMostPopularImages from "./pages/MainPageMostPopularImages";
 import AccountPage from "./pages/AccountPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -63,6 +64,15 @@ function App() {
           <Route
             path="/"
             element={<MainPage curUser={curUser} loggedIn={loggedIn} />}
+          ></Route>
+          <Route
+            path="/most-popular"
+            element={
+              <MainPageMostPopularImages
+                curUser={curUser}
+                loggedIn={loggedIn}
+              />
+            }
           ></Route>
           <Route
             path="/Search/:searchQuery"

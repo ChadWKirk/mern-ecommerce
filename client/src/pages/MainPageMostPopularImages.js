@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const MainPage = ({ curUser, loggedIn }) => {
+const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
   //on load, fetch random images and use them as variables in the img src
   //resJSON will be an array of secure_url's
@@ -22,8 +22,8 @@ const MainPage = ({ curUser, loggedIn }) => {
       return Math.floor(Math.random() * max);
     }
 
-    async function getRandomImages() {
-      await fetch("http://localhost:5000/most-recent-images", {
+    async function getNewImages() {
+      await fetch("http://localhost:5000/most-popular", {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
@@ -34,21 +34,6 @@ const MainPage = ({ curUser, loggedIn }) => {
           .then((parsedJSON) => (slideArr = parsedJSON))
       );
       console.log(slideArr);
-      //shuffling an array to get better randomization than just math.random
-      // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-      // function shuffle(o) {
-      //   for (
-      //     var j, x, i = o.length;
-      //     i;
-      //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
-      //   );
-      //   return o;
-      // }
-
-      // var random = shuffle(numbers);
-
-      // console.log(random + " random");
 
       setRandomGallery(
         slideArr.map((element, index) => {
@@ -115,7 +100,7 @@ const MainPage = ({ curUser, loggedIn }) => {
         })
       );
     }
-    getRandomImages();
+    getNewImages();
   }, [isLiked]);
   //only runs 6 times. one more than array length. coincidence?
   async function handleLike(e) {
@@ -180,13 +165,10 @@ const MainPage = ({ curUser, loggedIn }) => {
       </div>
       <div className="mainPage__randomGallery-container">
         <div className="mainPage__randomGallery-sorting">
-          <button className="buttonClicked">Most Recent</button>
-          <button
-            onClick={() => navigate("/most-popular")}
-            className="buttonNotClicked"
-          >
-            Most Popular
+          <button onClick={() => navigate("/")} className="buttonNotClicked">
+            Most Recent
           </button>
+          <button className="buttonClicked">Most Popular</button>
         </div>
         <h1>Free Stock Photos</h1>
         <div className="mainPage__randomGallery-gallery">{randomGallery}</div>
@@ -208,4 +190,4 @@ const MainPage = ({ curUser, loggedIn }) => {
   );
 };
 
-export default MainPage;
+export default MainPageMostPopularImages;

@@ -231,28 +231,7 @@ app.delete("/Account/:username/delUser", (req, res) => {
 
 //cloudinary routes
 //get random images for main page
-app.get("/randomImages", (req, res) => {
-  // cloudinary.api
-  //   .resources({ max_results: 12 })
-  //   .then((result) => res.json(result.resources))
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 
-  let db_connect = dbo.getDb();
-
-  db_connect
-    .collection("mern-ecommerce-images")
-    .find()
-    // .limit(12)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send("Error fetching listings!");
-      } else {
-        res.json(result);
-      }
-    });
-});
 //get images when searching
 app.get("/search/:searchQuery", (req, res) => {
   console.log(req.params.searchQuery);
@@ -410,4 +389,177 @@ app.post("/removeLikedBy/:assetID/:username", (req, res) => {
   //   });
 
   console.log("remove like");
+});
+
+//SORT ROUTES
+//Most Recent Sort
+app.get("/most-recent-images", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ created_at: -1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Most Popular Sort (Likes Descending)
+app.get("/most-popular", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ likedBy: -1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Least Popular Sort (Likes Ascending)
+app.get("/least-popular", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ likedBy: 1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Oldest Sort
+app.get("/least-recent-images", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ created_at: 1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//A -Z Sort
+app.get("/a-z-sort", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ title: 1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Z - A Sort
+app.get("/z-a-sort", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort({ title: -1 })
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//FILTER ROUTES
+//Image Type ALL TYPES Filter
+app.get("/:sort/image-type-all", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .sort(req.params.sort)
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Image Type PHOTO Filter
+app.get("/:sort/image-type-photo", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find({ imageType: "photo" })
+    .sort(req.params.sort)
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
+});
+
+//Image Type VECTOR Filter
+app.get("/:sort/image-type-illustration", (req, res) => {
+  let db_connect = dbo.getDb();
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find({ imageType: "illustration" })
+    .sort(req.params.sort)
+    // .limit(12)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
+    });
 });

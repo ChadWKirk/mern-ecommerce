@@ -45,7 +45,7 @@ const UploadForm = ({
 
       //add fields to fetch response to get ready to send to MongoDB
       uploadToMongoBody.likes = 0;
-      uploadToMongoBody.likedBy = ["testChad", "testMark"];
+      uploadToMongoBody.likedBy = [];
       uploadToMongoBody.uploadedBy = curUser;
       uploadToMongoBody.title = image.name;
       uploadToMongoBody.description = "";
