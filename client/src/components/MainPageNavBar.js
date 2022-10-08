@@ -1,11 +1,10 @@
-import React from "react";
+import { React, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import { BsCartCheck } from "react-icons/bs";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const MainPageNavBar = ({ curUser, loggedIn }) => {
   let soButton;
@@ -15,26 +14,55 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
   let cartButton;
   let uploadButton;
 
+  const [isVisibleClass, setIsVisibleClass] = useState("gone");
+
+  function setVisibleClassFunc() {
+    if (isVisibleClass == "gone") {
+      setIsVisibleClass("");
+    } else {
+      setIsVisibleClass("gone");
+    }
+  }
+
   if (loggedIn) {
     accButton = (
-      <DropdownButton title={curUser}>
-        <Dropdown.Item href={`/Account/${curUser}/Likes`}>Likes</Dropdown.Item>
-        <Dropdown.Item href={`/Account/${curUser}/My-Pics`}>
-          My Pics
-        </Dropdown.Item>
-        <Dropdown.Item href={`/Account/${curUser}`}>
-          User Settings
-        </Dropdown.Item>
-      </DropdownButton>
+      <div className="navbarDropCont">
+        <button
+          className="navbarDropButton"
+          onClick={() => setVisibleClassFunc()}
+        >
+          {curUser}
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            fontSize={10}
+            style={{ marginLeft: "7px", marginBottom: "6px" }}
+          />
+        </button>
+        <div className={`navbarULCont`}>
+          <ul className="navbarUL">
+            <li>
+              <a href={`/Account/${curUser}/Likes`}>Likes</a>
+            </li>
+            <li>
+              <a href={`/Account/${curUser}/My-Pics`}>My Pics</a>
+            </li>
+            <li>
+              <a href={`/Account/${curUser}`}>User Settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     );
     uploadButton = (
       <a href={`/${curUser}/upload`}>
-        <Button className="uploadBtn">Upload</Button>
+        <button className="navbarClickThisButton">Upload</button>
       </a>
     );
     soButton = (
       <a href="/">
-        <Button onClick={signOut}>Sign Out</Button>
+        <button className="navbarButton" onClick={signOut}>
+          Sign Out
+        </button>
       </a>
     );
     cartButton = (
@@ -51,10 +79,14 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
     accButton = null;
     soButton = null;
     cartButton = null;
-    siButton = <a href="/SignIn">Sign In</a>;
+    siButton = (
+      <a href="/SignIn" style={{ color: "black" }}>
+        Sign In
+      </a>
+    );
     suButton = (
       <a href="/SignUp">
-        <Button>Sign Up</Button>
+        <button className="navbarButton">Sign Up</button>
       </a>
     );
   }

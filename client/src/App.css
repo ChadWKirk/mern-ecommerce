@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+ul,
+li {
+  list-style-type: none;
+  list-style-position: none;
+  margin: 0;
+  padding: 0;
+}
+
 button {
   border: none;
   background: none;
@@ -11,6 +19,10 @@ button {
 
 .opacity0 {
   opacity: 0;
+}
+
+.gone {
+  display: none;
 }
 
 .mainPage__bg {
@@ -54,14 +66,94 @@ button {
   font-size: 1rem;
 }
 
-.navbar .btn-primary {
-  height: 50px;
-  background-color: #debb0c;
-  color: rgb(77, 77, 77);
+.navbarButton {
+  padding: 0.8rem;
+  /* background-color: #debb0c; */
+  color: rgb(255, 255, 255);
   font-weight: bold;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
+}
+
+.navbarButton:hover {
+  color: rgb(220, 220, 220);
+  transition: 0.1s ease-in-out;
+}
+
+.navbarClickThisButton {
+  padding: 0.8rem;
+  background-color: #debb0c;
+  color: rgb(25, 25, 25);
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.navbarClickThisButton:hover {
+  background-color: #ccac0c;
+  color: black;
+}
+
+.navbarDropCont {
+  position: relative;
+}
+
+.navbarDropButton {
+  padding: 0.8rem;
+  /* background-color: #debb0c; */
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  /* display: flex;
+  align-items: flex-start; */
+}
+
+.navbarDropButton:hover {
+  color: rgb(220, 220, 220);
+  transition: 0.1s ease-in-out;
+}
+
+.navbarDropButton:hover + .navbarULCont {
+  display: block;
+}
+
+.navbarULCont:hover {
+  display: block;
+}
+
+.navbarULCont {
+  display: none;
+  border: 1px solid grey;
+  position: absolute;
+  right: -10px;
+  top: 50px;
+  width: 130px;
+  border-radius: 12px;
+  background-color: white;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+
+.navbarUL {
+  font-weight: 500;
+}
+
+.navbarUL li {
+  padding: 0.25rem;
+  /* width: 100%; */
+}
+
+.navbarUL li a {
+  color: #535353;
+  padding: 0.75rem;
+}
+
+.navbarUL li:hover {
+  background-color: rgb(245, 245, 245);
 }
 
 .navbar .btn-primary:hover {
@@ -318,10 +410,6 @@ button {
 
 .mainPage__randomGallery-imgOverlay {
   opacity: 0;
-}
-
-.gone {
-  display: none;
 }
 
 .mainPage__randomGallery-div:hover .mainPage__randomGallery-imgOverlay {
