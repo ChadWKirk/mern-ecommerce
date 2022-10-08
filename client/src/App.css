@@ -117,16 +117,17 @@ button {
   transition: 0.1s ease-in-out;
 }
 
-.navbarDropButton:hover + .navbarULCont {
-  display: block;
-}
-
-.navbarULCont:hover {
-  display: block;
+.navbarULContHover {
+  visibility: visible;
+  opacity: 1;
+  transition: 0s ease;
+  transition-property: all;
+  transition-delay: 0.2s;
 }
 
 .navbarULCont {
-  display: none;
+  /* visibility: hidden;
+  opacity: 0; */
   border: 1px solid grey;
   position: absolute;
   right: -10px;
@@ -406,6 +407,21 @@ button {
   position: relative;
   font-size: 1rem;
   color: rgb(73, 73, 73);
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.mainPage__randomGallery-div:hover::after {
+  opacity: 1;
+  box-shadow: inset 0px 0px 30px 60px rgba(0, 0, 0, 0.15);
+  content: "";
+  display: block;
+  height: 96%;
+  position: absolute;
+  top: 0;
+  left: -390px;
+  width: 290%;
+  z-index: 0;
 }
 
 .mainPage__randomGallery-imgOverlay {
@@ -414,6 +430,7 @@ button {
 
 .mainPage__randomGallery-div:hover .mainPage__randomGallery-imgOverlay {
   opacity: 1;
+  position: initial;
 }
 
 .buttonClicked {
@@ -435,6 +452,7 @@ button {
   height: 100%;
   object-fit: cover;
   margin-bottom: 10px;
+  display: block;
 }
 
 .mainPage__randomGallery-heartA {
@@ -447,24 +465,27 @@ button {
   color: rgb(73, 73, 73);
   border-radius: 10px;
   padding: 1.3rem;
+  z-index: 100;
 }
 
 .mainPage__randomGallery-heart {
   border-radius: 10px;
   pointer-events: none;
   position: absolute;
+  z-index: 100;
   top: 14px;
   left: 14px;
 }
 
 .heartRed {
   color: red;
-  z-index: 100;
+  z-index: 105;
 }
 
 .mainPage__randomGallery-downloadA {
   cursor: pointer;
   position: absolute;
+  z-index: 100;
   bottom: 20px;
   right: 10px;
   background-color: white;
@@ -475,6 +496,7 @@ button {
 }
 
 .mainPage__randomGallery-download {
+  z-index: 100;
   pointer-events: none;
   border-radius: 10px;
 }
@@ -498,6 +520,7 @@ button {
   font-size: 1rem;
   border-radius: 10px;
   padding: 0.75rem;
+  z-index: 1000;
 }
 
 .mainPage__randomGallery-overlayAuthor:hover {

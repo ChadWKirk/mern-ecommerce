@@ -24,9 +24,23 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
     }
   }
 
+  const [hoverClass, setHoverClass] = useState(false);
+
   if (loggedIn) {
     accButton = (
-      <div className="navbarDropCont">
+      <div
+        className="navbarDropCont"
+        onMouseEnter={() =>
+          setTimeout(() => {
+            setHoverClass(!hoverClass);
+          }, 200)
+        }
+        onMouseLeave={() =>
+          setTimeout(() => {
+            setHoverClass(!hoverClass);
+          }, 200)
+        }
+      >
         <button
           className="navbarDropButton"
           onClick={() => setVisibleClassFunc()}
@@ -38,7 +52,7 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
             style={{ marginLeft: "7px", marginBottom: "6px" }}
           />
         </button>
-        <div className={`navbarULCont`}>
+        <div className={hoverClass ? `navbarULCont` : `navbarULCont gone`}>
           <ul className="navbarUL">
             <li>
               <a href={`/Account/${curUser}/Likes`}>Likes</a>
