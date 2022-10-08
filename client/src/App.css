@@ -14,10 +14,10 @@ button {
 }
 
 .mainPage__bg {
-  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg)
+  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pages\nature-4k-pc-full-hd-wallpaper-preview.jpg")
     no-repeat;
   background-size: cover;
-  height: 70vh;
+  height: 26.65rem;
   background-color: rgba(23, 45, 212, 0.312);
   background-blend-mode: darken;
 }
@@ -238,7 +238,8 @@ button {
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
-  top: 30%;
+  top: 11.4rem;
+  /* top: 30%; */
   z-index: 100;
   color: white;
   margin: auto;
@@ -292,9 +293,20 @@ button {
   font-size: 1rem;
 }
 
+.fixed {
+  /* opacity: 1; */
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(23, 26, 35);
+  /* transition: 0.2s ease-in-out; */
+}
+
 .mainPage__randomGallery-gallery {
   columns: 3 300px;
-  gap: 15px;
+  gap: 1rem;
   margin-bottom: 6.25rem;
 }
 
@@ -308,6 +320,10 @@ button {
   opacity: 0;
 }
 
+.gone {
+  display: none;
+}
+
 .mainPage__randomGallery-div:hover .mainPage__randomGallery-imgOverlay {
   opacity: 1;
 }
@@ -315,6 +331,13 @@ button {
 .buttonClicked {
   color: white;
   background-color: black;
+  border-radius: 25px;
+  padding: 0.75rem;
+}
+
+.buttonNotClicked {
+  /* color: white;
+  background-color: black; */
   border-radius: 25px;
   padding: 0.75rem;
 }
@@ -460,7 +483,7 @@ button {
 
 .galleryHeadingAndSortContainer {
   height: 130px;
-  padding: 20px;
+  padding: 1.25rem;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -469,11 +492,11 @@ button {
 }
 
 .galleryHeading {
-  font-size: 28px;
+  font-size: 1.75rem;
 }
 
 .gallerySortBar {
-  gap: 20px;
+  gap: 1.25rem;
   margin: auto;
   justify-content: center;
   margin-bottom: 3.7rem;

@@ -6,8 +6,26 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Navigate, useNavigate } from "react-router-dom";
+import WhiteNavBar from "../components/WhiteNavBar";
 
 const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
+  const [navPosition, setNavPosition] = useState("gone");
+
+  useEffect(() => {
+    window.addEventListener("scroll", setNavToFixed);
+
+    return () => {
+      window.removeEventListener("scroll", setNavToFixed);
+    };
+  }, []);
+
+  function setNavToFixed() {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 400 ? setNavPosition("fixed") : setNavPosition("gone");
+    }
+  }
+
   let navigate = useNavigate();
   //on load, fetch random images and use them as variables in the img src
   //resJSON will be an array of secure_url's
@@ -160,15 +178,20 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
     <div>
       <div className="mainPage__bg">
         <MainPageNavBar curUser={curUser} loggedIn={loggedIn} />
+        <div className={`${navPosition}`}>
+          <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
+        </div>
         {/* <DropDown /> */}
         <Carousel2 />
       </div>
       <div className="mainPage__randomGallery-container">
         <div className="mainPage__randomGallery-sorting">
-          <button onClick={() => navigate("/")} className="buttonNotClicked">
-            Most Recent
-          </button>
-          <button className="buttonClicked">Most Popular</button>
+          <a href="/">
+            <button className="buttonNotClicked">Most Recent</button>
+          </a>
+          <a>
+            <button className="buttonClicked">Most Popular</button>
+          </a>
         </div>
         <h1>Free Stock Photos</h1>
         <div className="mainPage__randomGallery-gallery">{randomGallery}</div>
