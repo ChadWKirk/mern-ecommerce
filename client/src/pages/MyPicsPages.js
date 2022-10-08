@@ -50,8 +50,6 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                   picsPushArr[index].tags;
                 document.querySelector("#descriptionInputID").value =
                   picsPushArr[index].description;
-                document.querySelector("#priceInputID").value =
-                  picsPushArr[index].price;
                 document.querySelector("#imageTypeInputID").value =
                   picsPushArr[index].imageType;
                 document.querySelector("#previewImageForEditor").src =
@@ -121,8 +119,6 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               <Dropdown.Item>Z - A</Dropdown.Item>
               <Dropdown.Item>Likes Low-High</Dropdown.Item>
               <Dropdown.Item>Likes High-Low</Dropdown.Item>
-              <Dropdown.Item>Price Low-High</Dropdown.Item>
-              <Dropdown.Item>Price High-Low</Dropdown.Item>
             </DropdownButton>
             <DropdownButton
               className="galleryDropDownButton"
@@ -130,7 +126,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             >
               <Dropdown.Item>All types</Dropdown.Item>
               <Dropdown.Item>Photo</Dropdown.Item>
-              <Dropdown.Item>Vector</Dropdown.Item>
+              <Dropdown.Item>Illustration</Dropdown.Item>
             </DropdownButton>
           </div>
           <div className="myPicsGallery">{picsMapResults}</div>
@@ -166,18 +162,6 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                       id="descriptionInputID"
                       onChange={(e) => setDescription(e.target.value)}
                     ></input>
-                  </div>
-                </div>
-                <div className="editorFormDetailsSubContainer">
-                  {/* when free download box is checked, clear price input and grey it out and set price to "Free Download" */}
-                  <div>Price</div>
-                  <div className="editorFormDetailsSubContainer">
-                    <input
-                      id="priceInputID"
-                      onChange={(e) => setPrice(e.target.value)}
-                    ></input>
-                    <input type="checkbox"></input>
-                    <div>free download</div>
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">

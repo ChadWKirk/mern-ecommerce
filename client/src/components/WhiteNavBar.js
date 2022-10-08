@@ -108,7 +108,7 @@ const WhiteNavBar = ({ curUser, loggedIn }) => {
         {accButton}
         {uploadButton}
         {soButton}
-        {cartButton}
+        {/* {cartButton} */}
       </div>
     </div>
   );

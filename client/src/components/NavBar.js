@@ -108,7 +108,7 @@ const NavBar = ({ curUser, loggedIn }) => {
         {accButton}
         {uploadButton}
         {soButton}
-        {cartButton}
+        {/* {cartButton} */}
       </div>
     </div>
   );

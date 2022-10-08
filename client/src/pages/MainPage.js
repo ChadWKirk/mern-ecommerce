@@ -22,7 +22,7 @@ const MainPage = ({ curUser, loggedIn }) => {
   function setNavToFixed() {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 400 ? setNavPosition("fixed") : setNavPosition("gone");
+      windowHeight > 425 ? setNavPosition("fixed") : setNavPosition("gone");
     }
   }
 

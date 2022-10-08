@@ -29,7 +29,7 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
     );
     uploadButton = (
       <a href={`/${curUser}/upload`}>
-        <Button>Upload</Button>
+        <Button className="uploadBtn">Upload</Button>
       </a>
     );
     soButton = (
@@ -77,9 +77,9 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
         {siButton}
         {suButton}
         {accButton}
-        {uploadButton}
         {soButton}
-        {cartButton}
+        {uploadButton}
+        {/* {cartButton} */}
       </div>
     </div>
   );
