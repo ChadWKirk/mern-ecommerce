@@ -4,20 +4,19 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 
 //pages
-import MainPage from "./pages/MainPage";
-import MainPageMostPopularImages from "./pages/MainPageMostPopularImages";
-import AccountPage from "./pages/AccountPage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
-import SignUpSuccessPage from "./pages/SignUpSuccessPage";
-import DelSuccessPage from "./pages/DelSuccessPage";
-import CartPage from "./pages/CartPage";
-import SearchResultPage from "./pages/SearchResultPage";
-import MyPicsPage from "./pages/MyPicsPages";
+import MainPage from "./pages/MainPage/MainPage";
+import MainPageMostPopularImages from "./pages/MainPage/MainPageMostPopularImages";
+import AccountPage from "./pages/AccountManipulationPages/AccountPage";
+import SignInPage from "./pages/AccountManipulationPages/SignInPage";
+import SignUpPage from "./pages/AccountManipulationPages/SignUpPage";
+import SignUpSuccessPage from "./pages/AccountManipulationPages/SignUpSuccessPage";
+import DelSuccessPage from "./pages/AccountManipulationPages/DelSuccessPage";
+import SearchResultPage from "./pages/SearchResultsPages/SearchResultPage";
+import MyPicsPage from "./pages/MyPics/MyPicsPages";
 import UploadPage from "./pages/UploadPage";
 import ImageViewPage from "./pages/ImageViewPage";
-import LikesPage from "./pages/LikesPage";
-import LikeTestPage from "./pages/LikeTestPage";
+import LikesPage from "./pages/MyLikes/LikesPage";
+import LikeTestPage from "./pages/MyLikes/LikeTestPage";
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -88,21 +87,16 @@ function App() {
             element={<AccountPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
-            path={`/Account/${curUser}/My-Pics`}
+            path={`/Account/${curUser}/My-Pics/:sort/:filter`}
             element={<MyPicsPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
-            path={`/Account/${curUser}/Likes`}
+            path={`/Account/${curUser}/Likes/:sort/:filter`}
             element={<LikesPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path={`/${curUser}/upload`}
             element={<UploadPage curUser={curUser} loggedIn={loggedIn} />}
-          ></Route>
-
-          <Route
-            path="/Cart"
-            element={<CartPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route
             path="/SignIn"

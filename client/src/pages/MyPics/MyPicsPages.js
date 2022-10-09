@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import WhiteNavBar from "../components/WhiteNavBar";
-import Logo from "../components/Logo";
-import SearchBar from "../components/SearchBar";
-import DropDown from "../components/DropDown";
-import { useParams } from "react-router-dom";
+import WhiteNavBar from "../../components/WhiteNavBar";
+import Logo from "../../components/Logo";
+import SearchBar from "../../components/SearchBar";
+import DropDown from "../../components/DropDown";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 //font awesome
@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
+  let navigate = useNavigate();
+
   var picsPushArr = [];
   const [myPicsArr, setMyPicsArr] = useState([]);
   var myPicsMap = [];
@@ -23,9 +25,21 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   const [price, setPrice] = useState("");
   const [imageType, setImageType] = useState("");
 
+  const [sort, setSort] = useState("most-recent");
+  const [filter, setFilter] = useState("all-types");
+
+  const [sortTitle, setSortTitle] = useState("Most Recent");
+  const [filterTitle, setFilterTitle] = useState("All Types");
+
+  function navToSortAndFilter() {
+    navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
+  }
+
   useEffect(() => {
+    navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
+
     async function myPicsFetch() {
-      await fetch(`http://localhost:5000/${curUser}/my-pics`, {
+      await fetch(`http://localhost:5000/${curUser}/${sort}/${filter}`, {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
@@ -80,7 +94,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       );
     }
     myPicsFetch();
-  }, []);
+  }, [sort, filter]);
 
   async function submitForm(e) {
     e.preventDefault();
@@ -110,23 +124,96 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       <div className="myPicsGalleryAndEditorContainer">
         <div>
           <div className="myPicsGallerySortBar d-flex">
-            <DropdownButton className="galleryDropDownButton" title="Sort By">
-              <Dropdown.Item className="galleryDropDownItem">
+            <DropdownButton
+              className="galleryDropDownButton"
+              title={`${sortTitle}`}
+            >
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("most-recent");
+                  setSortTitle("Most Recent");
+                }}
+              >
                 Most Recent
               </Dropdown.Item>
-              <Dropdown.Item>Oldest</Dropdown.Item>
-              <Dropdown.Item>A - Z</Dropdown.Item>
-              <Dropdown.Item>Z - A</Dropdown.Item>
-              <Dropdown.Item>Likes Low-High</Dropdown.Item>
-              <Dropdown.Item>Likes High-Low</Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("oldest");
+                  setSortTitle("Oldest");
+                }}
+              >
+                Oldest
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("aToz");
+                  setSortTitle("A - Z");
+                }}
+              >
+                A - Z
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("zToa");
+                  setSortTitle("Z - A");
+                }}
+              >
+                Z - A
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("leastLikes");
+                  setSortTitle("Least Popular");
+                }}
+              >
+                Least Popular
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setSort("mostLikes");
+                  setSortTitle("Popular");
+                }}
+              >
+                Popular
+              </Dropdown.Item>
             </DropdownButton>
             <DropdownButton
               className="galleryDropDownButton"
-              title="Image Type"
+              title={`${filterTitle}`}
             >
-              <Dropdown.Item>All types</Dropdown.Item>
-              <Dropdown.Item>Photo</Dropdown.Item>
-              <Dropdown.Item>Illustration</Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setFilter("all-types");
+                  setFilterTitle("All Types");
+                }}
+              >
+                All types
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setFilter("photo");
+                  setFilterTitle("Photo");
+                }}
+              >
+                Photo
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="galleryDropDownItem"
+                onClick={() => {
+                  setFilter("illustration");
+                  setFilterTitle("Illustration");
+                }}
+              >
+                Illustration
+              </Dropdown.Item>
             </DropdownButton>
           </div>
           <div className="myPicsGallery">{picsMapResults}</div>

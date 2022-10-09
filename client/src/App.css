@@ -145,12 +145,15 @@ button {
 
 .navbarUL li {
   padding: 0.25rem;
-  /* width: 100%; */
+  width: 100%;
+  cursor: pointer;
 }
 
 .navbarUL li a {
   color: #535353;
-  padding: 0.75rem;
+  padding-left: 0.75rem;
+  display: inline-block;
+  width: 100%;
 }
 
 .navbarUL li:hover {

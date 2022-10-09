@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import Logo from "../components/Logo";
-import SearchBar from "../components/SearchBar";
-import DropDown from "../components/DropDown";
+import NavBar from "../../components/NavBar";
+import Logo from "../../components/Logo";
+import SearchBar from "../../components/SearchBar";
+import DropDown from "../../components/DropDown";
 import { useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";

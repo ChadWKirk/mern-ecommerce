@@ -1,9 +1,9 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Logo from "../components/Logo";
+import NavBar from "../../components/NavBar";
+import Logo from "../../components/Logo";
 import { useNavigate, useParams } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
-import DropDown from "../components/DropDown";
+import SearchBar from "../../components/SearchBar";
+import DropDown from "../../components/DropDown";
 
 const AccountPage = ({ curUser, loggedIn }) => {
   const navigate = useNavigate();

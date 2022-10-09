@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import MainPageNavBar from "../components/MainPageNavBar";
-import Carousel2 from "../components/Carousel";
+import MainPageNavBar from "../../components/MainPageNavBar";
+import Carousel2 from "../../components/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { Navigate, useNavigate } from "react-router-dom";
-import WhiteNavBar from "../components/WhiteNavBar";
+import { useNavigate } from "react-router-dom";
+import WhiteNavBar from "../../components/WhiteNavBar";
 
-const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
+const MainPage = ({ curUser, loggedIn }) => {
   const [navPosition, setNavPosition] = useState("gone");
 
   useEffect(() => {
@@ -26,7 +26,6 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
     }
   }
 
-  let navigate = useNavigate();
   //on load, fetch random images and use them as variables in the img src
   //resJSON will be an array of secure_url's
   const [randomGallery, setRandomGallery] = useState([]);
@@ -40,8 +39,8 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
       return Math.floor(Math.random() * max);
     }
 
-    async function getNewImages() {
-      await fetch("http://localhost:5000/most-popular", {
+    async function getRandomImages() {
+      await fetch("http://localhost:5000/most-recent-images", {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
@@ -52,6 +51,21 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
           .then((parsedJSON) => (slideArr = parsedJSON))
       );
       console.log(slideArr);
+      //shuffling an array to get better randomization than just math.random
+      // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+      // function shuffle(o) {
+      //   for (
+      //     var j, x, i = o.length;
+      //     i;
+      //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+      //   );
+      //   return o;
+      // }
+
+      // var random = shuffle(numbers);
+
+      // console.log(random + " random");
 
       setRandomGallery(
         slideArr.map((element, index) => {
@@ -118,7 +132,7 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
         })
       );
     }
-    getNewImages();
+    getRandomImages();
   }, [isLiked]);
   //only runs 6 times. one more than array length. coincidence?
   async function handleLike(e) {
@@ -186,11 +200,11 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
       </div>
       <div className="mainPage__randomGallery-container">
         <div className="mainPage__randomGallery-sorting">
-          <a href="/">
-            <button className="buttonNotClicked">Most Recent</button>
-          </a>
           <a>
-            <button className="buttonClicked">Most Popular</button>
+            <button className="buttonClicked">Most Recent</button>
+          </a>
+          <a href="/most-popular">
+            <button className="buttonNotClicked">Most Popular</button>
           </a>
         </div>
         <h1>Free Stock Photos</h1>
@@ -213,4 +227,4 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
   );
 };
 
-export default MainPageMostPopularImages;
+export default MainPage;

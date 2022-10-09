@@ -55,10 +55,14 @@ const MainPageNavBar = ({ curUser, loggedIn }) => {
         <div className={hoverClass ? `navbarULCont` : `navbarULCont gone`}>
           <ul className="navbarUL">
             <li>
-              <a href={`/Account/${curUser}/Likes`}>Likes</a>
+              <a href={`/Account/${curUser}/Likes/most-recent/all-types`}>
+                Likes
+              </a>
             </li>
             <li>
-              <a href={`/Account/${curUser}/My-Pics`}>My Pics</a>
+              <a href={`/Account/${curUser}/My-Pics/most-recent/all-types`}>
+                My Pics
+              </a>
             </li>
             <li>
               <a href={`/Account/${curUser}`}>User Settings</a>
