@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import WhiteNavBar from "../../components/WhiteNavBar";
 
 const MainPage = ({ curUser, loggedIn }) => {
+  //sticky nav bar
   const [navPosition, setNavPosition] = useState("gone");
 
   useEffect(() => {
@@ -30,8 +31,11 @@ const MainPage = ({ curUser, loggedIn }) => {
   //resJSON will be an array of secure_url's
   const [randomGallery, setRandomGallery] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [slideArr, setSlideArr] = useState([]);
+  const [likeButtonArr, setLikeButtonArr] = useState([]);
 
-  var slideArr = [];
+  var newArr = [];
+  var likedByArr = [];
 
   useEffect(() => {
     //get random number to get random index from slide array
@@ -48,99 +52,115 @@ const MainPage = ({ curUser, loggedIn }) => {
           .json()
           .then((resJSON) => JSON.stringify(resJSON))
           .then((stringJSON) => JSON.parse(stringJSON))
-          .then((parsedJSON) => (slideArr = parsedJSON))
-      );
-      console.log(slideArr);
-      //shuffling an array to get better randomization than just math.random
-      // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-      // function shuffle(o) {
-      //   for (
-      //     var j, x, i = o.length;
-      //     i;
-      //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
-      //   );
-      //   return o;
-      // }
-
-      // var random = shuffle(numbers);
-
-      // console.log(random + " random");
-
-      setRandomGallery(
-        slideArr.map((element, index) => {
-          var imgSRC = slideArr[index].secure_url;
-          var author = slideArr[index].uploadedBy;
-          var likeButton;
-          // console.log(slideArr[2].likedBy.includes(curUser));
-          if (slideArr[index].likedBy.includes(curUser)) {
-            likeButton = (
-              <div>
-                <FontAwesomeIcon
-                  onClick={(e) => handleLike(e)}
-                  icon={faHeart}
-                  className="mainPage__randomGallery-heart heartRed"
-                ></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  onClick={(e) => handleLike(e)}
-                  icon={farHeart}
-                  className="mainPage__randomGallery-heart opacity0"
-                ></FontAwesomeIcon>
-              </div>
-            );
-          } else {
-            likeButton = (
-              <div>
-                <FontAwesomeIcon
-                  onClick={(e) => handleLike(e)}
-                  icon={faHeart}
-                  className="mainPage__randomGallery-heart heartRed opacity0"
-                ></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  onClick={(e) => handleLike(e)}
-                  icon={farHeart}
-                  className="mainPage__randomGallery-heart"
-                ></FontAwesomeIcon>
-              </div>
-            );
-          }
-          return (
-            <div key={index} className="mainPage__randomGallery-div">
-              <img src={imgSRC} className="mainPage__randomGallery-img"></img>
-              <div className="mainPage__randomGallery-imgOverlay">
-                <a
-                  assetid={slideArr[index].asset_id}
-                  likedby={slideArr[index].likedBy}
-                  className="mainPage__randomGallery-heartA"
-                  onClick={(e) => handleLike(e)}
-                >
-                  {/* put like button here based on likedBy if statement ^^^ */}
-                  {likeButton}
-                </a>
-                <a className="mainPage__randomGallery-downloadA">
-                  <FontAwesomeIcon
-                    icon={faDownload}
-                    className="mainPage__randomGallery-download"
-                  ></FontAwesomeIcon>
-                </a>
-                <a className="mainPage__randomGallery-overlayAuthor">
-                  {author}
-                </a>
-              </div>
-            </div>
-          );
-        })
+          .then((parsedJSON) => setSlideArr(parsedJSON))
       );
     }
     getRandomImages();
-  }, [isLiked]);
+  }, []);
+
+  useEffect(() => {
+    // console.log(slideArr);
+    //shuffling an array to get better randomization than just math.random
+    // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    // function shuffle(o) {
+    //   for (
+    //     var j, x, i = o.length;
+    //     i;
+    //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+    //   );
+    //   return o;
+    // }
+
+    // var random = shuffle(numbers);
+
+    // console.log(random + " random");
+
+    newArr = slideArr.map((element, index) => {
+      // console.log("map run");
+      var imgSRC = slideArr[index].secure_url;
+      var author = slideArr[index].uploadedBy;
+      var likeButton;
+      likedByArr = slideArr[index].likedBy;
+      // console.log(slideArr[2].likedBy.includes(curUser));
+
+      if (slideArr[index].likedBy.includes(curUser)) {
+        likeButtonArr.push({ isLiked: true, idx: index });
+        // console.log(likeButtonArr[index].isLiked);
+        likeButton = (
+          <div>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className={`mainPage__randomGallery-heart heartRed${
+                likeButtonArr[index].isLiked ? "" : " opacity0"
+              }`}
+            ></FontAwesomeIcon>
+            <FontAwesomeIcon
+              icon={farHeart}
+              className={`opacity0${
+                likeButtonArr[index].isLiked
+                  ? ""
+                  : " mainPage__randomGallery-heart"
+              }`}
+            ></FontAwesomeIcon>
+          </div>
+        );
+      } else {
+        likeButtonArr.push({ isLiked: false, idx: index });
+        // console.log(likeButtonArr[index].isLiked);
+        likeButton = (
+          <div>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className={`opacity0${
+                likeButtonArr[index].isLiked
+                  ? ""
+                  : " mainPage__randomGallery-heart heartRed"
+              }`}
+            ></FontAwesomeIcon>
+            <FontAwesomeIcon
+              icon={farHeart}
+              className={`mainPage__randomGallery-heart
+                ${likeButtonArr[index].isLiked ? "opacity0" : ""}`}
+            ></FontAwesomeIcon>
+          </div>
+        );
+      }
+      return (
+        <div key={index} className="mainPage__randomGallery-div">
+          <img src={imgSRC} className="mainPage__randomGallery-img"></img>
+          <div className="mainPage__randomGallery-imgOverlay">
+            <a
+              assetid={slideArr[index].asset_id}
+              likedby={slideArr[index].likedBy}
+              className="mainPage__randomGallery-heartA"
+              onClick={(e) => handleLike(e, index, likedByArr)}
+              idx={index}
+            >
+              {/* put like button here based on likedBy if statement ^^^ */}
+              {likeButton}
+            </a>
+            <a className="mainPage__randomGallery-downloadA">
+              <FontAwesomeIcon
+                icon={faDownload}
+                className="mainPage__randomGallery-download"
+              ></FontAwesomeIcon>
+            </a>
+            <a className="mainPage__randomGallery-overlayAuthor">{author}</a>
+          </div>
+        </div>
+      );
+    });
+    setRandomGallery(newArr);
+  }, [slideArr]);
+
   //only runs 6 times. one more than array length. coincidence?
-  async function handleLike(e) {
-    // console.log(e.target.attributes);
-    let currentLikedByArr = e.target.attributes[1].value;
+  async function handleLike(e, index, likedByArr) {
     let imgAssetID = e.target.attributes[0].value;
-    setIsLiked(!isLiked);
-    if (currentLikedByArr.includes(curUser)) {
+    console.log(likedByArr);
+    if (likedByArr.includes(curUser)) {
+      slideArr[index].likedBy.filter((user) => user !== curUser);
+      setSlideArr(slideArr);
       await fetch(
         `http://localhost:5000/removeLikedBy/${imgAssetID}/${curUser}`,
         {
@@ -148,14 +168,22 @@ const MainPage = ({ curUser, loggedIn }) => {
           headers: { "Content-type": "application/json" },
         }
       );
-      console.log(currentLikedByArr);
-    } else if (!currentLikedByArr.includes(curUser)) {
+    } else if (!likedByArr.includes(curUser)) {
+      slideArr[index].likedBy.push(curUser);
+      setSlideArr(slideArr);
+
       await fetch(`http://localhost:5000/addLikedBy/${imgAssetID}/${curUser}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
       });
-      console.log(currentLikedByArr);
     }
+    setIsLiked(!isLiked);
+
+    // console.log(e.target.attributes[1].value);
+    likeButtonArr[e.target.attributes[3].value].isLiked =
+      !likeButtonArr[e.target.attributes[3].value].isLiked;
+
+    // console.log(likeButtonArr[e.target.attributes[1].value].isLiked);
 
     // if (isLiked) {
     //   //use asset ID in E to make GET request and add curUser to that

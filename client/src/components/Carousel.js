@@ -17,44 +17,44 @@ const Carousel2 = () => {
     setIndex(selectedIndex);
   };
 
-  useEffect(() => {
-    //get random number to get random index from slide array
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
+  // useEffect(() => {
+  //   //get random number to get random index from slide array
+  //   function getRandomInt(max) {
+  //     return Math.floor(Math.random() * max);
+  //   }
 
-    async function getCarouselImages() {
-      await fetch("http://localhost:5000/randomImages", {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      }).then((response) =>
-        response
-          .json()
-          .then((resJSON) => JSON.stringify(resJSON))
-          .then((stringJSON) => JSON.parse(stringJSON))
-          .then((parsedJSON) => (slideArr = parsedJSON))
-      );
-      console.log(slideArr);
-      //shuffling an array to get better randomization than just math.random
-      var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  //   async function getCarouselImages() {
+  //     await fetch("http://localhost:5000/randomImages", {
+  //       method: "GET",
+  //       headers: { "Content-type": "application/json" },
+  //     }).then((response) =>
+  //       response
+  //         .json()
+  //         .then((resJSON) => JSON.stringify(resJSON))
+  //         .then((stringJSON) => JSON.parse(stringJSON))
+  //         .then((parsedJSON) => (slideArr = parsedJSON))
+  //     );
+  //     console.log(slideArr);
+  //     //shuffling an array to get better randomization than just math.random
+  //     var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-      function shuffle(o) {
-        for (
-          var j, x, i = o.length;
-          i;
-          j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
-        );
-        return o;
-      }
+  //     function shuffle(o) {
+  //       for (
+  //         var j, x, i = o.length;
+  //         i;
+  //         j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+  //       );
+  //       return o;
+  //     }
 
-      var random = shuffle(numbers);
+  //     var random = shuffle(numbers);
 
-      console.log(random + " randommm");
+  //     console.log(random + " randommm");
 
-      setHeroImage(slideArr[random[0]].secure_url);
-    }
-    getCarouselImages();
-  }, []);
+  //     setHeroImage(slideArr[random[0]].secure_url);
+  //   }
+  //   getCarouselImages();
+  // }, []);
 
   //go to /search/whateverYouSearchFor when hitting enter or clicking search button
   var navigate = useNavigate();
