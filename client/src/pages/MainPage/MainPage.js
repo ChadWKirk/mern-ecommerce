@@ -35,7 +35,7 @@ const MainPage = ({ curUser, loggedIn }) => {
   const [likeButtonArr, setLikeButtonArr] = useState([]);
 
   var newArr = [];
-  var likedByArr = [];
+  const [likedByArr, setLikedByArr] = useState([]);
 
   useEffect(() => {
     //get random number to get random index from slide array
@@ -59,7 +59,8 @@ const MainPage = ({ curUser, loggedIn }) => {
   }, []);
 
   useEffect(() => {
-    // console.log(slideArr);
+    console.log(slideArr);
+    console.log("useEffect");
     //shuffling an array to get better randomization than just math.random
     // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
@@ -81,7 +82,10 @@ const MainPage = ({ curUser, loggedIn }) => {
       var imgSRC = slideArr[index].secure_url;
       var author = slideArr[index].uploadedBy;
       var likeButton;
-      likedByArr = slideArr[index].likedBy;
+      var likedByArrCopy = [...likedByArr];
+      var push = likedByArrCopy.push(slideArr[index].likedBy);
+      setLikedByArr((likedByArr) => [...likedByArr, likedByArrCopy]);
+      console.log(likedByArr);
       // console.log(slideArr[2].likedBy.includes(curUser));
 
       if (slideArr[index].likedBy.includes(curUser)) {
@@ -157,10 +161,24 @@ const MainPage = ({ curUser, loggedIn }) => {
   //only runs 6 times. one more than array length. coincidence?
   async function handleLike(e, index, likedByArr) {
     let imgAssetID = e.target.attributes[0].value;
+    console.log(slideArr);
+    console.log("handle like");
     console.log(likedByArr);
     if (likedByArr.includes(curUser)) {
-      slideArr[index].likedBy.filter((user) => user !== curUser);
-      setSlideArr(slideArr);
+      var slideArrCopy = [...slideArr];
+
+      slideArrCopy[index].likedBy = slideArrCopy[index].likedBy.filter(
+        (user) => user !== curUser
+      );
+
+      setSlideArr(slideArrCopy);
+      console.log(slideArrCopy);
+      console.log("copy");
+
+      var likeButtonArrCopy = [...likeButtonArr];
+      likeButtonArrCopy[index].isLiked = false;
+      setLikeButtonArr(likeButtonArrCopy);
+
       await fetch(
         `http://localhost:5000/removeLikedBy/${imgAssetID}/${curUser}`,
         {
@@ -169,19 +187,22 @@ const MainPage = ({ curUser, loggedIn }) => {
         }
       );
     } else if (!likedByArr.includes(curUser)) {
-      slideArr[index].likedBy.push(curUser);
-      setSlideArr(slideArr);
-
       await fetch(`http://localhost:5000/addLikedBy/${imgAssetID}/${curUser}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
       });
-    }
-    setIsLiked(!isLiked);
+      var slideArrCopy = [...slideArr];
 
-    // console.log(e.target.attributes[1].value);
-    likeButtonArr[e.target.attributes[3].value].isLiked =
-      !likeButtonArr[e.target.attributes[3].value].isLiked;
+      slideArrCopy[index].likedBy.push(curUser);
+      setSlideArr(slideArrCopy);
+
+      console.log(slideArrCopy);
+      console.log("copy");
+
+      var likeButtonArrCopy = [...likeButtonArr];
+      likeButtonArrCopy[index].isLiked = true;
+      setLikeButtonArr(likeButtonArrCopy);
+    }
 
     // console.log(likeButtonArr[e.target.attributes[1].value].isLiked);
 
