@@ -27,23 +27,19 @@ const MainPage = ({ curUser, loggedIn }) => {
     }
   }
 
-  //on load, fetch random images and use them as variables in the img src
-  //resJSON will be an array of secure_url's
-  const [randomGallery, setRandomGallery] = useState([]);
-  const [isLiked, setIsLiked] = useState(false);
-  const [slideArr, setSlideArr] = useState([]);
+  //img array to display
+  const [imgGallery, setImgGallery] = useState([]);
+  //fetch img array
+  const [fetchArr, setFetchArr] = useState([]);
+  //like button array to change individual like buttons
   const [likeButtonArr, setLikeButtonArr] = useState([]);
-
-  var newArr = [];
-  const [likedByArr, setLikedByArr] = useState([]);
+  //isLiked just to re render array
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    //get random number to get random index from slide array
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
+    console.log("run");
 
-    async function getRandomImages() {
+    async function getImages() {
       await fetch("http://localhost:5000/most-recent-images", {
         method: "GET",
         headers: { "Content-type": "application/json" },
@@ -52,72 +48,52 @@ const MainPage = ({ curUser, loggedIn }) => {
           .json()
           .then((resJSON) => JSON.stringify(resJSON))
           .then((stringJSON) => JSON.parse(stringJSON))
-          .then((parsedJSON) => setSlideArr(parsedJSON))
+          .then((parsedJSON) => setFetchArr(parsedJSON))
       );
     }
-    getRandomImages();
+    getImages();
   }, []);
 
+  //map over img array
   useEffect(() => {
-    console.log(slideArr);
-    console.log("useEffect");
-    //shuffling an array to get better randomization than just math.random
-    // var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-    // function shuffle(o) {
-    //   for (
-    //     var j, x, i = o.length;
-    //     i;
-    //     j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
-    //   );
-    //   return o;
-    // }
-
-    // var random = shuffle(numbers);
-
-    // console.log(random + " random");
-
-    newArr = slideArr.map((element, index) => {
-      // console.log("map run");
-      var imgSRC = slideArr[index].secure_url;
-      var author = slideArr[index].uploadedBy;
+    console.log("run 2");
+    console.log(likeButtonArr);
+    //likeButtonCopy
+    var likeButtonArrCopy = [...likeButtonArr];
+    likeButtonArrCopy = [];
+    var mapResult = fetchArr.map((element, index) => {
+      var imgSRC = fetchArr[index].secure_url;
+      var author = fetchArr[index].uploadedBy;
       var likeButton;
-      var likedByArrCopy = [...likedByArr];
-      var push = likedByArrCopy.push(slideArr[index].likedBy);
-      setLikedByArr((likedByArr) => [...likedByArr, likedByArrCopy]);
-      console.log(likedByArr);
-      // console.log(slideArr[2].likedBy.includes(curUser));
+      var likedByArr = fetchArr[index].likedBy; //stops updating after some uses due to isLike not changing
+      var assetid = fetchArr[index].asset_id;
 
-      if (slideArr[index].likedBy.includes(curUser)) {
-        likeButtonArr.push({ isLiked: true, idx: index });
-        // console.log(likeButtonArr[index].isLiked);
+      if (likedByArr.includes(curUser)) {
+        likeButtonArrCopy.push({ isLiked: true, idx: index });
         likeButton = (
           <div>
             <FontAwesomeIcon
               icon={faHeart}
-              className={`mainPage__randomGallery-heart heartRed${
-                likeButtonArr[index].isLiked ? "" : " opacity0"
-              }`}
+              className={`mainPage__randomGallery-heart heartRed`}
             ></FontAwesomeIcon>
             <FontAwesomeIcon
               icon={farHeart}
               className={`opacity0${
-                likeButtonArr[index].isLiked
+                likeButtonArrCopy[index].isLiked
                   ? ""
-                  : " mainPage__randomGallery-heart"
+                  : " mainPage__fetchArr-heart"
               }`}
             ></FontAwesomeIcon>
           </div>
         );
       } else {
-        likeButtonArr.push({ isLiked: false, idx: index });
-        // console.log(likeButtonArr[index].isLiked);
+        likeButtonArrCopy.push({ isLiked: false, idx: index });
         likeButton = (
           <div>
             <FontAwesomeIcon
               icon={faHeart}
               className={`opacity0${
-                likeButtonArr[index].isLiked
+                likeButtonArrCopy[index].isLiked
                   ? ""
                   : " mainPage__randomGallery-heart heartRed"
               }`}
@@ -125,23 +101,23 @@ const MainPage = ({ curUser, loggedIn }) => {
             <FontAwesomeIcon
               icon={farHeart}
               className={`mainPage__randomGallery-heart
-                ${likeButtonArr[index].isLiked ? "opacity0" : ""}`}
+                ${likeButtonArrCopy[index].isLiked ? "opacity0" : ""}`}
             ></FontAwesomeIcon>
           </div>
         );
       }
+      setLikeButtonArr(likeButtonArrCopy);
       return (
         <div key={index} className="mainPage__randomGallery-div">
           <img src={imgSRC} className="mainPage__randomGallery-img"></img>
           <div className="mainPage__randomGallery-imgOverlay">
             <a
-              assetid={slideArr[index].asset_id}
-              likedby={slideArr[index].likedBy}
+              assetid={assetid}
+              likedby={likedByArr}
               className="mainPage__randomGallery-heartA"
-              onClick={(e) => handleLike(e, index, likedByArr)}
+              onClick={(e) => handleLike(e, index, likedByArr, assetid)}
               idx={index}
             >
-              {/* put like button here based on likedBy if statement ^^^ */}
               {likeButton}
             </a>
             <a className="mainPage__randomGallery-downloadA">
@@ -155,85 +131,21 @@ const MainPage = ({ curUser, loggedIn }) => {
         </div>
       );
     });
-    setRandomGallery(newArr);
-  }, [slideArr]);
+    setImgGallery(mapResult);
+  }, [fetchArr, isLiked]);
 
-  //only runs 6 times. one more than array length. coincidence?
-  async function handleLike(e, index, likedByArr) {
-    let imgAssetID = e.target.attributes[0].value;
-    console.log(slideArr);
-    console.log("handle like");
-    console.log(likedByArr);
+  async function handleLike(e, index, likedByArr, assetid) {
+    setIsLiked(!isLiked);
     if (likedByArr.includes(curUser)) {
-      var slideArrCopy = [...slideArr];
-
-      slideArrCopy[index].likedBy = slideArrCopy[index].likedBy.filter(
-        (user) => user !== curUser
-      );
-
-      setSlideArr(slideArrCopy);
-      console.log(slideArrCopy);
-      console.log("copy");
-
-      var likeButtonArrCopy = [...likeButtonArr];
-      likeButtonArrCopy[index].isLiked = false;
-      setLikeButtonArr(likeButtonArrCopy);
-
-      await fetch(
-        `http://localhost:5000/removeLikedBy/${imgAssetID}/${curUser}`,
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-        }
-      );
-    } else if (!likedByArr.includes(curUser)) {
-      await fetch(`http://localhost:5000/addLikedBy/${imgAssetID}/${curUser}`, {
+      await fetch(`http://localhost:5000/removeLikedBy/${assetid}/${curUser}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
       });
-      var slideArrCopy = [...slideArr];
-
-      slideArrCopy[index].likedBy.push(curUser);
-      setSlideArr(slideArrCopy);
-
-      console.log(slideArrCopy);
-      console.log("copy");
-
-      var likeButtonArrCopy = [...likeButtonArr];
-      likeButtonArrCopy[index].isLiked = true;
-      setLikeButtonArr(likeButtonArrCopy);
-    }
-
-    // console.log(likeButtonArr[e.target.attributes[1].value].isLiked);
-
-    // if (isLiked) {
-    //   //use asset ID in E to make GET request and add curUser to that
-    //   //asset ID's image's likedBy array
-    // } else {
-    //   //use asset ID in E to make GET request and remove curUser from
-    //   //that asset ID's image's likedBy array
-    // }
-  }
-
-  const [isActiveRec, setActiveRec] = useState(true);
-  const [isActivePop, setActivePop] = useState(false);
-
-  function handleClickRec() {
-    if (isActiveRec) {
-      setActiveRec(true);
-    } else if (!isActiveRec) {
-      setActiveRec(true);
-      setActivePop(false);
-    }
-  }
-
-  function handleClickPop() {
-    if (isActiveRec) {
-      setActivePop(true);
-      setActiveRec(false);
-    } else if (!isActivePop) {
-      setActivePop(true);
-      setActiveRec(false);
+    } else if (!likedByArr.includes(curUser)) {
+      await fetch(`http://localhost:5000/addLikedBy/${assetid}/${curUser}`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+      });
     }
   }
 
@@ -244,7 +156,6 @@ const MainPage = ({ curUser, loggedIn }) => {
         <div className={`${navPosition}`}>
           <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
         </div>
-        {/* <DropDown /> */}
         <Carousel2 />
       </div>
       <div className="mainPage__randomGallery-container">
@@ -257,7 +168,7 @@ const MainPage = ({ curUser, loggedIn }) => {
           </a>
         </div>
         <h1>Free Stock Photos</h1>
-        <div className="mainPage__randomGallery-gallery">{randomGallery}</div>
+        <div className="mainPage__randomGallery-gallery">{imgGallery}</div>
         <a href="/signup">
           <button
             style={{
