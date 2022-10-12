@@ -355,18 +355,10 @@ app.post("/addLikedBy/:assetID/:username", (req, res) => {
 
   db_connect
     .collection("mern-ecommerce-images")
-    .updateOne({ asset_id: imgAssetID }, { $push: { likedBy: user } });
-
-  db_connect
-    .collection("mern-ecommerce-images")
-    .findOne({ asset_id: imgAssetID }, function (err, user) {
-      if (err) {
-        console.log(err);
-      } else if (user) {
-        console.log("user not found");
-        // res.json("none"); //send username in resopnse to react fetch
-      }
-    });
+    .updateOne(
+      { asset_id: imgAssetID },
+      { $push: { likedBy: user }, $inc: { likes: 1 } }
+    );
 
   console.log("add like");
   res.json("add like");
@@ -381,13 +373,10 @@ app.post("/removeLikedBy/:assetID/:username", (req, res) => {
 
   db_connect
     .collection("mern-ecommerce-images")
-    .updateOne({ asset_id: imgAssetID }, { $pull: { likedBy: user } });
-
-  // db_connect
-  //   .collection("mern-ecommerce-images")
-  //   .findOne({ asset_id: imgAssetID }, function (err, img) {
-  //     if (img) console.log(img);
-  //   });
+    .updateOne(
+      { asset_id: imgAssetID },
+      { $pull: { likedBy: user }, $inc: { likes: -1 } }
+    );
 
   console.log("remove like");
   res.json("remove like");
@@ -597,14 +586,14 @@ app.get("/most-popular", (req, res) => {
   db_connect
     .collection("mern-ecommerce-images")
     .find()
-    .sort({ likedBy: -1 })
+    .sort({ likes: -1 })
     // .limit(12)
     .toArray(function (err, result) {
       if (err) {
         res.status(400).send("Error fetching listings!");
       } else {
         res.json(result);
-        console.log(result);
+        // console.log(result);
       }
     });
 });

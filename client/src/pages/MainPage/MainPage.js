@@ -108,11 +108,8 @@ const MainPage = ({ curUser, loggedIn }) => {
           ></img>
           <div className="mainPage__randomGallery-imgOverlay">
             <a
-              assetid={element.asset_id}
-              likedby={element.likedBy}
               className="mainPage__randomGallery-heartA"
               onClick={(e) => handleLike(e, element, index)}
-              idx={index}
             >
               {likeButton}
             </a>
