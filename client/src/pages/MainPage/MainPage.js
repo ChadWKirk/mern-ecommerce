@@ -31,10 +31,10 @@ const MainPage = ({ curUser, loggedIn }) => {
   const [imgGallery, setImgGallery] = useState([]);
   //fetch img array
   const [fetchArr, setFetchArr] = useState([]);
-  //like button array to change individual like buttons
-  const [likeButtonArr, setLikeButtonArr] = useState([]);
   //isLiked just to re render array
   const [isLiked, setIsLiked] = useState(false);
+
+  var mapArr;
 
   useEffect(() => {
     console.log("run");
@@ -57,29 +57,24 @@ const MainPage = ({ curUser, loggedIn }) => {
   //map over img array
   useEffect(() => {
     console.log("run 2");
-    console.log(likeButtonArr);
-    //likeButtonCopy
-    var likeButtonArrCopy = [...likeButtonArr];
-    likeButtonArrCopy = [];
-    var mapResult = fetchArr.map((element, index) => {
-      var imgSRC = fetchArr[index].secure_url;
-      var author = fetchArr[index].uploadedBy;
+    mapArr = fetchArr.map((element, index) => {
       var likeButton;
-      var likedByArr = fetchArr[index].likedBy; //stops updating after some uses due to isLike not changing
-      var assetid = fetchArr[index].asset_id;
 
-      if (likedByArr.includes(curUser)) {
-        likeButtonArrCopy.push({ isLiked: true, idx: index });
+      if (element.likedBy.includes(curUser)) {
         likeButton = (
           <div>
             <FontAwesomeIcon
               icon={faHeart}
-              className={`mainPage__randomGallery-heart heartRed`}
+              className={`${
+                element.likedBy.includes(curUser)
+                  ? "mainPage__randomGallery-heart heartRed"
+                  : "opacity0"
+              }`}
             ></FontAwesomeIcon>
             <FontAwesomeIcon
               icon={farHeart}
               className={`opacity0${
-                likeButtonArrCopy[index].isLiked
+                element.likedBy.includes(curUser)
                   ? ""
                   : " mainPage__fetchArr-heart"
               }`}
@@ -87,13 +82,12 @@ const MainPage = ({ curUser, loggedIn }) => {
           </div>
         );
       } else {
-        likeButtonArrCopy.push({ isLiked: false, idx: index });
         likeButton = (
           <div>
             <FontAwesomeIcon
               icon={faHeart}
               className={`opacity0${
-                likeButtonArrCopy[index].isLiked
+                element.likedBy.includes(curUser)
                   ? ""
                   : " mainPage__randomGallery-heart heartRed"
               }`}
@@ -101,21 +95,23 @@ const MainPage = ({ curUser, loggedIn }) => {
             <FontAwesomeIcon
               icon={farHeart}
               className={`mainPage__randomGallery-heart
-                ${likeButtonArrCopy[index].isLiked ? "opacity0" : ""}`}
+                ${element.likedBy.includes(curUser) ? " opacity0" : ""}`}
             ></FontAwesomeIcon>
           </div>
         );
       }
-      setLikeButtonArr(likeButtonArrCopy);
       return (
         <div key={index} className="mainPage__randomGallery-div">
-          <img src={imgSRC} className="mainPage__randomGallery-img"></img>
+          <img
+            src={element.secure_url}
+            className="mainPage__randomGallery-img"
+          ></img>
           <div className="mainPage__randomGallery-imgOverlay">
             <a
-              assetid={assetid}
-              likedby={likedByArr}
+              assetid={element.asset_id}
+              likedby={element.likedBy}
               className="mainPage__randomGallery-heartA"
-              onClick={(e) => handleLike(e, index, likedByArr, assetid)}
+              onClick={(e) => handleLike(e, element, index)}
               idx={index}
             >
               {likeButton}
@@ -126,27 +122,49 @@ const MainPage = ({ curUser, loggedIn }) => {
                 className="mainPage__randomGallery-download"
               ></FontAwesomeIcon>
             </a>
-            <a className="mainPage__randomGallery-overlayAuthor">{author}</a>
+            <a className="mainPage__randomGallery-overlayAuthor">
+              {element.uploadedBy}
+            </a>
           </div>
         </div>
       );
     });
-    setImgGallery(mapResult);
+    setImgGallery(mapArr);
   }, [fetchArr, isLiked]);
 
-  async function handleLike(e, index, likedByArr, assetid) {
-    setIsLiked(!isLiked);
-    if (likedByArr.includes(curUser)) {
-      await fetch(`http://localhost:5000/removeLikedBy/${assetid}/${curUser}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
+  async function handleLike(e, element, index) {
+    var fetchArrCopy = fetchArr;
+
+    if (fetchArrCopy[index].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/removeLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        fetchArrCopy[index].likedBy = fetchArrCopy[index].likedBy.filter(
+          (user) => {
+            return user !== curUser;
+          }
+        );
+        setFetchArr(fetchArrCopy);
+        console.log("run 3");
       });
-    } else if (!likedByArr.includes(curUser)) {
-      await fetch(`http://localhost:5000/addLikedBy/${assetid}/${curUser}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
+    } else if (!fetchArrCopy[index].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/addLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        fetchArrCopy[index].likedBy.push(curUser);
+        setFetchArr(fetchArrCopy);
+        console.log("run 4");
       });
     }
+    setIsLiked(!isLiked);
   }
 
   return (

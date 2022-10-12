@@ -30,7 +30,7 @@ button {
 }
 
 .mainPage__bg {
-  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg")
+  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg)
     no-repeat;
   background-size: cover;
   height: 26.65rem;

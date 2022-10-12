@@ -369,6 +369,7 @@ app.post("/addLikedBy/:assetID/:username", (req, res) => {
     });
 
   console.log("add like");
+  res.json("add like");
 });
 
 //remove from likedBy
@@ -389,6 +390,7 @@ app.post("/removeLikedBy/:assetID/:username", (req, res) => {
   //   });
 
   console.log("remove like");
+  res.json("remove like");
 });
 
 //SORT ROUTES
