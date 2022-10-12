@@ -8,16 +8,22 @@ CSS (flexbox, position, display)
 JSON parsing (JSON.parse(), JSON.stringify(), response.json())
 How to handle individual components in an array (ToDo tutorial)
 
+Image Selection (My Pics, My Likes):
+
+- Clicking div (image) selects but not de-select. Selects one image.
+- Clicking div de-selects all others except one being clicked.
+- Clicking checkbox itself allows for multi-select.
+- When single select, show edit stuff in form.
+- When multi select, show stack of little images and say "Select a single image to edit it here"
+- Can mass delete and/or mass download.
+
+- Keep array of what is selected in order to mass delete/download
+- Have buttons that appear for delete/download when at least one image is selected
+
 How to manage images:
 
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
-
-Like Button:
-
-- need to get like button to work. will have to find index of map array and re-render only that one with the like button changed. or just re-render the like button of that index.
-- to find index of clicked item, give each item an onClick function and pass it event and key. Now that onClick function will have the key in it in (). Make the key in each item the length of the array -1 to make it the index.
-- now you can say resultsMap[index] = html but with different like icon
 
 Search:
 
@@ -41,36 +47,12 @@ Likes page:
 - able to check off multiple ones and click remove from likes with are you sure box
 - able to click three dots icon on individual images and hit remove from likes with are you sure box
 
-Home Page:
-
-- after banner, have a section explaining what the website is
-- after that, have section explaining how to upload your own images
-- after that, have section explaining how to get paid for uploading
-- after that, have sign up call to action
-- after that, footer
-
-Styling:
-
-- make search bar form flex/centered again
-- need logo done
-
-Catalog section:
-
-- when clicking on a category or searching for an image, make a route that goes /search/whateverTheySearchedFor that makes a fetch request to the MongoDB database to get those images
-- allow user to like an image which sends it to their likes section that they can go back to
-- allow to sort by new, old, price, popular (amount of likes from most to least)
-- allow to filter by either photo or illustration
-
 Image-View Page:
 
 - need to make page user goes to when clicking on a picture
 - will have title, like button, description, price, tags, add to cart button, buy now button and free download button
 - Will have related images section under that main section detailed above
 - When clicking a tag, it will go to /search/thatTag and pull up all images with that tag or word in title
-
-Cart Page:
-
--
 
 Sign up:
 
@@ -84,15 +66,6 @@ server:
 
 - fix "can not read collection" error that you get sometimes when server loads. Something with database not being ready yet.
 
-account page:
-
-- details like payment info(database)
-
-Payment:
-
-- need to add paypal and stripe
-
 misc:
 
 - need to hash passwords
-- need to figure out how to securely store payment info
