@@ -17,7 +17,9 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   //put mapped over fetchArr in here
   var mapArr;
   //put true or false values in here for individual checkboxes
-  var checkboxArr = useRef([]);
+  var checkboxArr = [];
+  //checkbox state
+  const [checkboxState, setCheckboxState] = useState(checkboxArr);
   //to reset array to see checkbox result
   const [tf, setTf] = useState(false);
 
@@ -36,10 +38,6 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   const [sortTitle, setSortTitle] = useState("Most Recent");
   const [filterTitle, setFilterTitle] = useState("All Types");
 
-  function navToSortAndFilter() {
-    navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
-  }
-
   //get images
   useEffect(() => {
     console.log("run");
@@ -54,16 +52,26 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       );
     }
     myPicsFetch();
-    for (var i = 0; i < fetchArr.length; i++) {
-      checkboxArr.push(false);
+    for (var k = 0; k < fetchArr.length; k++) {
+      checkboxArr[k] = false;
     }
   }, [sort, filter]);
 
-  //create isChecked array for individual checkboxes
-  useEffect(() => {}, [fetchArr]);
+  function handleCheck(position) {
+    var newArr = checkboxArr?.map((element, index) => {
+      if (index === position) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    checkboxArr = newArr;
 
-  useEffect(() => {
     console.log(checkboxArr);
+  }
+
+  //create inputs
+  useEffect(() => {
     mapArr = fetchArr.map((element, index) => {
       // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
       // let result = parts[parts.length - 1];
@@ -74,10 +82,11 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         checkbox = (
           <input
             type="checkbox"
-            checked={checkboxArr[index]}
+            checked={checkboxState[index]}
             onChange={() => {
               checkboxArr[index] = !checkboxArr[index];
-              setTf(!tf);
+              setCheckboxState(checkboxArr);
+              handleCheck(index);
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -87,10 +96,11 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         checkbox = (
           <input
             type="checkbox"
-            checked={checkboxArr[index]}
+            checked={checkboxState[index]}
             onChange={() => {
               checkboxArr[index] = !checkboxArr[index];
-              setTf(!tf);
+              setCheckboxState(checkboxArr);
+              handleCheck(index);
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -143,7 +153,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       );
     });
     setMyPicsArr(mapArr);
-  }, [fetchArr, sort, filter, tf]);
+  }, [fetchArr, sort, filter, checkboxState]);
 
   async function submitForm(e) {
     e.preventDefault();
