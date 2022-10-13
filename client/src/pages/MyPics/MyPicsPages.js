@@ -55,19 +55,20 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     for (var k = 0; k < fetchArr.length; k++) {
       checkboxArr[k] = false;
     }
+    setCheckboxState(checkboxArr);
   }, [sort, filter]);
 
   function handleCheck(position) {
-    var newArr = checkboxArr?.map((element, index) => {
-      if (index === position) {
-        return true;
+    var boxes = [...checkboxState];
+    for (var t = 0; t < fetchArr.length; t++) {
+      if (t === position) {
+        boxes[t] = true;
       } else {
-        return false;
+        boxes[t] = false;
       }
-    });
-    checkboxArr = newArr;
+    }
 
-    console.log(checkboxArr);
+    setCheckboxState(boxes);
   }
 
   //create inputs
@@ -78,15 +79,17 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       let assetId = element.asset_id;
       var checkbox;
 
-      if (checkboxArr[index]) {
+      if (checkboxState[index]) {
         checkbox = (
           <input
             type="checkbox"
             checked={checkboxState[index]}
             onChange={() => {
-              checkboxArr[index] = !checkboxArr[index];
-              setCheckboxState(checkboxArr);
-              handleCheck(index);
+              let boxes = [...checkboxState];
+              let box = checkboxState[index];
+              box = false;
+              boxes[index] = box;
+              setCheckboxState(boxes);
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -98,9 +101,12 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             type="checkbox"
             checked={checkboxState[index]}
             onChange={() => {
-              checkboxArr[index] = !checkboxArr[index];
-              setCheckboxState(checkboxArr);
-              handleCheck(index);
+              let boxes = [...checkboxState];
+              let box = checkboxState[index];
+              box = true;
+              boxes[index] = box;
+              setCheckboxState(boxes);
+              console.log(checkboxState);
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -128,18 +134,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
           {checkbox}
           <label
             style={{ cursor: "pointer" }}
-            onClick={() => {
-              // checkboxArr[index] = true;
-              for (var k = 0; k < 8; k++) {
-                if (checkboxArr.indexOf(checkboxArr[k]) != index) {
-                  checkboxArr[k] = false;
-                } else {
-                  checkboxArr[k] = true;
-                }
-              }
-
-              setTf(!tf);
-            }}
+            onClick={() => handleCheck(index)}
           >
             <img
               src={element.secure_url}
@@ -153,7 +148,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       );
     });
     setMyPicsArr(mapArr);
-  }, [fetchArr, sort, filter, checkboxState]);
+  }, [fetchArr, sort, filter, tf, checkboxState]);
 
   async function submitForm(e) {
     e.preventDefault();
