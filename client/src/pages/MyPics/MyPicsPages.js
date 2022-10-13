@@ -20,6 +20,8 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   var checkboxArr = [];
   //checkbox state
   const [checkboxState, setCheckboxState] = useState(checkboxArr);
+  //Editor array for mass delete / mass download
+  var massArr = useRef([]);
   //to reset array to see checkbox result
   const [tf, setTf] = useState(false);
 
@@ -71,6 +73,30 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     setCheckboxState(boxes);
   }
 
+  //handle push / filter massArr when clicking checkbox (for mass download/delete)
+  //if it is already in massArr, remove it from massArr. If it is not, push it to massArr.
+  //(mimics check / uncheck behavior on screen)
+  function handleMassArrCheck(element, index) {
+    if (massArr.current.indexOf(element) >= 0) {
+      massArr.current = massArr.current.filter((item) => {
+        return item !== element;
+      });
+      console.log("pull");
+    } else if (massArr.current.indexOf(element.asset_id) == -1) {
+      massArr.current.push(element);
+      console.log("push");
+    }
+    console.log(massArr.current);
+  }
+
+  //handle push / filter massArr when clicking label (for mass download/delete)
+  //clears massArr and puts only the selected img in the massArr (mimics check/uncheck behavior on screen)
+  function handleMassArrLabel(element, index) {
+    massArr.current = [];
+    massArr.current.push(element);
+    console.log(massArr.current);
+  }
+
   //create inputs
   useEffect(() => {
     mapArr = fetchArr.map((element, index) => {
@@ -89,6 +115,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               let box = checkboxState[index];
               box = false;
               boxes[index] = box;
+              handleMassArrCheck(element, index);
               setCheckboxState(boxes);
             }}
             id={`checkbox${index}`}
@@ -105,8 +132,8 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               let box = checkboxState[index];
               box = true;
               boxes[index] = box;
+              handleMassArrCheck(element, index);
               setCheckboxState(boxes);
-              console.log(checkboxState);
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -134,7 +161,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
           {checkbox}
           <label
             style={{ cursor: "pointer" }}
-            onClick={() => handleCheck(index)}
+            onClick={() => {
+              handleCheck(index);
+              handleMassArrLabel(element, index);
+            }}
           >
             <img
               src={element.secure_url}

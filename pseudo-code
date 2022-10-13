@@ -10,12 +10,17 @@ How to handle individual components in an array (ToDo tutorial)
 
 Image Selection (My Pics, My Likes):
 
-- Clicking div (image) selects but not de-select. Selects one image.
-- Clicking div de-selects all others except one being clicked.
-- Clicking checkbox itself allows for multi-select.
 - When single select, show edit stuff in form.
-- When multi select, show stack of little images and say "Select a single image to edit it here"
 - Can mass delete and/or mass download.
+- to handle form contents:
+
+on checkbox click, if indexof object data is >= 0 (or .includes(object data) filter from array. if indexof <0 (-1) (or .!includes(object data), push object with info to an array.
+
+On label click, reset array and then push label's info to array.
+
+If massArr.current.length == 1, show that images info and preview and set submit/delete to that image
+
+If array.length > 1, show stack of little images and say "Select a single image to edit it here"
 
 - Keep array of what is selected in order to mass delete/download
 - Have buttons that appear for delete/download when at least one image is selected
