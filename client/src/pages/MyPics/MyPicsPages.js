@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import WhiteNavBar from "../../components/WhiteNavBar";
-import Logo from "../../components/Logo";
-import SearchBar from "../../components/SearchBar";
-import DropDown from "../../components/DropDown";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -13,11 +10,18 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 const MyPicsPage = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
 
-  var picsPushArr = [];
+  //image array to display in the HTML
   const [myPicsArr, setMyPicsArr] = useState([]);
-  var myPicsMap = [];
-  const [picsMapResults, setMapResults] = useState();
+  //array to fetch images to
+  const [fetchArr, setFetchArr] = useState([]);
+  //put mapped over fetchArr in here
+  var mapArr;
+  //put true or false values in here for individual checkboxes
+  var checkboxArr = useRef([]);
+  //to reset array to see checkbox result
+  const [tf, setTf] = useState(false);
 
+  //values to set editor form fields to
   const [picture, setPicture] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -25,9 +29,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   const [price, setPrice] = useState("");
   const [imageType, setImageType] = useState("");
 
+  //sort and filter values to do get requests
   const [sort, setSort] = useState("most-recent");
   const [filter, setFilter] = useState("all-types");
-
+  //sort and filter values to change the titles of the dropdown menus
   const [sortTitle, setSortTitle] = useState("Most Recent");
   const [filterTitle, setFilterTitle] = useState("All Types");
 
@@ -35,7 +40,9 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
   }
 
+  //get images
   useEffect(() => {
+    console.log("run");
     navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
 
     async function myPicsFetch() {
@@ -43,58 +50,100 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
-        response.json().then((resJSON) => (picsPushArr = resJSON))
-      );
-
-      setMyPicsArr(picsPushArr);
-      console.log(picsPushArr);
-
-      setMapResults(
-        picsPushArr.map((element, index) => {
-          // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
-          // let result = parts[parts.length - 1];
-          let assetId = element.asset_id;
-          return (
-            <a
-              key={element.asset_id}
-              onClick={(e) => {
-                document.querySelector("#titleInputID").value =
-                  picsPushArr[index].title;
-                document.querySelector("#tagsInputID").value =
-                  picsPushArr[index].tags;
-                document.querySelector("#descriptionInputID").value =
-                  picsPushArr[index].description;
-                document.querySelector("#imageTypeInputID").value =
-                  picsPushArr[index].imageType;
-                document.querySelector("#previewImageForEditor").src =
-                  picsPushArr[index].secure_url;
-                // e.currentTarget.classList.toggle("border");
-              }}
-              // href={`/image/${result.replaceAll(" ", "-")}`}
-            >
-              <input
-                type="checkbox"
-                id={`checkbox${index}`}
-                className="checkbox"
-              />
-              <label for={`checkbox${index}`} style={{ cursor: "pointer" }}>
-                <img
-                  src={element.secure_url}
-                  alt="img"
-                  className="myPicsGallery-img"
-                ></img>
-                <p className="myPicsGallery__img-title">
-                  {picsPushArr[index].title}
-                </p>
-              </label>
-              <div className="myPicsGallery__imageOverlay-container"></div>
-            </a>
-          );
-        })
+        response.json().then((resJSON) => setFetchArr(resJSON))
       );
     }
     myPicsFetch();
+    for (var i = 0; i < fetchArr.length; i++) {
+      checkboxArr.push(false);
+    }
   }, [sort, filter]);
+
+  //create isChecked array for individual checkboxes
+  useEffect(() => {}, [fetchArr]);
+
+  useEffect(() => {
+    console.log(checkboxArr);
+    mapArr = fetchArr.map((element, index) => {
+      // let parts = element.public_id.split("/");  --SPLIT NOT WORKING DUE TO MESSED UP UPLOADS EARLIER. JUST NEED TO DELETE THEM
+      // let result = parts[parts.length - 1];
+      let assetId = element.asset_id;
+      var checkbox;
+
+      if (checkboxArr[index]) {
+        checkbox = (
+          <input
+            type="checkbox"
+            checked={checkboxArr[index]}
+            onChange={() => {
+              checkboxArr[index] = !checkboxArr[index];
+              setTf(!tf);
+            }}
+            id={`checkbox${index}`}
+            className="checkbox"
+          />
+        );
+      } else {
+        checkbox = (
+          <input
+            type="checkbox"
+            checked={checkboxArr[index]}
+            onChange={() => {
+              checkboxArr[index] = !checkboxArr[index];
+              setTf(!tf);
+            }}
+            id={`checkbox${index}`}
+            className="checkbox"
+          />
+        );
+      }
+
+      return (
+        <a
+          key={element.asset_id}
+          onClick={(e) => {
+            document.querySelector("#titleInputID").value =
+              fetchArr[index].title;
+            document.querySelector("#tagsInputID").value = fetchArr[index].tags;
+            document.querySelector("#descriptionInputID").value =
+              fetchArr[index].description;
+            document.querySelector("#imageTypeInputID").value =
+              fetchArr[index].imageType;
+            document.querySelector("#previewImageForEditor").src =
+              fetchArr[index].secure_url;
+            // e.currentTarget.classList.toggle("border");
+          }}
+          // href={`/image/${result.replaceAll(" ", "-")}`}
+        >
+          {checkbox}
+          <label
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              // checkboxArr[index] = true;
+              for (var k = 0; k < 8; k++) {
+                if (checkboxArr.indexOf(checkboxArr[k]) != index) {
+                  checkboxArr[k] = false;
+                } else {
+                  checkboxArr[k] = true;
+                }
+              }
+
+              setTf(!tf);
+            }}
+          >
+            <img
+              src={element.secure_url}
+              alt="img"
+              className="myPicsGallery-img"
+            ></img>
+            <p className="myPicsGallery__img-title">{fetchArr[index].title}</p>
+          </label>
+          <div className="myPicsGallery__imageOverlay-container"></div>
+        </a>
+      );
+    });
+    setMyPicsArr(mapArr);
+  }, [fetchArr, sort, filter, tf]);
 
   async function submitForm(e) {
     e.preventDefault();
@@ -216,7 +265,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               </Dropdown.Item>
             </DropdownButton>
           </div>
-          <div className="myPicsGallery">{picsMapResults}</div>
+          <div className="myPicsGallery">{myPicsArr}</div>
         </div>
 
         <div className="myPicsGalleryEditorContainer">
