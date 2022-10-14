@@ -30,7 +30,7 @@ button {
 }
 
 .mainPage__bg {
-  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg)
+  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg")
     no-repeat;
   background-size: cover;
   height: 26.65rem;
@@ -662,7 +662,7 @@ button {
   overflow: scroll;
 }
 
-.myPicsGallery a {
+.myPicsDiv {
   width: 200px;
   height: 225px;
   outline: 2px solid #e7e7e7;
@@ -701,8 +701,26 @@ button {
 .myPicsGallery__imageOverlay-container {
 }
 
+.previewDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.previewDiv p {
+  opacity: 0.5;
+}
+
+.eyeIcon {
+  font-size: 1.75rem;
+  opacity: 0.4;
+}
+
 .border {
-  border: 1000px solid blue;
+  outline: 2px solid rgba(15, 15, 199, 0.641);
+  box-shadow: 0px 5px 6px rgba(85, 85, 85, 0.673);
 }
 
 .myPicsGallery-img {
@@ -714,12 +732,12 @@ button {
   object-fit: cover;
 }
 
-.myPicsGallery a:hover {
+.myPicsDiv:hover {
   box-shadow: 0px 5px 6px rgba(85, 85, 85, 0.673);
   transition: 0.1s ease-in-out;
 }
 
-.myPicsGallery a:hover .myPicsGallery-img {
+.myPicsDiv:hover .myPicsGallery-img {
 }
 
 .image-overlay-container {

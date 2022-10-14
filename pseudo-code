@@ -25,6 +25,18 @@ If array.length > 1, show stack of little images and say "Select a single image 
 - Keep array of what is selected in order to mass delete/download
 - Have buttons that appear for delete/download when at least one image is selected
 
+Conditionally render select all / deselect all button
+
+Finish styling editor form
+
+Create delete function
+
+Create mass delete function
+
+Create download function
+
+Create mass download function
+
 How to manage images:
 
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.

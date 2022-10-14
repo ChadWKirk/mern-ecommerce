@@ -5,7 +5,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
@@ -43,6 +43,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   //get images
   useEffect(() => {
     console.log("run");
+    //reset massArr when changing sort/filter
+    massArr.current = [];
+    displayEditorInfo();
+
     navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
 
     async function myPicsFetch() {
@@ -97,6 +101,26 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     console.log(massArr.current);
   }
 
+  //set editor info
+  function displayEditorInfo() {
+    if (massArr.current.length > 0) {
+      document.querySelector("#titleInputID").value = massArr.current[0].title;
+      document.querySelector("#tagsInputID").value = massArr.current[0].tags;
+      document.querySelector("#descriptionInputID").value =
+        massArr.current[0].description;
+      document.querySelector("#imageTypeInputID").value =
+        massArr.current[0].imageType;
+      document.querySelector("#previewImageForEditor").src =
+        massArr.current[0].secure_url;
+    } else {
+      document.querySelector("#titleInputID").value = null;
+      document.querySelector("#tagsInputID").value = null;
+      document.querySelector("#descriptionInputID").value = null;
+      document.querySelector("#imageTypeInputID").value = null;
+      document.querySelector("#previewImageForEditor").src = null;
+    }
+  }
+
   //create inputs
   useEffect(() => {
     mapArr = fetchArr.map((element, index) => {
@@ -117,6 +141,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               boxes[index] = box;
               handleMassArrCheck(element, index);
               setCheckboxState(boxes);
+              displayEditorInfo();
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -134,6 +159,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               boxes[index] = box;
               handleMassArrCheck(element, index);
               setCheckboxState(boxes);
+              displayEditorInfo();
             }}
             id={`checkbox${index}`}
             className="checkbox"
@@ -142,19 +168,15 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       }
 
       return (
-        <a
+        <div
+          className={`${
+            checkboxState[index] ? "myPicsDiv border" : "myPicsDiv"
+          }`}
           key={element.asset_id}
           onClick={(e) => {
-            document.querySelector("#titleInputID").value =
-              fetchArr[index].title;
-            document.querySelector("#tagsInputID").value = fetchArr[index].tags;
-            document.querySelector("#descriptionInputID").value =
-              fetchArr[index].description;
-            document.querySelector("#imageTypeInputID").value =
-              fetchArr[index].imageType;
-            document.querySelector("#previewImageForEditor").src =
-              fetchArr[index].secure_url;
-            // e.currentTarget.classList.toggle("border");
+            displayEditorInfo();
+
+            // e.currentTarget.classList = "border";
           }}
           // href={`/image/${result.replaceAll(" ", "-")}`}
         >
@@ -174,7 +196,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             <p className="myPicsGallery__img-title">{fetchArr[index].title}</p>
           </label>
           <div className="myPicsGallery__imageOverlay-container"></div>
-        </a>
+        </div>
       );
     });
     setMyPicsArr(mapArr);
@@ -201,7 +223,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
             <h2>Your Pics</h2>
-            <p>x images and x videos uploaded by curUser link</p>
+            <p>
+              {fetchArr.length} images uploaded by {curUser}
+              {/* <a href={`"/Account/${curUser}"`}>{curUser}</a> */}
+            </p>
           </div>
         </div>
       </div>
@@ -304,7 +329,18 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         </div>
 
         <div className="myPicsGalleryEditorContainer">
-          <form className="editorFormContainer" onSubmit={(e) => submitForm(e)}>
+          <div
+            className={`${massArr.current.length != 1 ? "previewDiv" : "gone"}`}
+          >
+            <FontAwesomeIcon icon={faEye} className="eyeIcon" />
+            <p>Select a single image to edit it here.</p>
+          </div>
+          <form
+            className={`${
+              massArr.current.length == 1 ? "editorFormContainer" : "gone"
+            }`}
+            onSubmit={(e) => submitForm(e)}
+          >
             <div>
               <img id="previewImageForEditor" src={""}></img>
               <div className="editorFormDetailsContainer">
