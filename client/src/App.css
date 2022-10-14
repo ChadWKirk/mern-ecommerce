@@ -30,7 +30,7 @@ button {
 }
 
 .mainPage__bg {
-  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg")
+  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg)
     no-repeat;
   background-size: cover;
   height: 26.65rem;
@@ -626,6 +626,36 @@ button {
   padding-left: 1.5rem;
   background-color: rgba(174, 196, 212, 0.545);
   border-top: 2px solid rgba(169, 169, 169, 0.21);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.myPicsGallerySortBar-leftContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.myPicsGallerySortBar-rightContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.65rem;
+  margin-right: 2.5rem;
+  font-size: 1.14rem;
+}
+
+.massIcon {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.massIcon:hover {
+  opacity: 1;
+}
+
+.galleryDropDownButton {
+  display: flex;
 }
 
 .galleryDropDownButton .btn-primary {
@@ -695,7 +725,12 @@ button {
   top: 10px;
   left: 10px;
   cursor: pointer;
-  z-index: 10000;
+}
+
+.checkboxSelectAll {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .myPicsGallery__imageOverlay-container {

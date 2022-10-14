@@ -6,6 +6,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 //font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 const MyPicsPage = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
@@ -24,13 +25,16 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   var massArr = useRef([]);
   //to reset array to see checkbox result
   const [tf, setTf] = useState(false);
+  //to do select/deselect all
+  var selectAll = useRef(false);
+
+  const [selectAllState, setSelectAllState] = useState(false);
 
   //values to set editor form fields to
   const [picture, setPicture] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
-  const [price, setPrice] = useState("");
   const [imageType, setImageType] = useState("");
 
   //sort and filter values to do get requests
@@ -46,6 +50,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     //reset massArr when changing sort/filter
     massArr.current = [];
     displayEditorInfo();
+
+    //reset select all when changing sort/filter
+    selectAll.current = false;
+    setSelectAllState(false);
 
     navigate(`/Account/${curUser}/My-Pics/${sort}/${filter}`);
 
@@ -206,13 +214,23 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     e.preventDefault();
     // myPicsArr[7].title = title;
     // myPicsArr[7].description = description;
-    // myPicsArr[7].price = price;
     // console.log("submit attempt");
     // await fetch(`http://localhost:5000/update/${curUser}`, {
     //   method: "PUT",
     //   headers: { "Content-type": "application/json" },
     //   body: JSON.stringify(myPicsArr[7]),
     // });
+  }
+
+  let massButtons;
+
+  if (massArr.current.length > 0) {
+    massButtons = (
+      <div className="myPicsGallerySortBar-rightContainer">
+        <FontAwesomeIcon icon={faTrash} className="massIcon" />
+        <FontAwesomeIcon icon={faDownload} className="massIcon" />
+      </div>
+    );
   }
 
   return (
@@ -232,98 +250,136 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       </div>
       <div className="myPicsGalleryAndEditorContainer">
         <div>
-          <div className="myPicsGallerySortBar d-flex">
-            <DropdownButton
-              className="galleryDropDownButton"
-              title={`${sortTitle}`}
-            >
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("most-recent");
-                  setSortTitle("Most Recent");
+          <div className="myPicsGallerySortBar">
+            <div className="myPicsGallerySortBar-leftContainer">
+              <input
+                type="checkbox"
+                checked={selectAllState}
+                onClick={() => setSelectAllState(!selectAllState)}
+                onChange={() => {
+                  let boxes = [...checkboxState];
+                  let massCopy = [...massArr.current];
+                  console.log(selectAll.current);
+                  if (selectAll.current == false) {
+                    for (var r = 0; r < fetchArr.length; r++) {
+                      boxes[r] = true;
+                      massCopy.push(fetchArr[r]);
+                    }
+                    selectAll.current = true;
+                  } else if (selectAll.current == true) {
+                    for (var r = 0; r < fetchArr.length; r++) {
+                      boxes[r] = false;
+                      massCopy = [];
+                    }
+                    selectAll.current = false;
+                    console.log("deselect");
+                  }
+
+                  setCheckboxState(boxes);
+                  massArr.current = massCopy;
+                  // let box = checkboxState[index];
+                  // box = false;
+                  // boxes[index] = box;
+                  // handleMassArrCheck(element, index);
+
+                  // displayEditorInfo();
                 }}
+                className="checkboxSelectAll"
+              />
+              <DropdownButton
+                className="galleryDropDownButton"
+                title={`${sortTitle}`}
               >
-                Most Recent
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("oldest");
-                  setSortTitle("Oldest");
-                }}
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("most-recent");
+                    setSortTitle("Most Recent");
+                  }}
+                >
+                  Most Recent
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("oldest");
+                    setSortTitle("Oldest");
+                  }}
+                >
+                  Oldest
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("aToz");
+                    setSortTitle("A - Z");
+                  }}
+                >
+                  A - Z
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("zToa");
+                    setSortTitle("Z - A");
+                  }}
+                >
+                  Z - A
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("leastLikes");
+                    setSortTitle("Least Popular");
+                  }}
+                >
+                  Least Popular
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setSort("mostLikes");
+                    setSortTitle("Popular");
+                  }}
+                >
+                  Popular
+                </Dropdown.Item>
+              </DropdownButton>
+              <DropdownButton
+                className="galleryDropDownButton"
+                title={`${filterTitle}`}
               >
-                Oldest
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("aToz");
-                  setSortTitle("A - Z");
-                }}
-              >
-                A - Z
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("zToa");
-                  setSortTitle("Z - A");
-                }}
-              >
-                Z - A
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("leastLikes");
-                  setSortTitle("Least Popular");
-                }}
-              >
-                Least Popular
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setSort("mostLikes");
-                  setSortTitle("Popular");
-                }}
-              >
-                Popular
-              </Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton
-              className="galleryDropDownButton"
-              title={`${filterTitle}`}
-            >
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setFilter("all-types");
-                  setFilterTitle("All Types");
-                }}
-              >
-                All types
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setFilter("photo");
-                  setFilterTitle("Photo");
-                }}
-              >
-                Photo
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="galleryDropDownItem"
-                onClick={() => {
-                  setFilter("illustration");
-                  setFilterTitle("Illustration");
-                }}
-              >
-                Illustration
-              </Dropdown.Item>
-            </DropdownButton>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setFilter("all-types");
+                    setFilterTitle("All Types");
+                  }}
+                >
+                  All types
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setFilter("photo");
+                    setFilterTitle("Photo");
+                  }}
+                >
+                  Photo
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="galleryDropDownItem"
+                  onClick={() => {
+                    setFilter("illustration");
+                    setFilterTitle("Illustration");
+                  }}
+                >
+                  Illustration
+                </Dropdown.Item>
+              </DropdownButton>
+            </div>
+
+            {massButtons}
           </div>
           <div className="myPicsGallery">{myPicsArr}</div>
         </div>
