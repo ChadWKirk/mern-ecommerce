@@ -654,6 +654,18 @@ button {
   opacity: 1;
 }
 
+.massIconText {
+  position: absolute;
+  top: 2rem;
+  left: -1.25rem;
+  background-color: rgb(2, 7, 53);
+  color: white;
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
 .galleryDropDownButton {
   display: flex;
 }
@@ -866,12 +878,16 @@ button {
 }
 
 .editorFormDetailsSubContainer {
-  font-size: 20px;
+  font-size: 1.25rem;
+  margin-top: 1.7rem;
 }
 
 .editorFormDetailsSubContainer input {
   width: 100%;
   border-radius: 5px;
+  padding: 0.35rem;
+  padding-left: 0.5rem;
+  margin-top: 0.6rem;
 }
 
 .footerContainer {

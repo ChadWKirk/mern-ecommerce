@@ -224,11 +224,50 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
   let massButtons;
 
+  const [hoverClassDel, setHoverClassDel] = useState(false);
+  const [hoverClassDown, setHoverClassDown] = useState(false);
+
   if (massArr.current.length > 0) {
     massButtons = (
       <div className="myPicsGallerySortBar-rightContainer">
-        <FontAwesomeIcon icon={faTrash} className="massIcon" />
-        <FontAwesomeIcon icon={faDownload} className="massIcon" />
+        <div style={{ position: "relative" }}>
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="massIcon"
+            onMouseEnter={() => {
+              setTimeout(() => {
+                setHoverClassDel(true);
+              }, 100);
+            }}
+            onMouseLeave={() => {
+              setTimeout(() => {
+                setHoverClassDel(false);
+              }, 100);
+            }}
+          />
+          <div className={`${hoverClassDel ? "massIconText" : "gone"}`}>
+            Delete Selected
+          </div>
+        </div>
+        <div style={{ position: "relative" }}>
+          <FontAwesomeIcon
+            icon={faDownload}
+            className="massIcon"
+            onMouseEnter={() => {
+              setTimeout(() => {
+                setHoverClassDown(true);
+              }, 100);
+            }}
+            onMouseLeave={() => {
+              setTimeout(() => {
+                setHoverClassDown(false);
+              }, 100);
+            }}
+          />
+          <div className={`${hoverClassDown ? "massIconText" : "gone"}`}>
+            Download Selected
+          </div>
+        </div>
       </div>
     );
   }
@@ -400,9 +439,20 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             <div>
               <img id="previewImageForEditor" src={""}></img>
               <div className="editorFormDetailsContainer">
+                <div
+                  style={{
+                    textAlign: "center",
+                    fontSize: "2rem",
+                    color: "blue",
+                    fontWeight: "bold",
+                    marginTop: "0.5rem",
+                  }}
+                >
+                  Edit Your Pic Details
+                </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* don't allow anything but letters and numbers. no special characters */}
-                  <div>Title</div>
+                  <div style={{ fontSize: "1.1rem" }}>Title*</div>
                   <div>
                     <input
                       id="titleInputID"
@@ -412,14 +462,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* copy how cloudinary lets you add tags. maybe bootstrap */}
-                  <div>Tags</div>
+                  <div style={{ fontSize: "1.1rem" }}>Tags</div>
                   <div>
                     <input id="tagsInputID"></input>
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* have max length of 500 characters */}
-                  <div>Description</div>
+                  <div style={{ fontSize: "1.1rem" }}>Description</div>
                   <div>
                     <input
                       id="descriptionInputID"
@@ -428,7 +478,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
-                  <div>Image type</div>
+                  <div style={{ fontSize: "1.1rem" }}>Image type</div>
                   <div>
                     <input
                       id="imageTypeInputID"
@@ -437,8 +487,40 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                   </div>
                 </div>
               </div>
-              <button>Submit</button>
-              <FontAwesomeIcon icon={faTrash} />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.7rem",
+                  marginTop: "3.75rem",
+                }}
+              >
+                <button
+                  style={{
+                    fontSize: "1.15rem",
+                    backgroundColor: "white",
+                    padding: "0.25rem",
+                    paddingLeft: "0.75rem",
+                    paddingRight: "0.75rem",
+                    border: "1px solid darkblue",
+                    borderRadius: "2px",
+                  }}
+                >
+                  Submit
+                </button>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  style={{
+                    fontSize: "1.15rem",
+                    backgroundColor: "white",
+                    padding: "0.515rem",
+                    paddingLeft: "1.4rem",
+                    paddingRight: "1.4rem",
+                    border: "1px solid darkblue",
+                    borderRadius: "2px",
+                  }}
+                />
+              </div>
             </div>
           </form>
         </div>
