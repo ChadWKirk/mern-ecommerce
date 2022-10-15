@@ -31,7 +31,8 @@ const UploadForm = ({
 
       var uploadToMongoBody;
 
-      //send post request to cloudinary api upload endpoint url
+      //send post request to cloudinary api upload endpoint url (have to use admin API
+      //from cloudinary for multi upload)
       await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
         method: "POST",
         body: formData,

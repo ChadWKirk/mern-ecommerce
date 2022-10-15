@@ -212,6 +212,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
   async function submitForm(e) {
     e.preventDefault();
+
     // myPicsArr[7].title = title;
     // myPicsArr[7].description = description;
     // console.log("submit attempt");
@@ -220,6 +221,30 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
     //   headers: { "Content-type": "application/json" },
     //   body: JSON.stringify(myPicsArr[7]),
     // });
+  }
+
+  async function deleteImageFromBackEnd() {
+    var publicIdArr = [];
+    for (var p = 0; p < massArr.current.length; p++) {
+      // publicIdArr.push(massArr.current[p].public_id);
+
+      // console.log(publicIdArr);
+
+      //cloudinary admin api for bulk delete. going to use this once site is hosted due
+      //to cors stuff with api
+      // await fetch(
+      //   "https://api.cloudinary.com/v1_1/dtyg4ctfr/resources/image/upload",
+      //   { method: "DELETE" }
+      // );
+
+      await fetch(`http://localhost:5000/deleteImage/`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ public_id: massArr.current[p].public_id }),
+      })
+        // .then((res) => removeImageFromUploadFrontEnd(imageName))
+        .catch((err) => console.error(err));
+    }
   }
 
   let massButtons;
@@ -234,6 +259,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
           <FontAwesomeIcon
             icon={faTrash}
             className="massIcon"
+            onClick={(e) => deleteImageFromBackEnd(e)}
             onMouseEnter={() => {
               setTimeout(() => {
                 setHoverClassDel(true);
@@ -508,18 +534,33 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 >
                   Submit
                 </button>
-                <FontAwesomeIcon
-                  icon={faTrash}
+                <button
                   style={{
                     fontSize: "1.15rem",
                     backgroundColor: "white",
-                    padding: "0.515rem",
-                    paddingLeft: "1.4rem",
-                    paddingRight: "1.4rem",
+                    padding: "0.25rem",
+                    paddingLeft: "0.75rem",
+                    paddingRight: "0.75rem",
                     border: "1px solid darkblue",
                     borderRadius: "2px",
                   }}
-                />
+                >
+                  <FontAwesomeIcon icon={faDownload} />
+                </button>
+                <button>
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    style={{
+                      fontSize: "1.15rem",
+                      backgroundColor: "white",
+                      padding: "0.515rem",
+                      paddingLeft: "1.4rem",
+                      paddingRight: "1.4rem",
+                      border: "1px solid darkblue",
+                      borderRadius: "2px",
+                    }}
+                  />
+                </button>
               </div>
             </div>
           </form>
