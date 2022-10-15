@@ -42,6 +42,12 @@ How to manage images:
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
 - put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
 
+SIGNED OUT BEHAVIOR:
+
+    - need to make it so that when liking a pic if signed out, don't increase likes
+    and don't add "undefined" to likedBy. And take to sign up page
+    that also has a sign in link "Already a member? Sign In"
+
 Search:
 
 - make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa

@@ -364,15 +364,17 @@ app.put("/update/:username", async (req, res) => {
   var myQuery = { public_id: req.body.public_id };
 
   mongoReplacement["likes"] = req.body.likes;
+  mongoReplacement.likedBy = req.body.likedBy;
   mongoReplacement.uploadedBy = req.params.username;
   mongoReplacement.title = req.body.title;
   mongoReplacement.description = req.body.description;
-  mongoReplacement.price = req.body.price;
   mongoReplacement.imageType = req.body.imageType;
 
   db_connect
     .collection("mern-ecommerce-images")
     .replaceOne(myQuery, mongoReplacement);
+
+  res.json("updated");
 });
 
 //update likedBy

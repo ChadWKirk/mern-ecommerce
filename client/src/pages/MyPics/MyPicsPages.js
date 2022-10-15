@@ -44,6 +44,9 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   const [sortTitle, setSortTitle] = useState("Most Recent");
   const [filterTitle, setFilterTitle] = useState("All Types");
 
+  //change this state when deleting or downloading
+  const [delOrDownFunc, setDelOrDownFunc] = useState(false);
+
   //get images
   useEffect(() => {
     console.log("run");
@@ -70,7 +73,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
       checkboxArr[k] = false;
     }
     setCheckboxState(checkboxArr);
-  }, [sort, filter]);
+  }, [sort, filter, delOrDownFunc]);
 
   function handleCheck(position) {
     var boxes = [...checkboxState];
@@ -213,14 +216,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   async function submitForm(e) {
     e.preventDefault();
 
-    // myPicsArr[7].title = title;
-    // myPicsArr[7].description = description;
-    // console.log("submit attempt");
-    // await fetch(`http://localhost:5000/update/${curUser}`, {
-    //   method: "PUT",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify(myPicsArr[7]),
-    // });
+    massArr.current[0].title = title;
+    massArr.current[0].description = description;
+    console.log("submit attempt");
+    await fetch(`http://localhost:5000/update/${curUser}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(massArr.current[0]),
+    }).then((res) => setDelOrDownFunc(!delOrDownFunc));
   }
 
   async function deleteImageFromBackEnd() {
@@ -242,7 +245,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ public_id: massArr.current[p].public_id }),
       })
-        // .then((res) => removeImageFromUploadFrontEnd(imageName))
+        .then((res) => setDelOrDownFunc(!delOrDownFunc))
         .catch((err) => console.error(err));
     }
   }
@@ -263,7 +266,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             onMouseEnter={() => {
               setTimeout(() => {
                 setHoverClassDel(true);
-              }, 100);
+              }, 0);
             }}
             onMouseLeave={() => {
               setTimeout(() => {
@@ -282,7 +285,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             onMouseEnter={() => {
               setTimeout(() => {
                 setHoverClassDown(true);
-              }, 100);
+              }, 0);
             }}
             onMouseLeave={() => {
               setTimeout(() => {
