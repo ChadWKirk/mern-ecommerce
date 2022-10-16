@@ -228,7 +228,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
   async function deleteImageFromBackEnd() {
     var publicIdArr = [];
-    for (var p = 0; p < massArr.current.length; p++) {
+    for (var p = 0; p < massArr.current.length + 1; p++) {
       // publicIdArr.push(massArr.current[p].public_id);
 
       // console.log(publicIdArr);
@@ -550,7 +550,10 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 >
                   <FontAwesomeIcon icon={faDownload} />
                 </button>
-                <button>
+                <button
+                  type="button"
+                  onClick={(e) => deleteImageFromBackEnd(e)}
+                >
                   <FontAwesomeIcon
                     icon={faTrash}
                     style={{
