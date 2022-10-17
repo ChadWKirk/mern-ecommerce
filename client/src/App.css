@@ -492,6 +492,22 @@ button {
 .heartRed {
   color: red;
   z-index: 105;
+  animation: likeAnimation 0.4s;
+}
+
+@keyframes likeAnimation {
+  from {
+    font-size: 1.25rem;
+    top: 11.65px;
+    left: 12.1px;
+    color: rgb(234, 1, 1);
+  }
+  to {
+    font-size: 1rem;
+    top: 14px;
+    left: 14px;
+    color: red;
+  }
 }
 
 .mainPage__randomGallery-downloadA {
@@ -716,7 +732,7 @@ button {
   background-color: lightblue;
   border-radius: 10px;
   position: relative;
-
+  padding: 0;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

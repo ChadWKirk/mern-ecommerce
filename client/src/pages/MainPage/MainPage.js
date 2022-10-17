@@ -65,19 +65,7 @@ const MainPage = ({ curUser, loggedIn }) => {
           <div>
             <FontAwesomeIcon
               icon={faHeart}
-              className={`${
-                element.likedBy.includes(curUser)
-                  ? "mainPage__randomGallery-heart heartRed"
-                  : "opacity0"
-              }`}
-            ></FontAwesomeIcon>
-            <FontAwesomeIcon
-              icon={farHeart}
-              className={`opacity0${
-                element.likedBy.includes(curUser)
-                  ? ""
-                  : " mainPage__fetchArr-heart"
-              }`}
+              className="mainPage__randomGallery-heart heartRed"
             ></FontAwesomeIcon>
           </div>
         );
@@ -85,17 +73,8 @@ const MainPage = ({ curUser, loggedIn }) => {
         likeButton = (
           <div>
             <FontAwesomeIcon
-              icon={faHeart}
-              className={`opacity0${
-                element.likedBy.includes(curUser)
-                  ? ""
-                  : " mainPage__randomGallery-heart heartRed"
-              }`}
-            ></FontAwesomeIcon>
-            <FontAwesomeIcon
               icon={farHeart}
-              className={`mainPage__randomGallery-heart
-                ${element.likedBy.includes(curUser) ? " opacity0" : ""}`}
+              className="mainPage__randomGallery-heart"
             ></FontAwesomeIcon>
           </div>
         );
