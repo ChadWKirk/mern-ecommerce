@@ -29,8 +29,13 @@ button {
   display: none;
 }
 
+.signUpPage {
+  height: 100vh;
+  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pexels-jakub-novacek-924824.jpg");
+}
+
 .mainPage__bg {
-  background: url(C:\Users\kirkch\Desktop\MERN-Projects\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg)
+  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg")
     no-repeat;
   background-size: cover;
   height: 26.65rem;
@@ -487,6 +492,22 @@ button {
 .heartRed {
   color: red;
   z-index: 105;
+  animation: likeAnimation 0.4s;
+}
+
+@keyframes likeAnimation {
+  from {
+    font-size: 1.25rem;
+    top: 11.65px;
+    left: 12.1px;
+    color: rgb(234, 1, 1);
+  }
+  to {
+    font-size: 1rem;
+    top: 14px;
+    left: 14px;
+    color: red;
+  }
 }
 
 .mainPage__randomGallery-downloadA {
@@ -711,7 +732,7 @@ button {
   background-color: lightblue;
   border-radius: 10px;
   position: relative;
-
+  padding: 0;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -899,7 +920,7 @@ button {
   font-size: 1rem;
   height: 10%;
   padding: 2rem;
-  margin-top: 6.5rem;
+  /* margin-top: 6.5rem; */
 }
 
 .imageViewContainer {
@@ -1050,4 +1071,64 @@ button {
 .dragOverCSS {
   background-color: rgb(205, 220, 252);
   border: 6px dashed rgb(55, 137, 209);
+}
+
+/* SignUp CSS */
+
+.signUpContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  padding: 2rem;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+
+.signUpContainer__heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.signUpContainer__p {
+  font-size: 1rem;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.signUpContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signUpContainer input {
+  background-color: rgb(241, 241, 241);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.signUpContainer input:focus {
+  background-color: rgb(250, 250, 250);
+  outline: 2px solid #3b5998;
+}
+
+.signUpContainer button {
+  background-color: #3b5998;
+  font-size: 1rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 3px;
+}
+
+.signUpContainer button:hover {
+  background-color: #3f60a7;
 }

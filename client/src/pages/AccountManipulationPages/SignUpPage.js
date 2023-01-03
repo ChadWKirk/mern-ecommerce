@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../../components/NavBar";
-import Logo from "../../components/Logo";
-import SearchBar from "../../components/SearchBar";
+import SignUpNavBar from "../../components/SignUpNavBar";
+// import MainPageNavBar from "../../components/MainPageNavBar";
 
 const SignUpPage = ({ curUser, loggedIn }) => {
   let navigate = useNavigate();
@@ -83,19 +82,31 @@ const SignUpPage = ({ curUser, loggedIn }) => {
   }
 
   return (
-    <div>
+    <div className="signUpPage">
       <div className="navContainer">
-        <Logo />
-        <SearchBar />
-        <NavBar curUser={curUser} loggedIn={loggedIn} />
+        <SignUpNavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="username">Username: </label>
-        <input id="username" onChange={onChangeName}></input>
-        <label htmlFor="password">Password: </label>
-        <input id="password" onChange={onChangePW}></input>
-        <button type="submit">Sign Up</button>
-      </form>
+      <div className="signUpContainer">
+        <div className="signUpContainer__heading">Join PicPocket</div>
+        <div className="signUpContainer__p">
+          Download free photos powered by a community of photographers.
+        </div>
+        <form onSubmit={onSubmit}>
+          <input
+            id="username"
+            onChange={onChangeName}
+            placeholder="Username"
+          ></input>
+          <input id="email" onChange={onChangeName} placeholder="Email"></input>
+          <input
+            id="password"
+            // type="password"
+            onChange={onChangePW}
+            placeholder="Password"
+          ></input>
+          <button type="submit">Create New Account</button>
+        </form>
+      </div>
     </div>
   );
 };
