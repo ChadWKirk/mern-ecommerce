@@ -25,7 +25,11 @@ If array.length > 1, show stack of little images and say "Select a single image 
 - Keep array of what is selected in order to mass delete/download
 - Have buttons that appear for delete/download when at least one image is selected
 
-Conditionally render select all / deselect all button
+---
+
+TASKS:
+
+Search doesn't work
 
 Finish styling editor form
 
@@ -36,6 +40,16 @@ Create mass delete function
 Create download function
 
 Create mass download function
+
+Scale pics to bad resolution on site until download (can do with Cloudinary I think)
+
+Make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa
+
+Deal with image view page going to proper URL and using the given title and description etc.
+
+Deal with edit success/failure
+
+---
 
 How to manage images:
 
