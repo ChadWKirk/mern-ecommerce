@@ -31,12 +31,12 @@ button {
 
 .signUpPage {
   height: 100vh;
-  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pexels-jakub-novacek-924824.jpg");
+  /* background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\pexels-jakub-novacek-924824.jpg"); */
 }
 
 .mainPage__bg {
-  background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg")
-    no-repeat;
+  /* background: url("C:\Users\Chad Kirk\Documents\mern-stuff\mern-ecommerce\client\src\4K_Nature-Wallpaper.jpg") */
+  /* no-repeat; */
   background-size: cover;
   height: 26.65rem;
   background-color: rgba(23, 45, 212, 0.312);
@@ -888,6 +888,22 @@ button {
   grid-template-rows: auto;
 }
 
+/* mypics gallery scrollbar */
+
+.myPicsGallery::-webkit-scrollbar {
+  width: 10px;
+}
+
+.myPicsGallery::-webkit-scrollbar-thumb {
+  background: rgb(60, 92, 161);
+  border-radius: 5px;
+  height: 10px;
+}
+
+.myPicsGallery::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
 .editorFormContainer {
   width: 25vw;
 }
@@ -895,7 +911,9 @@ button {
 #previewImageForEditor {
   width: 100%;
   max-height: 300px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1.75rem;
+  outline: 4px solid rgb(233, 233, 233);
 }
 
 .editorFormDetailsSubContainer {
@@ -905,7 +923,34 @@ button {
 
 .editorFormDetailsSubContainer input {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  font-size: 0.85rem;
+  /* font-weight: 600; */
+  padding: 0.35rem;
+  padding-left: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.editorFormDetailsSubContainer textarea {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  font-size: 0.85rem;
+  /* font-weight: 600; */
+  padding: 0.35rem;
+  padding-left: 0.5rem;
+  margin-top: 0.6rem;
+  height: 5rem;
+  resize: none;
+}
+
+.editorFormDetailsSubContainerInput {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  font-size: 0.85rem;
+  font-weight: 600;
   padding: 0.35rem;
   padding-left: 0.5rem;
   margin-top: 0.6rem;

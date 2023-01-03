@@ -466,48 +466,49 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             onSubmit={(e) => submitForm(e)}
           >
             <div>
-              <img id="previewImageForEditor" src={""}></img>
-              <div className="editorFormDetailsContainer">
-                <div
+              <div style={{ fontSize: "0.75rem" }}>
+                Title{" "}
+                <p
                   style={{
-                    textAlign: "center",
-                    fontSize: "2rem",
-                    color: "blue",
-                    fontWeight: "bold",
-                    marginTop: "0.5rem",
+                    fontSize: "0.75rem",
+                    color: "red",
+                    display: "inline",
                   }}
                 >
-                  Edit Your Pic Details
-                </div>
+                  *
+                </p>
+              </div>
+              <div>
+                <input
+                  id="titleInputID"
+                  className="editorFormDetailsSubContainerInput"
+                  onChange={(e) => setTitle(e.target.value)}
+                ></input>
+              </div>
+              <img id="previewImageForEditor" src={""}></img>
+              <div className="editorFormDetailsContainer">
                 <div className="editorFormDetailsSubContainer">
                   {/* don't allow anything but letters and numbers. no special characters */}
-                  <div style={{ fontSize: "1.1rem" }}>Title*</div>
-                  <div>
-                    <input
-                      id="titleInputID"
-                      onChange={(e) => setTitle(e.target.value)}
-                    ></input>
-                  </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* copy how cloudinary lets you add tags. maybe bootstrap */}
-                  <div style={{ fontSize: "1.1rem" }}>Tags</div>
+                  <div style={{ fontSize: "0.75rem" }}>Tags</div>
                   <div>
                     <input id="tagsInputID"></input>
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* have max length of 500 characters */}
-                  <div style={{ fontSize: "1.1rem" }}>Description</div>
+                  <div style={{ fontSize: "0.75rem" }}>Description</div>
                   <div>
-                    <input
+                    <textarea
                       id="descriptionInputID"
                       onChange={(e) => setDescription(e.target.value)}
-                    ></input>
+                    ></textarea>
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
-                  <div style={{ fontSize: "1.1rem" }}>Image type</div>
+                  <div style={{ fontSize: "0.75rem" }}>Image type</div>
                   <div>
                     <input
                       id="imageTypeInputID"
@@ -521,17 +522,17 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.7rem",
-                  marginTop: "3.75rem",
+                  marginTop: "1.85rem",
                 }}
               >
                 <button
                   style={{
-                    fontSize: "1.15rem",
-                    backgroundColor: "white",
+                    fontSize: "0.85em",
+                    backgroundColor: "rgb(250, 250, 250)",
                     padding: "0.25rem",
                     paddingLeft: "0.75rem",
                     paddingRight: "0.75rem",
-                    border: "1px solid darkblue",
+                    border: "1px solid lightgrey",
                     borderRadius: "2px",
                   }}
                 >
@@ -539,12 +540,12 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 </button>
                 <button
                   style={{
-                    fontSize: "1.15rem",
-                    backgroundColor: "white",
+                    fontSize: "0.85rem",
+                    backgroundColor: "rgb(250, 250, 250)",
                     padding: "0.25rem",
                     paddingLeft: "0.75rem",
                     paddingRight: "0.75rem",
-                    border: "1px solid darkblue",
+                    border: "1px solid lightgrey",
                     borderRadius: "2px",
                   }}
                 >
@@ -557,13 +558,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                   <FontAwesomeIcon
                     icon={faTrash}
                     style={{
-                      fontSize: "1.15rem",
-                      backgroundColor: "white",
-                      padding: "0.515rem",
-                      paddingLeft: "1.4rem",
-                      paddingRight: "1.4rem",
-                      border: "1px solid darkblue",
+                      fontSize: "0.8rem",
+                      backgroundColor: "rgb(250, 250, 250)",
+                      padding: "0.5rem",
+                      paddingLeft: "0.87rem",
+                      paddingRight: "0.87rem",
+                      border: "1px solid lightgrey",
                       borderRadius: "2px",
+                      marginTop: "4px",
                     }}
                   />
                 </button>

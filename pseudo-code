@@ -29,9 +29,9 @@ If array.length > 1, show stack of little images and say "Select a single image 
 
 TASKS:
 
-Search doesn't work
+Scale pics to bad resolution on site until download (can do with Cloudinary I think)
 
-Finish styling editor form
+Search doesn't work
 
 Create delete function
 
@@ -40,8 +40,6 @@ Create mass delete function
 Create download function
 
 Create mass download function
-
-Scale pics to bad resolution on site until download (can do with Cloudinary I think)
 
 Make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa
 
