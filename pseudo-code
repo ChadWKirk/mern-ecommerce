@@ -29,13 +29,13 @@ If array.length > 1, show stack of little images and say "Select a single image 
 
 TASKS:
 
-Scale pics to bad resolution on site until download (can do with Cloudinary I think)
+Scale pics to bad resolution on site until download (can do with Cloudinary I think). Need to do for upload thumbnails, search page, home page, and likes page. mypics page is done. Can turn PNG or other lossless formats into jpg by just changing the extension on the url. search slice in mypics page for code.
 
 Search doesn't work
 
-Create delete function
+Make Delete Success alert
 
-Create mass delete function
+Create mass delete function (only deletes 2 right now)
 
 Create download function
 
@@ -52,7 +52,7 @@ Deal with edit success/failure
 How to manage images:
 
 - host images on Cloudinary, fetch them from their API, store in MongoDB on upload so you can add likes and author.
-- put watermark and scale them to bad resolution on site until download (can do with Cloudinary I think)
+- deliver images using q_60 in link to reduce quality to 60 percent using cloudinary. doesn't work for png. on download obviously give full quality. https://cloudinary.com/documentation/image_optimization
 
 SIGNED OUT BEHAVIOR:
 

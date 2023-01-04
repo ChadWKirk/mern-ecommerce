@@ -200,7 +200,11 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             }}
           >
             <img
-              src={element.secure_url}
+              src={
+                element.secure_url.slice(0, 50) +
+                "q_60/" +
+                element.secure_url.slice(50, 500)
+              } //how the images come in. uses slice to input quality into url
               alt="img"
               className="myPicsGallery-img"
             ></img>
