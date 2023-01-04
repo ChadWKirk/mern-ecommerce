@@ -29,7 +29,7 @@ If array.length > 1, show stack of little images and say "Select a single image 
 
 TASKS:
 
-Scale pics to bad resolution on site until download (can do with Cloudinary I think). Need to do for upload thumbnails, search page, home page, and likes page. mypics page is done. Can turn PNG or other lossless formats into jpg by just changing the extension on the url. search slice in mypics page for code. https://cloudinary.com/documentation/image_optimization
+Scale pics to bad resolution on site until download. Need to do for upload thumbnails, search page, home page, and likes page. mypics page is done. Can turn PNG or other lossless formats into jpg by just changing the extension on the url. get lastIndexOf "." in the URL and replace everything after it with "jpg". search slice in mypics page for code. https://cloudinary.com/documentation/image_optimization. for upload page, need to wait until it is uploaded and secure url is generated before slicing.
 
 Search doesn't work
 

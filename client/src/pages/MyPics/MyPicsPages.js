@@ -203,8 +203,12 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
               src={
                 element.secure_url.slice(0, 50) +
                 "q_60/" +
-                element.secure_url.slice(50, 500)
-              } //how the images come in. uses slice to input quality into url
+                element.secure_url.slice(
+                  50,
+                  element.secure_url.lastIndexOf(".")
+                ) +
+                ".jpg"
+              } //how the images come in. uses slice to input quality into url and change everything to jpg
               alt="img"
               className="myPicsGallery-img"
             ></img>
