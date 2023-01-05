@@ -81,10 +81,31 @@ const MainPage = ({ curUser, loggedIn }) => {
       }
       return (
         <div key={index} className="mainPage__randomGallery-div">
-          <img
-            src={element.secure_url}
-            className="mainPage__randomGallery-img"
-          ></img>
+          <a
+            href={
+              element.secure_url.slice(0, 50) +
+              "q_60/c_scale,w_1600/dpr_auto/" +
+              element.secure_url.slice(
+                50,
+                element.secure_url.lastIndexOf(".")
+              ) +
+              ".jpg"
+            }
+          >
+            <img
+              src={
+                element.secure_url.slice(0, 50) +
+                "q_60/c_scale,w_1600/dpr_auto/" +
+                element.secure_url.slice(
+                  50,
+                  element.secure_url.lastIndexOf(".")
+                ) +
+                ".jpg"
+              }
+              className="mainPage__randomGallery-img"
+            ></img>
+          </a>
+
           <div className="mainPage__randomGallery-imgOverlay">
             <a
               className="mainPage__randomGallery-heartA"

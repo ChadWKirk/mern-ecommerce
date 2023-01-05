@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar";
-import Logo from "../../components/Logo";
-import SearchBar from "../../components/SearchBar";
-import DropDown from "../../components/DropDown";
-import { useParams } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-//font awesome
+import React, { useState, useEffect, useRef } from "react";
+import MainPageNavBar from "../../components/MainPageNavBar";
+import Carousel2 from "../../components/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import WhiteNavBar from "../../components/WhiteNavBar";
+import { useParams } from "react-router-dom";
 
-const SearchResultPage = ({ curUser, loggedIn }) => {
-  const { searchQuery } = useParams();
-  var searchArr = [];
-  var resultsArr = [];
-  const [liked, setLiked] = useState(false);
+const SearchResultsPage = ({ curUser, loggedIn }) => {
+  //sticky nav bar
+  const [navPosition, setNavPosition] = useState("gone");
 
-  // useEffect(() => {
-  //   console.log(resultsMap);
-  // }, [liked]);
+  useEffect(() => {
+    window.addEventListener("scroll", setNavToFixed);
 
-  function likeFunction(e, key, url) {
-    setLiked((liked) => !liked);
-    // console.log(key);
-    console.log(url);
-    // resultsMap[key] = 90;
-    console.log(resultsMap[key]);
+    return () => {
+      window.removeEventListener("scroll", setNavToFixed);
+    };
+  }, []);
+
+  function setNavToFixed() {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 425 ? setNavPosition("fixed") : setNavPosition("gone");
+    }
   }
+
+  //the thing you searched to use for fetch request
+  const { searchQuery } = useParams();
+  //array of results from mongoDB that you can grab stuff from like title or likedBy etc.
+  var searchArr = [];
+  //array of stuff you decide to keep from mongoDB search (push from searchArr into resultsArr)
+  var resultsArr = [];
+  //isLiked just to re render array
+  const [isLiked, setIsLiked] = useState(false);
+
   const [resultsMap, setResultsMap] = useState();
 
   useEffect(() => {
+    console.log("run");
+
     async function searchFetch() {
       await fetch(`http://localhost:5000/search/${searchQuery}`, {
         method: "GET",
@@ -49,7 +60,7 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
             .toString()
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ||
-          searchArr[i].public_id
+          searchArr[i].title
             .toString()
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
@@ -65,65 +76,160 @@ const SearchResultPage = ({ curUser, loggedIn }) => {
         resultsArr.map((element, key) => {
           let parts = element.public_id.split("/");
           let result = parts[parts.length - 1];
-          count = count + 1;
-          return (
-            <a key={count}>
-              <img
-                src={element.secure_url}
-                alt="img"
-                className="gallery-img"
-              ></img>
-              <div className="image-overlay-container">
-                <div className="image-overlay-contents-like">
-                  <FontAwesomeIcon
-                    onClick={(e) => likeFunction(e, key)}
-                    key={count + 1}
-                    icon={liked ? faHeart : farHeart}
-                    className="likeButton"
-                  />
-                </div>
+          var likeButton;
+
+          if (element.likedBy.includes(curUser)) {
+            likeButton = (
+              <div>
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className="mainPage__randomGallery-heart heartRed"
+                ></FontAwesomeIcon>
               </div>
-            </a>
+            );
+          } else {
+            likeButton = (
+              <div>
+                <FontAwesomeIcon
+                  icon={farHeart}
+                  className="mainPage__randomGallery-heart"
+                ></FontAwesomeIcon>
+              </div>
+            );
+          }
+          return (
+            <div key={count} className="mainPage__randomGallery-div">
+              <a
+                href={
+                  element.secure_url.slice(0, 50) +
+                  "q_60/c_scale,w_1600/dpr_auto/" +
+                  element.secure_url.slice(
+                    50,
+                    element.secure_url.lastIndexOf(".")
+                  ) +
+                  ".jpg"
+                }
+              >
+                <img
+                  src={
+                    element.secure_url.slice(0, 50) +
+                    "q_60/c_scale,w_1600/dpr_auto/" +
+                    element.secure_url.slice(
+                      50,
+                      element.secure_url.lastIndexOf(".")
+                    ) +
+                    ".jpg"
+                  }
+                  className="mainPage__randomGallery-img"
+                ></img>
+              </a>
+
+              <div className="mainPage__randomGallery-imgOverlay">
+                <a
+                  className="mainPage__randomGallery-heartA"
+                  onClick={(e) => handleLike(e, element, count)}
+                >
+                  {likeButton}
+                </a>
+                <a className="mainPage__randomGallery-downloadA">
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="mainPage__randomGallery-download"
+                  ></FontAwesomeIcon>
+                </a>
+                <a className="mainPage__randomGallery-overlayAuthor">
+                  {element.uploadedBy}
+                </a>
+              </div>
+            </div>
           );
         })
       );
     }
     searchFetch();
-  }, [liked]);
+  }, []);
+
+  // //map over img array
+  // useEffect(() => {
+  //   console.log("run 2");
+  //   mapArr = fetchArr.map((element, index) => {
+
+  //     );
+  //   });
+  //   setImgGallery(mapArr);
+  // }, [fetchArr, isLiked]);
+
+  async function handleLike(e, element, index) {
+    var searchArrCopy = searchArr;
+
+    if (searchArrCopy[index].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/removeLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        searchArrCopy[index].likedBy = searchArrCopy[index].likedBy.filter(
+          (user) => {
+            return user !== curUser;
+          }
+        );
+        searchArr = searchArrCopy;
+        console.log("run 3");
+      });
+    } else if (!searchArrCopy[index].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/addLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        searchArrCopy[index].likedBy.push(curUser);
+        searchArr = searchArrCopy;
+        console.log("run 4");
+      });
+    }
+    setIsLiked(!isLiked);
+  }
 
   return (
     <div>
-      <NavBar curUser={curUser} loggedIn={loggedIn} />
-      <DropDown />
-      <div className="galleryContainer">
-        <div className="galleryHeadingAndSortContainer">
-          <div className="galleryHeading">
-            <h2>{searchQuery} Royalty-free images</h2>
-          </div>
-          <div className="gallerySortBar d-flex">
-            <DropdownButton className="galleryDropDownButton" title="Sort By">
-              <Dropdown.Item className="galleryDropDownItem">
-                Popular
-              </Dropdown.Item>
-              <Dropdown.Item>Ratings Low-High</Dropdown.Item>
-              <Dropdown.Item>Ratings High-Low</Dropdown.Item>
-              <Dropdown.Item>Price Low-High</Dropdown.Item>
-              <Dropdown.Item>Price High-Low</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton
-              className="galleryDropDownButton"
-              title="Image Type"
-            >
-              <Dropdown.Item>All types</Dropdown.Item>
-              <Dropdown.Item>Photo</Dropdown.Item>
-              <Dropdown.Item>Vector</Dropdown.Item>
-            </DropdownButton>
-          </div>
+      <div className="mainPage__bg">
+        <MainPageNavBar curUser={curUser} loggedIn={loggedIn} />
+        <div className={`${navPosition}`}>
+          <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
         </div>
+        <Carousel2 />
+      </div>
+      <div className="mainPage__randomGallery-container">
+        <div className="mainPage__randomGallery-sorting">
+          <a>
+            <button className="buttonClicked">Most Recent</button>
+          </a>
+          <a href="/most-popular">
+            <button className="buttonNotClicked">Most Popular</button>
+          </a>
+        </div>
+        <h1>Free Stock Photos</h1>
         <div className="gallery">{resultsMap}</div>
+        <a href="/signup">
+          <button
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+              fontSize: "2.5rem",
+              borderRadius: "30px",
+              padding: "1.5rem",
+            }}
+          >
+            Sign Up!
+          </button>
+        </a>
       </div>
     </div>
   );
 };
 
-export default SearchResultPage;
+export default SearchResultsPage;

@@ -427,13 +427,14 @@ button {
   opacity: 1;
   box-shadow: inset 0px 0px 30px 60px rgba(0, 0, 0, 0.15);
   content: "";
-  display: block;
-  height: 96%;
+  display: inline-block;
+  height: 99%;
   position: absolute;
   top: 0;
   left: -390px;
   width: 290%;
   z-index: 0;
+  pointer-events: none;
 }
 
 .mainPage__randomGallery-imgOverlay {

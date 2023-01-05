@@ -60,7 +60,15 @@ const LikesPage = ({ curUser, loggedIn }) => {
             <div key={index} className="mainPage__randomGallery-div">
               <a href={`/image/${result.replaceAll(" ", "-")}`}>
                 <img
-                  src={element.secure_url}
+                  src={
+                    element.secure_url.slice(0, 50) +
+                    "q_60/c_scale,w_1600/dpr_auto/" +
+                    element.secure_url.slice(
+                      50,
+                      element.secure_url.lastIndexOf(".")
+                    ) +
+                    ".jpg"
+                  }
                   className="mainPage__randomGallery-img"
                 ></img>
               </a>

@@ -202,7 +202,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
             <img
               src={
                 element.secure_url.slice(0, 50) +
-                "q_60/" +
+                "q_60/c_scale,w_600/dpr_auto/" +
                 element.secure_url.slice(
                   50,
                   element.secure_url.lastIndexOf(".")

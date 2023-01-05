@@ -235,11 +235,23 @@ app.delete("/Account/:username/delUser", (req, res) => {
 //get images when searching
 app.get("/search/:searchQuery", (req, res) => {
   console.log(req.params.searchQuery);
-  cloudinary.api
-    .resources({ tags: true, max_results: 100 })
-    .then((result) => res.json(result.resources))
-    .catch((error) => {
-      console.log(error);
+  // cloudinary.api
+  //   .resources({ tags: true, max_results: 100 })
+  //   .then((result) => res.json(result.resources))
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+  db_connect
+    .collection("mern-ecommerce-images")
+    .find()
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        res.json(result);
+        console.log(result);
+      }
     });
 });
 
