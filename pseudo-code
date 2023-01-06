@@ -31,7 +31,11 @@ TASKS:
 
 Scale pics to bad resolution on site until download. Need to do for upload thumbnails.
 
-Copy overlay from main page onto search page
+Copy overlay from main page to likes page
+
+Get likes to work on searchPage and likesPage
+
+Add "Are you sure you want to remove this image from your likes? Yes No" to likesPage warning when you unlike something
 
 Make Delete Success alert
 
@@ -40,8 +44,6 @@ Create mass delete function (only deletes 2 right now)
 Create download function
 
 Create mass download function
-
-Make it so plural form gets searched when searching for something and vice versa. Example searching for "Cats" brings up "Cat" and vice versa
 
 Deal with image view page going to proper URL and using the given title and description etc.
 

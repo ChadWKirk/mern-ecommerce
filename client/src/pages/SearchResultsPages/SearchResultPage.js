@@ -196,12 +196,9 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
 
   return (
     <div>
-      <div className="mainPage__bg">
-        <MainPageNavBar curUser={curUser} loggedIn={loggedIn} />
-        <div className={`${navPosition}`}>
-          <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
-        </div>
-        <Carousel2 />
+      <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
+      <div className={`${navPosition}`}>
+        <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
       <div className="mainPage__randomGallery-container">
         <div className="mainPage__randomGallery-sorting">
@@ -212,8 +209,8 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
             <button className="buttonNotClicked">Most Popular</button>
           </a>
         </div>
-        <h1>Free Stock Photos</h1>
-        <div className="gallery">{resultsMap}</div>
+        <h1>{searchQuery} Images</h1>
+        <div className="mainPage__randomGallery-gallery">{resultsMap}</div>
         <a href="/signup">
           <button
             style={{
