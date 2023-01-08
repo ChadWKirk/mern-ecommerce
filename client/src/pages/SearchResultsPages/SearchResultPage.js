@@ -83,7 +83,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
               <div>
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="mainPage__randomGallery-heart heartRed"
+                  className="likeButtonHeart1 likeButtonLikedFill1"
                 ></FontAwesomeIcon>
               </div>
             );
@@ -92,13 +92,13 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
               <div>
                 <FontAwesomeIcon
                   icon={farHeart}
-                  className="mainPage__randomGallery-heart"
+                  className="likeButtonHeart1"
                 ></FontAwesomeIcon>
               </div>
             );
           }
           return (
-            <div key={count} className="mainPage__randomGallery-div">
+            <div key={count} className="imgGalleryImgCont1">
               <a
                 href={
                   element.secure_url.slice(0, 50) +
@@ -120,26 +120,24 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
                     ) +
                     ".jpg"
                   }
-                  className="mainPage__randomGallery-img"
+                  className="imgGalleryImg1"
                 ></img>
               </a>
 
-              <div className="mainPage__randomGallery-imgOverlay">
+              <div className="imgGalleryImgOverlay1">
                 <a
-                  className="mainPage__randomGallery-heartA"
+                  className="likeButtonContainer1"
                   onClick={(e) => handleLike(e, element, count)}
                 >
                   {likeButton}
                 </a>
-                <a className="mainPage__randomGallery-downloadA">
+                <a className="downloadButtonCont1">
                   <FontAwesomeIcon
                     icon={faDownload}
-                    className="mainPage__randomGallery-download"
+                    className="downloadButton1"
                   ></FontAwesomeIcon>
                 </a>
-                <a className="mainPage__randomGallery-overlayAuthor">
-                  {element.uploadedBy}
-                </a>
+                <a className="imgAuthor1">{element.uploadedBy}</a>
               </div>
             </div>
           );
@@ -200,8 +198,8 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
       <div className={`${navPosition}`}>
         <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
-      <div className="mainPage__randomGallery-container">
-        <div className="mainPage__randomGallery-sorting">
+      <div className="imgGallerySectionCont1">
+        <div className="sortingBarCont1">
           <a>
             <button className="buttonClicked">Most Recent</button>
           </a>
@@ -210,7 +208,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
           </a>
         </div>
         <h1>{searchQuery} Images</h1>
-        <div className="mainPage__randomGallery-gallery">{resultsMap}</div>
+        <div className="imgGalleryCont1">{resultsMap}</div>
         <a href="/signup">
           <button
             style={{

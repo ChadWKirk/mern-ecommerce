@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
-import DropDown from "../../components/DropDown";
 import Dropdown from "react-bootstrap/Dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 const LikesPage = ({ curUser, loggedIn }) => {
@@ -11,6 +14,8 @@ const LikesPage = ({ curUser, loggedIn }) => {
   var likesArr = [];
   var resultsArr = [];
   const [resultsMap, setResultsMap] = useState();
+  //isLiked just to re render array
+  const [isLiked, setIsLiked] = useState(false);
 
   const [sort, setSort] = useState("most-recent");
   const [filter, setFilter] = useState("all-types");
@@ -22,7 +27,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
     navigate(`/Account/${curUser}/Likes/${sort}/${filter}`);
 
     async function searchFetch() {
-      await fetch(`http://localhost:5000/${curUser}/${sort}/${filter}`, {
+      await fetch(`http://localhost:5000/${curUser}/likes`, {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>
@@ -34,31 +39,62 @@ const LikesPage = ({ curUser, loggedIn }) => {
       );
       console.log(likesArr);
       // //make everything lower case to allow case insensitive searching
-      // for (var i = 0; i < likesArr.length; i++) {
-      //   if (
-      //     likesArr[i].tags
-      //       .toString()
-      //       .toLowerCase()
-      //       .includes(searchQuery.toLowerCase()) ||
-      //     likesArr[i].public_id
-      //       .toString()
-      //       .toLowerCase()
-      //       .includes(searchQuery.toLowerCase())
-      //   ) {
-      //     resultsArr.push(likesArr[i]);
-      //   }
-      // }
+      for (var i = 0; i < likesArr.length; i++) {
+        // if (
+        //   likesArr[i].tags
+        //     .toString()
+        //     .toLowerCase()
+        //     .includes(searchQuery.toLowerCase()) ||
+        //   likesArr[i].public_id
+        //     .toString()
+        //     .toLowerCase()
+        //     .includes(searchQuery.toLowerCase())
+        // ) {
+        resultsArr.push(likesArr[i]);
+        // }
+      }
+      var count = -1;
       //use split to get an array split by the /
       //only output the public_id after the last /. last index of array meaning length-1
       //replace all spaces with dashes
       setResultsMap(
-        likesArr.map((element, index) => {
+        resultsArr.map((element, key) => {
           let parts = element.public_id.split("/");
           let result = parts[parts.length - 1];
+          var likeButton;
 
+          if (element.likedBy.includes(curUser)) {
+            likeButton = (
+              <div>
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className="likeButtonHeart1 likeButtonLikedFill1"
+                ></FontAwesomeIcon>
+              </div>
+            );
+          } else {
+            likeButton = (
+              <div>
+                <FontAwesomeIcon
+                  icon={farHeart}
+                  className="likeButtonHeart1"
+                ></FontAwesomeIcon>
+              </div>
+            );
+          }
           return (
-            <div key={index} className="mainPage__randomGallery-div">
-              <a href={`/image/${result.replaceAll(" ", "-")}`}>
+            <div key={count} className="imgGalleryImgCont1">
+              <a
+                href={
+                  element.secure_url.slice(0, 50) +
+                  "q_60/c_scale,w_1600/dpr_auto/" +
+                  element.secure_url.slice(
+                    50,
+                    element.secure_url.lastIndexOf(".")
+                  ) +
+                  ".jpg"
+                }
+              >
                 <img
                   src={
                     element.secure_url.slice(0, 50) +
@@ -69,9 +105,25 @@ const LikesPage = ({ curUser, loggedIn }) => {
                     ) +
                     ".jpg"
                   }
-                  className="mainPage__randomGallery-img"
+                  className="imgGalleryImg1"
                 ></img>
               </a>
+
+              <div className="imgGalleryImgOverlay1">
+                <a
+                  className="likeButtonContainer1"
+                  onClick={(e) => handleLike(e, element, count)}
+                >
+                  {likeButton}
+                </a>
+                <a className="downloadButtonCont1">
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="downloadButton1"
+                  ></FontAwesomeIcon>
+                </a>
+                <a className="imgAuthor1">{element.uploadedBy}</a>
+              </div>
             </div>
           );
         })
@@ -80,10 +132,44 @@ const LikesPage = ({ curUser, loggedIn }) => {
     searchFetch();
   }, [sort, filter]);
 
+  async function handleLike(e, element, count) {
+    var likesArrCopy = likesArr;
+
+    if (likesArrCopy[count + 1].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/removeLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        likesArrCopy[count + 1].likedBy = likesArrCopy[
+          count + 1
+        ].likedBy.filter((user) => {
+          return user !== curUser;
+        });
+        likesArr = likesArrCopy;
+        console.log("run 3");
+      });
+    } else if (!likesArrCopy[count + 1].likedBy.includes(curUser)) {
+      await fetch(
+        `http://localhost:5000/addLikedBy/${element.asset_id}/${curUser}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((res) => {
+        likesArrCopy[count + 1].likedBy.push(curUser);
+        likesArr = likesArrCopy;
+        console.log("run 4");
+      });
+    }
+    setIsLiked(!isLiked);
+  }
+
   return (
     <div>
       <NavBar curUser={curUser} loggedIn={loggedIn} />
-      {/* <DropDown /> */}
       <div className="galleryContainer">
         <div className="galleryHeadingAndSortContainer">
           <div className="galleryHeading">
@@ -185,7 +271,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
           </DropdownButton>
         </div>
         <div
-          className="mainPage__randomGallery-gallery"
+          className="imgGalleryCont1"
           style={{ marginLeft: "1rem", marginRight: "1rem" }}
         >
           {resultsMap}

@@ -374,14 +374,12 @@ button {
 
 /*Search Results and My Likes Gallery CSS*/
 
-.mainPage__randomGallery-container {
-  /* imgGalleryCont1 */
+.imgGallerySectionCont1 {
   width: 90%;
   margin: auto;
 }
 
-.mainPage__randomGallery-container h1 {
-  /* imgGalleryCont1 */
+.imgGallerySectionCont1 h1 {
   font-size: 1.5rem;
   padding: 3.5rem;
   padding-top: 0;
@@ -389,15 +387,15 @@ button {
   padding-left: 0;
 }
 
-.mainPage__randomGallery-sorting {
-  /* sortingBarCont1 */
+.sortingBarCont1 {
   display: flex;
   justify-content: center;
   padding: 2rem;
+  margin-left: 4rem;
   gap: 3rem;
 }
 
-.mainPage__randomGallery-sorting button {
+.sortingBarCont1 button {
   font-size: 1rem;
 }
 
@@ -412,15 +410,13 @@ button {
   /* transition: 0.2s ease-in-out; */
 }
 
-.mainPage__randomGallery-gallery {
-  /* imgGalleryCont1 */
+.imgGalleryCont1 {
   columns: 3 300px;
   gap: 1rem;
   margin-bottom: 6.25rem;
 }
 
-.mainPage__randomGallery-div {
-  /* imgGalleryImgCont1 */
+.imgGalleryImgCont1 {
   position: relative;
   font-size: 1rem;
   color: rgb(73, 73, 73);
@@ -428,8 +424,7 @@ button {
   overflow-y: hidden;
 }
 
-.mainPage__randomGallery-div:hover::after {
-  /* imgGalleryImgCont1 */
+.imgGalleryImgCont1:hover::after {
   opacity: 1;
   box-shadow: inset 0px 0px 30px 60px rgba(0, 0, 0, 0.15);
   content: "";
@@ -443,13 +438,11 @@ button {
   pointer-events: none;
 }
 
-.mainPage__randomGallery-imgOverlay {
-  /* imgGalleryImgOverlay1 */
+.imgGalleryImgOverlay1 {
   opacity: 0;
 }
 
-.mainPage__randomGallery-div:hover .mainPage__randomGallery-imgOverlay {
-  /* .imgGalleryImgCont1:hover .imgGalleryImgOverlay1 */
+.imgGalleryImgCont1:hover .imgGalleryImgOverlay1 {
   opacity: 1;
   position: initial;
 }
@@ -468,8 +461,7 @@ button {
   padding: 0.75rem;
 }
 
-.mainPage__randomGallery-img {
-  /* imgGalleryImg1 */
+.imgGalleryImg1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -477,8 +469,7 @@ button {
   display: block;
 }
 
-.mainPage__randomGallery-heartA {
-  /* likeButtonContainer1 */
+.likeButtonContainer1 {
   cursor: pointer;
   position: absolute;
   top: 10px;
@@ -491,8 +482,7 @@ button {
   z-index: 100;
 }
 
-.mainPage__randomGallery-heart {
-  /* likeButtonHeart1 */
+.likeButtonHeart1 {
   border-radius: 10px;
   pointer-events: none;
   position: absolute;
@@ -501,8 +491,7 @@ button {
   left: 14px;
 }
 
-.heartRed {
-  /* likeButtonLikedFill1 */
+.likeButtonLikedFill1 {
   color: red;
   z-index: 105;
   animation: likeAnimation 0.4s;
@@ -523,8 +512,7 @@ button {
   }
 }
 
-.mainPage__randomGallery-downloadA {
-  /* downloadButtonCont1 */
+.downloadButtonCont1 {
   cursor: pointer;
   position: absolute;
   z-index: 100;
@@ -537,25 +525,21 @@ button {
   padding: 0.75rem;
 }
 
-.mainPage__randomGallery-download {
-  /* downloadButton1 */
+.downloadButton1 {
   z-index: 100;
   pointer-events: none;
   border-radius: 10px;
 }
 
-.mainPage__randomGallery-heartA:hover {
-  /* .likeButtonCont1:hover */
+.likeButtonContainer1:hover {
   background-color: #f1f1f1;
 }
 
-.mainPage__randomGallery-downloadA:hover {
-  /* .downloadbuttonCont1:hover */
+.downloadButtonCont1:hover {
   background-color: #f1f1f1;
 }
 
-.mainPage__randomGallery-overlayAuthor {
-  /* imgAuthor1 */
+.imgAuthor1 {
   cursor: pointer;
   position: absolute;
   bottom: 7px;
@@ -569,8 +553,7 @@ button {
   z-index: 1000;
 }
 
-.mainPage__randomGallery-overlayAuthor:hover {
-  /* imgAuthor1:hover */
+.imgAuthor1:hover {
   background: none;
   color: #f1f1f1;
   text-decoration: underline;

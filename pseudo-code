@@ -31,9 +31,9 @@ TASKS:
 
 Scale pics to bad resolution on site until download. Need to do for upload thumbnails.
 
-Copy overlay from main page to likes page
+Get likes to work on searchPage
 
-Get likes to work on searchPage and likesPage
+Get sorting and filtering to work on searchPage and likesPage
 
 Add "Are you sure you want to remove this image from your likes? Yes No" to likesPage warning when you unlike something
 

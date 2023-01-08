@@ -65,12 +65,12 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
                 <FontAwesomeIcon
                   onClick={(e) => handleLike(e)}
                   icon={faHeart}
-                  className="mainPage__randomGallery-heart heartRed"
+                  className="likeButtonHeart1 likeButtonLikedFill1"
                 ></FontAwesomeIcon>
                 <FontAwesomeIcon
                   onClick={(e) => handleLike(e)}
                   icon={farHeart}
-                  className="mainPage__randomGallery-heart opacity0"
+                  className="likeButtonHeart1 opacity0"
                 ></FontAwesomeIcon>
               </div>
             );
@@ -80,38 +80,36 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
                 <FontAwesomeIcon
                   onClick={(e) => handleLike(e)}
                   icon={faHeart}
-                  className="mainPage__randomGallery-heart heartRed opacity0"
+                  className="likeButtonHeart1 likeButtonLikedFill1 opacity0"
                 ></FontAwesomeIcon>
                 <FontAwesomeIcon
                   onClick={(e) => handleLike(e)}
                   icon={farHeart}
-                  className="mainPage__randomGallery-heart"
+                  className="likeButtonHeart1"
                 ></FontAwesomeIcon>
               </div>
             );
           }
           return (
-            <div key={index} className="mainPage__randomGallery-div">
-              <img src={imgSRC} className="mainPage__randomGallery-img"></img>
-              <div className="mainPage__randomGallery-imgOverlay">
+            <div key={index} className="imgGalleryImgCont1">
+              <img src={imgSRC} className="imgGalleryImg1"></img>
+              <div className="imgGalleryImgOverlay1">
                 <a
                   assetid={slideArr[index].asset_id}
                   likedby={slideArr[index].likedBy}
-                  className="mainPage__randomGallery-heartA"
+                  className="likeButtonContainer1"
                   onClick={(e) => handleLike(e)}
                 >
                   {/* put like button here based on likedBy if statement ^^^ */}
                   {likeButton}
                 </a>
-                <a className="mainPage__randomGallery-downloadA">
+                <a className="downloadButtonCont1">
                   <FontAwesomeIcon
                     icon={faDownload}
-                    className="mainPage__randomGallery-download"
+                    className="downloadButton1"
                   ></FontAwesomeIcon>
                 </a>
-                <a className="mainPage__randomGallery-overlayAuthor">
-                  {author}
-                </a>
+                <a className="imgAuthor1">{author}</a>
               </div>
             </div>
           );
@@ -184,8 +182,8 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
         {/* <DropDown /> */}
         <Carousel2 />
       </div>
-      <div className="mainPage__randomGallery-container">
-        <div className="mainPage__randomGallery-sorting">
+      <div className="imgGallerySectionCont1">
+        <div className="sortingBarCont1">
           <a href="/">
             <button className="buttonNotClicked">Most Recent</button>
           </a>
@@ -194,7 +192,7 @@ const MainPageMostPopularImages = ({ curUser, loggedIn }) => {
           </a>
         </div>
         <h1>Free Stock Photos</h1>
-        <div className="mainPage__randomGallery-gallery">{randomGallery}</div>
+        <div className="imgGalleryCont1">{randomGallery}</div>
         <a href="/signup">
           <button
             style={{
