@@ -130,7 +130,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
       );
     }
     searchFetch();
-  }, [sort, filter]);
+  }, [sort, filter, isLiked]);
 
   async function handleLike(e, element, count) {
     var likesArrCopy = likesArr;
