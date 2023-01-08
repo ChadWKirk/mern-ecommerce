@@ -423,13 +423,13 @@ button {
   overflow: hidden;
   overflow-y: hidden;
 }
-
+/* imgoverlay black thing */
 .imgGalleryImgCont1:hover::after {
   opacity: 1;
   box-shadow: inset 0px 0px 30px 60px rgba(0, 0, 0, 0.15);
   content: "";
   display: inline-block;
-  height: 99%;
+  height: 97.5%;
   position: absolute;
   top: 0;
   left: -390px;

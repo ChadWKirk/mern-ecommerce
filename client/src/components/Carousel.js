@@ -66,7 +66,7 @@ const Carousel2 = () => {
   }
 
   function onSubmit() {
-    navigate(`/search/${inputValue}`);
+    navigate(`/search/${inputValue}/most-recent/all-types`);
   }
 
   return (
@@ -91,11 +91,26 @@ const Carousel2 = () => {
           </button>
         </form>
         <div className="carousel__overlay-categories">
-          Try these: <a href="http://localhost:3000/search/Nature">Nature</a>,
-          <a href="http://localhost:3000/search/Cats">Cats</a>,
-          <a href="http://localhost:3000/search/Dogs">Dogs</a>,
-          <a href="http://localhost:3000/search/Tech">Tech</a>,
-          <a href="http://localhost:3000/search/Landscape">Landscape</a>
+          Try these:{" "}
+          <a href="http://localhost:3000/search/Nature/most-recent/all-types">
+            Nature
+          </a>
+          ,
+          <a href="http://localhost:3000/search/Cats/most-recent/all-types">
+            Cats
+          </a>
+          ,
+          <a href="http://localhost:3000/search/Dogs/most-recent/all-types">
+            Dogs
+          </a>
+          ,
+          <a href="http://localhost:3000/search/Tech/most-recent/all-types">
+            Tech
+          </a>
+          ,
+          <a href="http://localhost:3000/search/Landscape/most-recent/all-types">
+            Landscape
+          </a>
         </div>
       </div>
       <div

@@ -25,7 +25,7 @@ const NavBar = ({ curUser, loggedIn }) => {
   }
 
   function onSubmit() {
-    navigate(`/search/${inputValue}`);
+    navigate(`/search/${inputValue}/most-recent/all-types`);
   }
 
   const [isVisibleClass, setIsVisibleClass] = useState("gone");

@@ -17,9 +17,10 @@ const LikesPage = ({ curUser, loggedIn }) => {
   //isLiked just to re render array
   const [isLiked, setIsLiked] = useState(false);
 
+  //sort and filter values to do get requests
   const [sort, setSort] = useState("most-recent");
   const [filter, setFilter] = useState("all-types");
-
+  //sort and filter values to change the titles of the dropdown menus
   const [sortTitle, setSortTitle] = useState("Most Recent");
   const [filterTitle, setFilterTitle] = useState("All Types");
 
@@ -27,7 +28,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
     navigate(`/Account/${curUser}/Likes/${sort}/${filter}`);
 
     async function searchFetch() {
-      await fetch(`http://localhost:5000/${curUser}/likes`, {
+      await fetch(`http://localhost:5000/${curUser}/likes/${sort}/${filter}`, {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((response) =>

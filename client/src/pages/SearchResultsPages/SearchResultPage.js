@@ -6,8 +6,12 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import WhiteNavBar from "../../components/WhiteNavBar";
 import { useParams } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const SearchResultsPage = ({ curUser, loggedIn }) => {
+  let navigate = useNavigate();
+
   //sticky nav bar
   const [navPosition, setNavPosition] = useState("gone");
 
@@ -26,6 +30,13 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
     }
   }
 
+  //sort and filter values to do get requests
+  const [sort, setSort] = useState("most-recent");
+  const [filter, setFilter] = useState("all-types");
+  //sort and filter values to change the titles of the dropdown menus
+  const [sortTitle, setSortTitle] = useState("Most Recent");
+  const [filterTitle, setFilterTitle] = useState("All Types");
+
   //the thing you searched to use for fetch request
   const { searchQuery } = useParams();
   //array of results from mongoDB that you can grab stuff from like title or likedBy etc.
@@ -42,11 +53,16 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
   useEffect(() => {
     console.log("run");
 
+    navigate(`/search/${searchQuery}/${sort}/${filter}`);
+
     async function searchFetch() {
-      await fetch(`http://localhost:5000/search/${searchQuery}`, {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      }).then((response) =>
+      await fetch(
+        `http://localhost:5000/search/${searchQuery}/${sort}/${filter}`,
+        {
+          method: "GET",
+          headers: { "Content-type": "application/json" },
+        }
+      ).then((response) =>
         response
           .json()
           .then((resJSON) => JSON.stringify(resJSON))
@@ -54,29 +70,28 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
           .then((parsedJSON) => setSearchArr(parsedJSON))
       );
       //make everything lower case to allow case insensitive searching
-      if (searchArr) {
-        for (var i = 0; i < searchArr.length; i++) {
-          if (
-            searchArr[i].tags
-              .toString()
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            searchArr[i].title
-              .toString()
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase())
-          ) {
-            resultsArr.push(searchArr[i]);
-          }
-        }
-      }
+      // if (searchArr) {
+      //   for (var i = 0; i < searchArr.length; i++) {
+      //     if (
+      //       searchArr[i].tags
+      //         .toString()
+      //         .toLowerCase()
+      //         .includes(searchQuery.toLowerCase()) ||
+      //       searchArr[i].title
+      //         .toString()
+      //         .toLowerCase()
+      //         .includes(searchQuery.toLowerCase())
+      //     ) {
+      //       resultsArr.push(searchArr[i]);
+      //     }
+      //   }
+      // }
     }
     searchFetch();
-  }, []);
+  }, [sort, filter]);
 
   useEffect(() => {
-    var count = -1;
-
+    console.log(searchArr);
     //use split to get an array split by the /
     //only output the public_id after the last /. last index of array meaning length-1
     //replace all spaces with dashes
@@ -85,6 +100,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
       let parts = element.public_id.split("/");
       let result = parts[parts.length - 1];
       var likeButton;
+      var count = -1;
 
       if (element.likedBy.includes(curUser)) {
         likeButton = (
@@ -135,7 +151,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
           <div className="imgGalleryImgOverlay1">
             <a
               className="likeButtonContainer1"
-              onClick={(e) => handleLike(e, element, count)}
+              onClick={(e) => handleLike(e, element, index)}
             >
               {likeButton}
             </a>
@@ -151,7 +167,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
       );
     });
     setResultsMap(mapArr);
-  }, [searchArr, isLiked]);
+  }, [searchArr, sort, filter, isLiked]);
 
   // //map over img array
   // useEffect(() => {
@@ -163,10 +179,10 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
   //   setImgGallery(mapArr);
   // }, [fetchArr, isLiked]);
 
-  async function handleLike(e, element, count) {
+  async function handleLike(e, element, index) {
     var searchArrCopy = searchArr;
 
-    if (searchArrCopy[count + 1].likedBy.includes(curUser)) {
+    if (searchArrCopy[index].likedBy.includes(curUser)) {
       await fetch(
         `http://localhost:5000/removeLikedBy/${element.asset_id}/${curUser}`,
         {
@@ -174,15 +190,15 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
           headers: { "Content-type": "application/json" },
         }
       ).then((res) => {
-        searchArrCopy[count + 1].likedBy = searchArrCopy[
-          count + 1
-        ].likedBy.filter((user) => {
-          return user !== curUser;
-        });
+        searchArrCopy[index].likedBy = searchArrCopy[index].likedBy.filter(
+          (user) => {
+            return user !== curUser;
+          }
+        );
         setSearchArr(searchArrCopy);
         console.log("run 3");
       });
-    } else if (!searchArrCopy[count + 1].likedBy.includes(curUser)) {
+    } else if (!searchArrCopy[index].likedBy.includes(curUser)) {
       await fetch(
         `http://localhost:5000/addLikedBy/${element.asset_id}/${curUser}`,
         {
@@ -190,7 +206,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
           headers: { "Content-type": "application/json" },
         }
       ).then((res) => {
-        searchArrCopy[count + 1].likedBy.push(curUser);
+        searchArrCopy[index].likedBy.push(curUser);
         setSearchArr(searchArrCopy);
         console.log("run 4");
       });
@@ -205,15 +221,101 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
         <WhiteNavBar curUser={curUser} loggedIn={loggedIn} />
       </div>
       <div className="imgGallerySectionCont1">
-        <div className="sortingBarCont1">
-          <a>
-            <button className="buttonClicked">Most Recent</button>
-          </a>
-          <a href="/most-popular">
-            <button className="buttonNotClicked">Most Popular</button>
-          </a>
-        </div>
         <h1>{searchQuery} Images</h1>
+        <div className="myPicsGallerySortBar-leftContainer">
+          <DropdownButton
+            className="galleryDropDownButton"
+            title={`${sortTitle}`}
+          >
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("most-recent");
+                setSortTitle("Most Recent");
+              }}
+            >
+              Most Recent
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("oldest");
+                setSortTitle("Oldest");
+              }}
+            >
+              Oldest
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("aToz");
+                setSortTitle("A - Z");
+              }}
+            >
+              A - Z
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("zToa");
+                setSortTitle("Z - A");
+              }}
+            >
+              Z - A
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("leastLikes");
+                setSortTitle("Least Popular");
+              }}
+            >
+              Least Popular
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setSort("mostLikes");
+                setSortTitle("Popular");
+              }}
+            >
+              Popular
+            </Dropdown.Item>
+          </DropdownButton>
+          <DropdownButton
+            className="galleryDropDownButton"
+            title={`${filterTitle}`}
+          >
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setFilter("all-types");
+                setFilterTitle("All Types");
+              }}
+            >
+              All types
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setFilter("photo");
+                setFilterTitle("Photo");
+              }}
+            >
+              Photo
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="galleryDropDownItem"
+              onClick={() => {
+                setFilter("illustration");
+                setFilterTitle("Illustration");
+              }}
+            >
+              Illustration
+            </Dropdown.Item>
+          </DropdownButton>
+        </div>
+
         <div className="imgGalleryCont1">{resultsMap}</div>
         <a href="/signup">
           <button

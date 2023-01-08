@@ -74,7 +74,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/Search/:searchQuery"
+            path="/search/:searchQuery/:sort/:filter"
             element={<SearchResultPage curUser={curUser} loggedIn={loggedIn} />}
           ></Route>
           <Route

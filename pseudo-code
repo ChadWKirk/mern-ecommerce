@@ -31,7 +31,12 @@ TASKS:
 
 Scale pics to bad resolution on site until download. Need to do for upload thumbnails.
 
-Get sorting and filtering to work on searchPage and likesPage
+get search to only return relevant things. maybe use regex to only return results
+that contain two matching letters in a row like "ca" returns california or cats.
+
+make edit info form work in my pics
+
+make tags work (upload and search)
 
 Add "Are you sure you want to remove this image from your likes? Yes No" to likesPage warning when you unlike something
 

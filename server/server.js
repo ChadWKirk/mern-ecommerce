@@ -235,6 +235,7 @@ app.delete("/Account/:username/delUser", (req, res) => {
 //get images when searching
 app.get("/search/:searchQuery", (req, res) => {
   console.log(req.params.searchQuery);
+
   // cloudinary.api
   //   .resources({ tags: true, max_results: 100 })
   //   .then((result) => res.json(result.resources))
@@ -242,9 +243,11 @@ app.get("/search/:searchQuery", (req, res) => {
   //     console.log(error);
   //   });
 
+  //uses regex options i to make it case insensitive and
+  //if title contains any part of search query
   db_connect
     .collection("mern-ecommerce-images")
-    .find()
+    .find({ title: { $regex: req.params.searchQuery, $options: "i" } })
     .toArray(function (err, result) {
       if (err) {
         res.status(400).send("Error fetching listings!");
@@ -426,7 +429,7 @@ app.post("/removeLikedBy/:assetID/:username", (req, res) => {
   res.json("remove like");
 });
 
-//SORT ROUTES
+//MYPICS SORT ROUTES
 //Most Recent Sort
 app.get("/:username/:sort/:filter", (req, res) => {
   let sort = req.params.sort;
@@ -592,6 +595,454 @@ app.get("/:username/:sort/:filter", (req, res) => {
     db_connect
       .collection("mern-ecommerce-images")
       .find({ imageType: filter })
+      .sort({ likes: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  }
+});
+
+//SEARCHQUERY SORT FILTER ROUTES
+//Most Recent Sort
+app.get("/search/:searchQuery/:sort/:filter", (req, res) => {
+  let sort = req.params.sort;
+  let filter = req.params.filter;
+
+  let db_connect = dbo.getDb();
+
+  if (sort == "most-recent" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ created_at: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "most-recent" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ created_at: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "oldest" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ created_at: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "oldest" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ created_at: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "aToz" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ title: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "aToz" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ title: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "zToa" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ title: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "zToa" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ title: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "leastLikes" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ likes: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "leastLikes" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ likes: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "mostLikes" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        title: {
+          $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+          $options: "i",
+        },
+      })
+      .sort({ likes: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "mostLikes" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({
+        $and: [
+          {
+            title: {
+              $regex: `${".*[" + req.params.searchQuery + "].*"}`,
+              $options: "i",
+            },
+            imageType: filter,
+          },
+        ],
+      })
+      .sort({ likes: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  }
+});
+
+//LIKES SORT FILTER ROUTES
+//Most Recent Sort
+app.get("/:username/likes/:sort/:filter", (req, res) => {
+  let sort = req.params.sort;
+  let filter = req.params.filter;
+
+  let db_connect = dbo.getDb();
+
+  if (sort == "most-recent" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ created_at: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "most-recent" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
+      .sort({ created_at: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "oldest" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ created_at: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "oldest" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
+      .sort({ created_at: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "aToz" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ title: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "aToz" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
+      .sort({ title: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "zToa" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ title: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "zToa" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
+      .sort({ title: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "leastLikes" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ likes: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "leastLikes" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
+      .sort({ likes: 1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "mostLikes" && filter == "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ likedBy: req.params.username })
+      .sort({ likes: -1 })
+      // .limit(12)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+        } else {
+          res.json(result);
+          console.log(result);
+        }
+      });
+  } else if (sort == "mostLikes" && filter != "all-types") {
+    db_connect
+      .collection("mern-ecommerce-images")
+      .find({ $and: [{ likedBy: req.params.username }, { imageType: filter }] })
       .sort({ likes: -1 })
       // .limit(12)
       .toArray(function (err, result) {
