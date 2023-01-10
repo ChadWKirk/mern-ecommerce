@@ -382,6 +382,7 @@ app.put("/update/:username", async (req, res) => {
   mongoReplacement.likedBy = req.body.likedBy;
   mongoReplacement.uploadedBy = req.params.username;
   mongoReplacement.title = req.body.title;
+  mongoReplacement.tags = req.body.tags;
   mongoReplacement.description = req.body.description;
   mongoReplacement.imageType = req.body.imageType;
 

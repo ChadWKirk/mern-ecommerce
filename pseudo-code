@@ -32,11 +32,11 @@ TASKS:
 Scale pics to bad resolution on site until download. Need to do for upload thumbnails.
 
 get search to only return relevant things. maybe use regex to only return results
-that contain two matching letters in a row like "ca" returns california or cats.
+that contain two matching letters in a row for title and tags like "ca" returns california or cats.
 
-make edit info form work in my pics
+Bypass title change if title doesn't change, to avoid cloudinary "can't rename to same name" error.
 
-make tags work (upload and search)
+get image type to submit as image type if not clicked on anything on first edit
 
 Add "Are you sure you want to remove this image from your likes? Yes No" to likesPage warning when you unlike something
 

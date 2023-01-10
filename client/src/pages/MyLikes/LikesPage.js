@@ -254,7 +254,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
             <Dropdown.Item
               className="galleryDropDownItem"
               onClick={() => {
-                setFilter("photo");
+                setFilter("Photo");
                 setFilterTitle("Photo");
               }}
             >
@@ -263,7 +263,7 @@ const LikesPage = ({ curUser, loggedIn }) => {
             <Dropdown.Item
               className="galleryDropDownItem"
               onClick={() => {
-                setFilter("illustration");
+                setFilter("Illustration");
                 setFilterTitle("Illustration");
               }}
             >

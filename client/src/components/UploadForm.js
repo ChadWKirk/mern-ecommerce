@@ -51,7 +51,7 @@ const UploadForm = ({
       uploadToMongoBody.title = image.name;
       uploadToMongoBody.description = "";
       uploadToMongoBody.price = "$0.00";
-      uploadToMongoBody.imageType = "photo";
+      uploadToMongoBody.imageType = "Photo";
 
       //send to mongoDB
       fetch("http://localhost:5000/upload", {

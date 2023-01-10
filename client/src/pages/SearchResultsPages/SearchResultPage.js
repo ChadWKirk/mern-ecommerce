@@ -298,7 +298,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
             <Dropdown.Item
               className="galleryDropDownItem"
               onClick={() => {
-                setFilter("photo");
+                setFilter("Photo");
                 setFilterTitle("Photo");
               }}
             >
@@ -307,7 +307,7 @@ const SearchResultsPage = ({ curUser, loggedIn }) => {
             <Dropdown.Item
               className="galleryDropDownItem"
               onClick={() => {
-                setFilter("illustration");
+                setFilter("Illustration");
                 setFilterTitle("Illustration");
               }}
             >

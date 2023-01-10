@@ -226,6 +226,8 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
     massArr.current[0].title = title;
     massArr.current[0].description = description;
+    massArr.current[0].tags = tags;
+    massArr.current[0].imageType = imageType;
     console.log("submit attempt");
     await fetch(`http://localhost:5000/update/${curUser}`, {
       method: "PUT",
@@ -437,7 +439,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 <Dropdown.Item
                   className="galleryDropDownItem"
                   onClick={() => {
-                    setFilter("photo");
+                    setFilter("Photo");
                     setFilterTitle("Photo");
                   }}
                 >
@@ -446,7 +448,7 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 <Dropdown.Item
                   className="galleryDropDownItem"
                   onClick={() => {
-                    setFilter("illustration");
+                    setFilter("Illustration");
                     setFilterTitle("Illustration");
                   }}
                 >
@@ -500,9 +502,14 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 </div>
                 <div className="editorFormDetailsSubContainer">
                   {/* copy how cloudinary lets you add tags. maybe bootstrap */}
-                  <div style={{ fontSize: "0.75rem" }}>Tags</div>
+                  <div style={{ fontSize: "0.75rem" }}>
+                    Tags (Separate with commas. Ex: tag, tags)
+                  </div>
                   <div>
-                    <input id="tagsInputID"></input>
+                    <input
+                      id="tagsInputID"
+                      onChange={(e) => setTags(e.target.value)}
+                    ></input>
                   </div>
                 </div>
                 <div className="editorFormDetailsSubContainer">
@@ -518,10 +525,13 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 <div className="editorFormDetailsSubContainer">
                   <div style={{ fontSize: "0.75rem" }}>Image type</div>
                   <div>
-                    <input
+                    <select
                       id="imageTypeInputID"
                       onChange={(e) => setImageType(e.target.value)}
-                    ></input>
+                    >
+                      <option value="Photo">Photo</option>
+                      <option value="Illustration">Illustration</option>
+                    </select>
                   </div>
                 </div>
               </div>
