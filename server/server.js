@@ -361,24 +361,38 @@ app.delete(
 //update image info
 app.put("/update/:username", async (req, res) => {
   console.log("update test");
+
   var mongoReplacement;
-  //update in cloudinary
-  await cloudinary.uploader
-    .rename(req.body.public_id, `picpocket/${req.body.title}`, {
-      invalidate: true,
-    })
-    .then((result) => {
-      mongoReplacement = result;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  //if name is being changed in update form
+  if (req.body.public_id != `picpocket/${req.body.title}`) {
+    //update in cloudinary
+    await cloudinary.uploader
+      .rename(req.body.public_id, `picpocket/${req.body.title}`, {
+        invalidate: true,
+      })
+      .then((result) => {
+        mongoReplacement = result;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    //if name is not being changed in update form
+    await cloudinary.api
+      .resources_by_ids([req.body.public_id])
+      .then((result) => {
+        mongoReplacement = result.resources[0];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //update in MongoDB
   let db_connect = dbo.getDb();
   var myQuery = { public_id: req.body.public_id };
 
-  mongoReplacement["likes"] = req.body.likes;
+  mongoReplacement.likes = req.body.likes;
   mongoReplacement.likedBy = req.body.likedBy;
   mongoReplacement.uploadedBy = req.params.username;
   mongoReplacement.title = req.body.title;
