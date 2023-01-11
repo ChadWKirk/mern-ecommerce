@@ -48,7 +48,10 @@ const UploadForm = ({
       uploadToMongoBody.likes = 0;
       uploadToMongoBody.likedBy = [];
       uploadToMongoBody.uploadedBy = curUser;
-      uploadToMongoBody.title = image.name;
+      uploadToMongoBody.title = image.name
+        .replace(".jpg", "")
+        .replace(".png", "")
+        .replace(".jpeg", "");
       uploadToMongoBody.description = "";
       uploadToMongoBody.price = "$0.00";
       uploadToMongoBody.imageType = "Photo";

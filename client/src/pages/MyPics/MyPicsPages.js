@@ -116,13 +116,23 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
   function displayEditorInfo() {
     if (massArr.current.length > 0) {
       document.querySelector("#titleInputID").value = massArr.current[0].title;
+      setTitle(massArr.current[0].title);
       document.querySelector("#tagsInputID").value = massArr.current[0].tags;
+      setTags(massArr.current[0].tags);
       document.querySelector("#descriptionInputID").value =
         massArr.current[0].description;
+      setDescription(massArr.current[0].description);
       document.querySelector("#imageTypeInputID").value =
         massArr.current[0].imageType;
+      setImageType(massArr.current[0].imageType);
       document.querySelector("#previewImageForEditor").src =
-        massArr.current[0].secure_url;
+        massArr.current[0].secure_url.slice(0, 50) +
+        "q_60/c_scale,w_600/dpr_auto/" +
+        massArr.current[0].secure_url.slice(
+          50,
+          massArr.current[0].secure_url.lastIndexOf(".")
+        ) +
+        ".jpg";
     } else {
       document.querySelector("#titleInputID").value = null;
       document.querySelector("#tagsInputID").value = null;
