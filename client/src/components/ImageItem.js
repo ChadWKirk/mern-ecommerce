@@ -11,7 +11,12 @@ const ImageItem = ({ image, deleteImageFromBackEnd }) => {
   return (
     <li className="imageItem" key={image.name}>
       <img src={image.secure_url} width={100} height={100}></img>
-      <div>{image.name}</div>
+      <div>
+        {image.name
+          .replace(".jpg", "")
+          .replace(".png", "")
+          .replace(".jpeg", "")}
+      </div>
       <div className="uploadingIcon">
         {image.isUploading && (
           <FontAwesomeIcon icon={faSpinner} className="fa-spin" />
