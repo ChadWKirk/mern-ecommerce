@@ -34,8 +34,6 @@ Scale pics to bad resolution on site until download. Need to do for upload thumb
 get search to only return relevant things. maybe use regex to only return results
 that contain two matching letters in a row for title and tags like "ca" returns california or cats.
 
-don't allow anything but numbers, letters (both cases), spaces, and apostrophes on edit in title - turn title box red and have text in red by Title label "(Do Not Use Special Characters.)". If try to submit with special characters in title, show alert saying "Remove Special Characters From Title" and don't submit. - run a function in onChange of title input field that checks if anything other than allowed chars are in title and changes input css accordingly. - have if statement in submit function to check if title has special chars to run post request or show alert.
-
 Add "Are you sure you want to remove this image from your likes? Yes No" to likesPage warning when you unlike something
 
 Deal with edit success/failure
@@ -70,6 +68,8 @@ Search:
 Upload Images:
 
 - deal with image view page going to proper URL and using the given title and description etc.
+
+- don't allow anything but numbers, letters (both cases), spaces, undercores, dashes and apostrophes on edit in title - turn title box red and have text in red by Title label "(Do Not Use Special Characters.)". If try to submit with special characters in title, show alert saying "Remove Special Characters From Title" and don't submit. - run a function in onChange of title input field that checks if anything other than allowed chars are in title and changes input css accordingly. - have if statement in submit function to check if title has special chars to run post request or show alert.
 
 My Pics page:
 

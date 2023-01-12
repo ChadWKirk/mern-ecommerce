@@ -233,7 +233,9 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
 
   async function submitForm(e) {
     e.preventDefault();
-
+    if (titleClass == "editorFormDetailsSubContainerInputRed") {
+      return;
+    }
     massArr.current[0].title = title;
     massArr.current[0].description = description;
     massArr.current[0].tags = tags;
@@ -319,6 +321,24 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
         </div>
       </div>
     );
+  }
+
+  let titleClass;
+  if (/[~`!#$%\^&*+=\\[\]\\;,/{}|\\":<>\?]/g.test(title)) {
+    console.log("special");
+    titleClass = "editorFormDetailsSubContainerInputRed";
+  } else {
+    console.log("no special");
+    titleClass = "editorFormDetailsSubContainerInput";
+  }
+
+  let specialMessage;
+  if (/[~`!#$%\^&*+=\\[\]\\;,/{}|\\":<>\?]/g.test(title)) {
+    console.log("special");
+    specialMessage = " No Special Characters";
+  } else {
+    console.log("no special");
+    specialMessage = "";
   }
 
   return (
@@ -497,11 +517,20 @@ const MyPicsPage = ({ curUser, loggedIn }) => {
                 >
                   *
                 </p>
+                <p
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "red",
+                    display: "inline",
+                  }}
+                >
+                  {specialMessage}
+                </p>
               </div>
               <div>
                 <input
                   id="titleInputID"
-                  className="editorFormDetailsSubContainerInput"
+                  className={titleClass}
                   onChange={(e) => setTitle(e.target.value)}
                 ></input>
               </div>

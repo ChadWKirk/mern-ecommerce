@@ -950,12 +950,37 @@ button {
 .editorFormDetailsSubContainerInput {
   width: 100%;
   border-radius: 4px;
-  border: 1px solid lightgray;
+  /* border: 2px solid black; */
+  /* border: none; */
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.35rem;
   padding-left: 0.5rem;
   margin-top: 0.6rem;
+}
+
+.editorFormDetailsSubContainerInputRed {
+  width: 100%;
+  border-radius: 4px;
+  border: 2px solid rgb(151, 0, 0);
+  /* border: none; */
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem;
+  padding-left: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.editorFormDetailsSubContainerInputRed:focus {
+  /* border: none; */
+  border: 2px solid rgb(151, 0, 0);
+  outline: none;
+}
+
+.editorFormDetailsSubContainerInput:focus {
+  /* border: none; */
+  border: 2px solid black;
+  outline: none;
 }
 
 .footerContainer {
