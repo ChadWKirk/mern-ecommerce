@@ -8,6 +8,8 @@ const UploadForm = ({
   imagesToUpload,
   setImagesToUpload,
   removeImageFromUpload,
+  setImageError,
+  imageError,
 }) => {
   //cloudinary preset and file for formData
   var CLOUDINARY_UPLOAD_PRESET = "qpexpq57";
@@ -32,7 +34,7 @@ const UploadForm = ({
       var uploadToMongoBody;
 
       //send post request to cloudinary api upload endpoint url (have to use admin API
-      //from cloudinary for multi upload)
+      //from cloudinary for multi upload). Upload preset only allows jpg, jpeg or png files.
       await fetch("https://api.cloudinary.com/v1_1/dtyg4ctfr/upload", {
         method: "POST",
         body: formData,
@@ -43,37 +45,44 @@ const UploadForm = ({
         .catch((err) => {
           console.log(err);
         });
-
-      //add fields to fetch response to get ready to send to MongoDB
-      uploadToMongoBody.likes = 0;
-      uploadToMongoBody.likedBy = [];
-      uploadToMongoBody.uploadedBy = curUser;
-      uploadToMongoBody.title = image.name
-        .replace(".jpg", "")
-        .replace(".png", "")
-        .replace(".jpeg", "");
-      uploadToMongoBody.description = "";
-      uploadToMongoBody.price = "$0.00";
-      uploadToMongoBody.imageType = "Photo";
-
+      //if file type is jpg, png or jpeg and successfully gets uploaded to cloudinary,
       //send to mongoDB
-      fetch("http://localhost:5000/upload", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(uploadToMongoBody),
-      })
-        .then((res) => {
-          image.isUploading = false;
-          image.secure_url = uploadToMongoBody.secure_url;
-          image.publicId = uploadToMongoBody.public_id;
-          image.assetId = uploadToMongoBody.asset_id;
-          setImagesToUpload((imagesToUpload) => [...imagesToUpload]);
-          console.log(imagesToUpload);
+      if (uploadToMongoBody.public_id) {
+        //add fields to fetch response to get ready to send to MongoDB
+        uploadToMongoBody.likes = 0;
+        uploadToMongoBody.likedBy = [];
+        uploadToMongoBody.uploadedBy = curUser;
+        uploadToMongoBody.title = image.name
+          .replace(".jpg", "")
+          .replace(".png", "")
+          .replace(".jpeg", "");
+        uploadToMongoBody.description = "";
+        uploadToMongoBody.price = "$0.00";
+        uploadToMongoBody.imageType = "Photo";
+
+        //send to mongoDB
+        fetch("http://localhost:5000/upload", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(uploadToMongoBody),
         })
-        .catch((err) => {
-          console.error(err);
-          removeImageFromUpload(image.name);
-        });
+          .then((res) => {
+            image.isUploading = false;
+            image.secure_url = uploadToMongoBody.secure_url;
+            image.publicId = uploadToMongoBody.public_id;
+            image.assetId = uploadToMongoBody.asset_id;
+            setImagesToUpload((imagesToUpload) => [...imagesToUpload]);
+            console.log(imagesToUpload);
+          })
+          .catch((err) => {
+            console.error(err);
+            removeImageFromUpload(image.name);
+          });
+      } else {
+        image.isError = true;
+        image.isUploading = false;
+        setImageError(!imageError);
+      }
     }
   }
 

@@ -1106,6 +1106,18 @@ button {
   animation: fadeIn 0.4s;
 }
 
+.imageItemError {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(138, 36, 36);
+  color: white;
+  width: 600px;
+  height: 120px;
+  padding: 10px;
+  animation: fadeIn 0.4s;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -6,6 +6,7 @@ import FileList from "../components/FileList";
 
 const UploadPage = ({ curUser, loggedIn }) => {
   const [imagesToUpload, setImagesToUpload] = useState([]);
+  const [imageError, setImageError] = useState(false);
 
   function removeImageFromUploadFrontEnd(imageName) {
     setImagesToUpload(
@@ -24,6 +25,8 @@ const UploadPage = ({ curUser, loggedIn }) => {
           <UploadForm
             curUser={curUser}
             imagesToUpload={imagesToUpload}
+            imageError={imageError}
+            setImageError={setImageError}
             setImagesToUpload={setImagesToUpload}
             removeImageFromUploadFrontEnd={removeImageFromUploadFrontEnd}
           />
